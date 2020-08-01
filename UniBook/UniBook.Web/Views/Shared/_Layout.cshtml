@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Онлайн Библиотека - UniBook</title>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+    <link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/style.css">
+    <link rel="stylesheet" href="~/bookContent.css"/>
+</head>
+<body>
+    <div id="site-content">
+        <header class="site-header">
+            <div class="container">
+                <a asp-controller="Home" asp-action="Index" id="branding">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/000/599/214/small/23012019-37.jpg" width="50" height="50" alt="logo" class="logo">
+                    <div class="logo-copy">
+                        <h1 class="site-title">UniBook</h1>
+                        <small class="site-description">Онлайн Библиотека</small>
+                    </div>
+                </a>
+
+                <div class="main-navigation">
+                    <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+                    <ul class="menu">
+                        <li class="menu-item current-menu-item"><a asp-action="Index" asp-controller="Home">Начална страница</a></li>
+                        <li class="menu-item"><a asp-action="All" asp-controller="Book">Книги</a></li>
+                        <li class="menu-item"><a href="review.html">Ревю</a></li>
+                        <li class="menu-item"><a href="joinus.html">Блог</a></li>
+                        <li class="menu-item"><a href="contact.html">Форум</a></li>
+                        <li class="menu-item"><a href="contact.html">Вход</a></li>
+                        <li class="menu-item"><a href="contact.html">Регистрация</a></li>
+                    </ul>
+
+                    <form action="#" class="search-form">
+                        <input type="text" placeholder="Search...">
+                        <button><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="mobile-navigation"></div>
+            </div>
+        </header>
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="widget">
+                            <h3 class="widget-title">About Us</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia tempore vitae mollitia nesciunt saepe cupiditate</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="widget">
+                            <h3 class="widget-title">Recent Review</h3>
+                            <ul class="no-bullet">
+                                <li><a href="#">Lorem ipsum dolor</a></li>
+                                <li><a href="#">Sit amet consecture</a></li>
+                                <li><a href="#">Dolorem respequem</a></li>
+                                <li><a href="#">Invenore veritae</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="widget">
+                            <h3 class="widget-title">Help Center</h3>
+                            <ul class="no-bullet">
+                                <li><a href="#">Lorem ipsum dolor</a></li>
+                                <li><a href="#">Sit amet consecture</a></li>
+                                <li><a href="#">Dolorem respequem</a></li>
+                                <li><a href="#">Invenore veritae</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="widget">
+                            <h3 class="widget-title">Join Us</h3>
+                            <ul class="no-bullet">
+                                <li><a href="#">Lorem ipsum dolor</a></li>
+                                <li><a href="#">Sit amet consecture</a></li>
+                                <li><a href="#">Dolorem respequem</a></li>
+                                <li><a href="#">Invenore veritae</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="widget">
+                            <h3 class="widget-title">Social Media</h3>
+                            <ul class="no-bullet">
+                                <li><a href="#">Facebook</a></li>
+                                <li><a href="#">Twitter</a></li>
+                                <li><a href="#">Google+</a></li>
+                                <li><a href="#">Pinterest</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="widget">
+                            <h3 class="widget-title">Newsletter</h3>
+                            <form action="#" class="subscribe-form">
+                                <input type="text" placeholder="Email Address">
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- .row -->
+
+                <div class="colophon">Copyright 2014 Company name, Designed by Themezy. All rights reserved</div>
+            </div> <!-- .container -->
+
+        </footer>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

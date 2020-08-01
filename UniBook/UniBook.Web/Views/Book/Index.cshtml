@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model UniBook.Models.Book
+
+<div id="wrapper">
+    <div id="container">
+        <section class="open-book">
+            <header>
+                @*TODO... Add Author Name*@
+                <h1></h1>
+            </header>
+            <article>
+                <h2 class="chapter-title">@Model.Title</h2>
+                <p>
+                   @Model.Content.Substring(0, 3000)
+                </p>
+            </article>
+            <footer>
+                <ol id="page-numbers">
+                    <li>1</li>
+                    <li>2</li>
+                </ol>
+            </footer>
+        </section>
+
+    </div>
+</div>
+
+
+@*<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
+                <p style="color: white" class="main-content">
+                    @Model.Content.Substring(1, 3000)
+                </p>
+        </div>
+    </div>
+</div>*@
