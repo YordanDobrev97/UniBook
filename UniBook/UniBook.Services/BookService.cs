@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UniBook.Data;
 using UniBook.Models;
 using UniBook.Services.Interfaces;
@@ -12,6 +13,11 @@ namespace UniBook.Services
         public BookService(UniBookDbContext db)
         {
             this.db = db;
+        }
+
+        public ICollection<Book> All()
+        {
+            return this.db.Books.ToList();
         }
 
         public Book FindByAuthor(string author)

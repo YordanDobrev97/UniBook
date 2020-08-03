@@ -1,4 +1,5 @@
-﻿using UniBook.Models;
+﻿using System.Collections.Generic;
+using UniBook.Models;
 
 namespace UniBook.Services.Interfaces
 {
@@ -9,5 +10,7 @@ namespace UniBook.Services.Interfaces
         Book FindByName(string title);
 
         Book FindByAuthor(string author);
+
+        ICollection<Book> All();
     }
 }

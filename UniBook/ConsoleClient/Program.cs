@@ -14,9 +14,12 @@ namespace ConsoleClient
             var db = new UniBookDbContext();
             IBookService bookService = new BookService(db);
 
-            var currentBook = bookService.FindById(1);
+            var books = bookService.All();
 
-            Console.WriteLine(currentBook.Title);
+            foreach (var book in books)
+            {
+                Console.WriteLine(book.Title);
+            }
         }
     }
 }
