@@ -14,9 +14,9 @@ namespace ConsoleClient
             var db = new UniBookDbContext();
             IBookService bookService = new BookService(db);
 
-            var books = bookService.All();
+            var topLikedBooks = bookService.Top50LikedBooks();
 
-            foreach (var book in books)
+            foreach (var book in topLikedBooks)
             {
                 Console.WriteLine(book.Title);
             }

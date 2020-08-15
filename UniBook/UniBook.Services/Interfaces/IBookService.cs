@@ -11,6 +11,10 @@ namespace UniBook.Services.Interfaces
 
         Book FindByAuthor(string author);
 
+        void UpVote(int bookId, int rating);
+
+        ICollection<Book> Top50LikedBooks();
+
         ICollection<Book> All();
     }
 }
