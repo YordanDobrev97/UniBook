@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UniBook.Data;
+using UniBook.Web.Data;
 
 namespace UniBook.Web.Controllers
 {
     public class BookController : Controller
     {
-        private readonly UniBookDbContext db;
+        private readonly ApplicationDbContext db;
 
-        public BookController(UniBookDbContext db)
+        public BookController(ApplicationDbContext db)
         {
             this.db = db;
         }
