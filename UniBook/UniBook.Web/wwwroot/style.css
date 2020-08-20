@@ -29,22 +29,28 @@ html {
   background: #fff;
   color: #000;
   -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%; }
+  -ms-text-size-adjust: 100%;
+}
 
 html,
 button,
 input,
 select,
 textarea {
-  font-family: sans-serif; }
+  font-family: sans-serif; 
+}
 
 body {
-  margin: 0; }
+    margin: 0;
+    overflow-x: hidden;
+}
 
 a {
-  background: transparent; }
-  a:focus {
-    outline: thin dotted; }
+  background: transparent; 
+}
+a:focus {
+  outline: thin dotted; 
+}
   a:hover, a:active {
     outline: 0; }
 
@@ -1739,3 +1745,17 @@ a:before { /* Just to give a little puddle of a shadow without adding another el
 }
 
 /*currentBook*/
+.next {
+    font-size: 20px;
+    float: right;
+    position: relative;
+    left: 207px;
+    bottom: 500px;
+}
+
+.previous {
+    font-size: 20px;
+    position: relative;
+    bottom: 500px;
+    right: 60px;
+}

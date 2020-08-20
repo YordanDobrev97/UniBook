@@ -14,9 +14,21 @@
             <article>
                 <h2 class="chapter-title">@Model.Title</h2>
                 <p>
-                   @Model.Content.Substring(0, 3000)
+                    @Model.Content.Substring(0, 3000)
                 </p>
             </article>
+
+            <div class="next">
+                <button>
+                    <i class="fa fa-angle-double-right"></i>
+                </button>
+            </div>
+
+            <div class="previous">
+                <button>
+                    <i class="fa fa-angle-double-left"></i>
+                </button>
+            </div>
             <footer>
                 <ol id="page-numbers">
                     <li>1</li>
