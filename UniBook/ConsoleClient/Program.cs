@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ConsoleClient.Seeding;
+using System;
 using System.IO;
 using UniBook.Data;
 using UniBook.Models;
 using UniBook.Services;
 using UniBook.Services.Interfaces;
+using UniBook.Web.Data;
 
 namespace ConsoleClient
 {
@@ -11,15 +13,8 @@ namespace ConsoleClient
     {
         static void Main()
         {
-            var db = new UniBookDbContext();
-            IBookService bookService = new BookService(db);
-
-            var topLikedBooks = bookService.Top50LikedBooks();
-
-            foreach (var book in topLikedBooks)
-            {
-                Console.WriteLine(book.Title);
-            }
+            UniBookDbContext db = new UniBookDbContext();
+            BookSeeder.Seed(db);
         }
     }
 }

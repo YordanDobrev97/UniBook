@@ -9,6 +9,7 @@
     <ProjectReference Include="..\UniBook.Data\UniBook.Data.csproj" />
     <ProjectReference Include="..\UniBook.Models\UniBook.Models.csproj" />
     <ProjectReference Include="..\UniBook.Services\UniBook.Services.csproj" />
+    <ProjectReference Include="..\UniBook.Web\UniBook.Web.csproj" />
   </ItemGroup>
 
 </Project>
