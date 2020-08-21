@@ -16,7 +16,7 @@ body {
 #wrapper {
     margin-left: auto;
     margin-right: auto;
-    max-width: 80em;
+    max-width: 70em;
 }
 
 #container {
@@ -24,8 +24,6 @@ body {
     padding: 1em;
     width: 100%;
 }
-
-
 
 /*** OPEN BOOK ***/
 .open-book {
@@ -35,39 +33,39 @@ body {
     padding: 2em;
 }
 
-    .open-book * {
-        position: relative;
-    }
+.open-book * {
+    position: relative;
+}
 
-        /* Highlight */
-        .open-book *::-moz-selection {
-            background: rgba(222,255,0,0.75);
-        }
+/* Highlight */
+.open-book *::-moz-selection {
+    background: rgba(222,255,0,0.75);
+}
 
-        .open-book *::selection {
-            background: rgba(222,255,0,0.75);
-        }
+.open-book *::selection {
+    background: rgba(222,255,0,0.75);
+}
 
-    /* Header/Footer */
-    .open-book header {
-        padding-bottom: 1em;
-    }
+/* Header/Footer */
+.open-book header {
+    padding-bottom: 1em;
+}
 
-        .open-book header *,
-        .open-book footer * {
-            font: 700 1em/1.25 'Playfair Display', sans-serif;
-            letter-spacing: 0.125em;
-            margin: 0;
-        }
+.open-book header *,
+.open-book footer * {
+    font: 700 1em/1.25 'Playfair Display', sans-serif;
+    letter-spacing: 0.125em;
+    margin: 0;
+}
 
-        .open-book header * {
-            font-size: 0.75em;
-            text-transform: uppercase;
-        }
+.open-book header * {
+    font-size: 0.70em;
+    text-transform: uppercase;
+}
 
-    .open-book footer {
-        padding-top: 1em;
-    }
+.open-book footer {
+    padding-top: 1em;
+}
 
         .open-book footer #page-numbers {
             display: none;

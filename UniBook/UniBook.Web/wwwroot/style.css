@@ -1746,11 +1746,11 @@ a:before { /* Just to give a little puddle of a shadow without adding another el
 
 /*currentBook*/
 .next {
-    font-size: 20px;
+    font-size: 16px;
     float: right;
     position: relative;
-    left: 207px;
-    bottom: 500px;
+    left: 20px;
+    bottom: 20px;
 }
 
 .previous {

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniBook.Data", "UniBook.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{0FF23F1F-C3EA-4B82-862A-60D51F218192}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniBook.Services", "UniBook.Services\UniBook.Services.csproj", "{5D94669D-9362-4236-94FC-575590EE45F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniBook.Services", "UniBook.Services\UniBook.Services.csproj", "{5D94669D-9362-4236-94FC-575590EE45F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

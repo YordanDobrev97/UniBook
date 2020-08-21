@@ -21,6 +21,7 @@ namespace UniBook.Web.Controllers
         {
             var currentBook = this.db.Books.FirstOrDefault(b => b.Id == id);
             ViewData.Model = currentBook;
+            ViewData["Start"] = 0;
             
             return View(currentBook);
         }

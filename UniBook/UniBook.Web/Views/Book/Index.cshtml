@@ -4,31 +4,40 @@
 
 @model UniBook.Models.Book
 
+<script>
+    var startIndex = 0;
+    var length = 3000;
+    window.onload = () => {
+        let content = @Html.Raw(Json.Serialize(Model.Content));
+
+        content = content.substr(startIndex, length);
+        document.getElementById('content').innerHTML = content;
+    }
+
+    function nextPage() {
+        let content = @Html.Raw(Json.Serialize(Model.Content));
+        startIndex += length;
+
+        content = content.substr(startIndex, length);
+        document.getElementById('content').innerHTML = content;
+    }
+</script>
+
 <div id="wrapper">
-    <div id="container">
+    <div id="container" class="col-xs-12 col-sm-6 col-md-8 col-centered">
         <section class="open-book">
             <header>
                 @*TODO... Add Author Name*@
                 <h1></h1>
             </header>
+            <button class="float-left">Предишна страница</button>
+
             <article>
                 <h2 class="chapter-title">@Model.Title</h2>
-                <p>
-                    @Model.Content.Substring(0, 3000)
-                </p>
+                <p id="content"></p>
             </article>
+            <button onclick="nextPage()" class="float-right next">Следваща страница</button>
 
-            <div class="next">
-                <button>
-                    <i class="fa fa-angle-double-right"></i>
-                </button>
-            </div>
-
-            <div class="previous">
-                <button>
-                    <i class="fa fa-angle-double-left"></i>
-                </button>
-            </div>
             <footer>
                 <ol id="page-numbers">
                     <li>1</li>
@@ -36,17 +45,5 @@
                 </ol>
             </footer>
         </section>
-
     </div>
 </div>
-
-
-@*<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8 col-centered">
-                <p style="color: white" class="main-content">
-                    @Model.Content.Substring(1, 3000)
-                </p>
-        </div>
-    </div>
-</div>*@
