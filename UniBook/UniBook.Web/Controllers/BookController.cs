@@ -17,13 +17,12 @@ namespace UniBook.Web.Controllers
             this.db = db;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            var firstBook = db.Books.FirstOrDefault();
-            ViewData.Model = firstBook;
-
-            var partContent = firstBook.Content.Substring(0, 200);
-            return View(firstBook);
+            var currentBook = this.db.Books.FirstOrDefault(b => b.Id == id);
+            ViewData.Model = currentBook;
+            
+            return View(currentBook);
         }
 
         public IActionResult All()

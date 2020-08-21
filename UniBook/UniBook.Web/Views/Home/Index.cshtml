@@ -2,36 +2,23 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model IEnumerable<UniBook.Models.Book>
+
 <main class="main-content">
     <div class="container">
         <div class="page">
             <div class="row">
-                <div class="col-sm-6 col-md-3">
-                    <div class="latest-movie">
-                        <a href="#">
-                            <img src="https://www.orangecenter.bg/media/catalog/product/cache/1/image/602f0fa2c1f0d1ba5e241f914e856ff9/p/e/petdeset-nyuansa-po-tamno-dvd_5.jpg" alt="Movie 3">
-                        </a>
-                        <a asp-action="Index" asp-controller="Book" class="button .btn-primary">Чети онлайн</a>
+                @foreach (var book in Model)
+                {
+                    <div class="col-sm-6 col-md-3">
+                        <div class="latest-movie">
+                            <a href="#">
+                                <img src="@book.ImgUrl" alt="Book">
+                            </a>
+                            <a asp-action="Index" asp-controller="Book" asp-route-id="@book.Id" class="button .btn-primary">Чети онлайн</a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="latest-movie">
-                        <a href="#"><img src="https://cdn.ozone.bg/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/a/z/6d3e59789317f6a5d3c5e6dffb38e9db/az-predi-teb-30.jpg" alt="Movie 4"></a>
-                        <button class="button">Чети онлайн</button>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="latest-movie">
-                        <a href="#"><img src="https://ciela.com/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/o/t/otneseni_ot_vihura_1.jpg" alt="Movie 5"></a>
-                        <button class="button">Чети онлайн</button>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="latest-movie">
-                        <a href="#"><img src="https://i5.helikon.bg/products/2623/19/192623/192623_b.jpg" alt="Movie 6"></a>
-                        <button class="button">Чети онлайн</button>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>

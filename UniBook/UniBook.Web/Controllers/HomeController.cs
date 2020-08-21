@@ -5,19 +5,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using UniBook.Web.Data;
 using UniBook.Web.Models;
 
 namespace UniBook.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly ApplicationDbContext db;
+
+        public HomeController(ApplicationDbContext db)
         {
+            this.db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var allBooks = this.db.Books.ToList();
+            //ViewData["Books"] = allBooks;
+
+            return View(allBooks);
         }
 
         public IActionResult Privacy()
