@@ -14,7 +14,6 @@ namespace ConsoleClient
         static void Main()
         {
             UniBookDbContext db = new UniBookDbContext();
-            BookSeeder.Seed(db);
         }
     }
 }

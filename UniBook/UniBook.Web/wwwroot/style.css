@@ -1759,3 +1759,7 @@ a:before { /* Just to give a little puddle of a shadow without adding another el
     bottom: 500px;
     right: 60px;
 }
+
+.review-img {
+    border-radius: 50%;
+}
