@@ -1,0 +1,14 @@
+﻿body {
+}
+
+.aside-container {
+    width: 250px;
+    height: 280px;
+    padding: 20px;
+    margin: 5px;
+    background-color: darkslategrey;
+}
+
+.aside-container li {
+    margin: 15px;
+}

@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Онлайн Библиотека - UniBook</title>
+
+    <environment names="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/home-page.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/all.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/forum.css" rel="stylesheet" asp-append-version="true" />
+
+    </environment>
+    <environment names="Staging,Production">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="/" id="branding">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/000/599/214/small/23012019-37.jpg" alt="logo" class="logo">
+                <div class="logo-copy">
+                    <h1 class="site-title">UniBook</h1>
+                    <small class="site-description">Онлайн Библиотека</small>
+                </div>
+            </a>
+
+            <div class="main-navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="menu">
+                    <li class="menu-item current-menu-item">
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="menu-item">
+                        <a asp-controller="Book" asp-action="All">Книги</a>
+                    </li>
+                    <li class="menu-item">
+                        <a asp-controller="Review" asp-action="Index">Видео ревюта</a>
+                    </li>
+                    <li class="menu-item"><a href="#">Блог</a></li>
+                    <li class="menu-item">
+                        <a asp-controller="Forum" asp-action="Index">Форум</a>
+                    </li>
+                    <li class="menu-item"><a href="#">Вход</a></li>
+                    <li class="menu-item"><a href="#">Регистрация</a></li>
+                </ul> <!-- .menu -->
+            </div> <!-- .main-navigation -->
+
+            <div class="mobile-navigation"></div>
+        </div>
+    </header>
+    @*<header>
+            <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UniBook</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>*@
+
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @this.RenderBody()
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="widget">
+                        <h3 class="widget-title">Онлайн библиотека</h3>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="widget">
+                        <h3 class="widget-title">Книги</h3>
+                        <ul class="no-bullet">
+                            <li><a href="#">Жанрове</a></li>
+                            <li><a href="#">Автори</a></li>
+                            <li><a href="#">Година</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="widget">
+                        <h3 class="widget-title">Видео ревюта</h3>
+                        <ul class="no-bullet">
+                            <li><a href="#">Stef's Library</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-2">
+                    <div class="widget">
+                        <h3 class="widget-title">Блог</h3>
+                        <ul class="no-bullet">
+                            <li><a href="#">Новини</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div> <!-- .row -->
+        </div> <!-- .container -->
+    </footer>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @this.RenderSection("Scripts", required: false)
+</body>
+</html>
