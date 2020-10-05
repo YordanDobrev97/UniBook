@@ -4,14 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Онлайн Библиотека - UniBook</title>
-
+    <link href="~/news/animate.css" rel="stylesheet" />
+    <link href="~/news/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/news/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/news/font.css" rel="stylesheet" />
+    <link href="~/news/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/news/li-scroller.css" rel="stylesheet" />
+    <link href="~/news/slick.css" rel="stylesheet" />
+    <link href="~/news/style.css" rel="stylesheet" />
+    <link href="~/news/theme.css" rel="stylesheet" />
     <environment names="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/home-page.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/all.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/forum.css" rel="stylesheet" asp-append-version="true" />
-
     </environment>
     <environment names="Staging,Production">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
@@ -44,7 +51,9 @@
                     <li class="menu-item">
                         <a asp-controller="Review" asp-action="Index">Видео ревюта</a>
                     </li>
-                    <li class="menu-item"><a href="#">Блог</a></li>
+                    <li class="menu-item">
+                        <a asp-controller="News" asp-action="Index">Новини</a>
+                    </li>
                     <li class="menu-item">
                         <a asp-controller="Forum" asp-action="Index">Форум</a>
                     </li>
@@ -57,17 +66,17 @@
                     }
                     else
                     {
-                         <li class="menu-item">
-                             <a asp-area="Identity" asp-page="/Account/Login">Вход</a>
-                         </li>
+                        <li class="menu-item">
+                            <a asp-area="Identity" asp-page="/Account/Login">Вход</a>
+                        </li>
 
-                         <li class="menu-item">
-                            <a asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
-                         </li>
+                        <li class="menu-item">
+                           <a asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
+                        </li>
                     }
 
-                </ul> <!-- .menu -->
-            </div> <!-- .main-navigation -->
+                </ul>
+            </div>
 
             <div class="mobile-navigation"></div>
         </div>
@@ -115,9 +124,8 @@
                         </ul>
                     </div>
                 </div>
-
-            </div> <!-- .row -->
-        </div> <!-- .container -->
+            </div>
+        </div>
     </footer>
 
     <environment names="Development">
@@ -126,6 +134,13 @@
         <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <script src="news-js/wow.min.js"></script>
+        <script src="news-js/slick.min.js"></script>
+        <script src="news-js/jquery.li-scroller.1.0.js"></script>
+        <script src="news-js/jquery.newsTicker.min.js"></script>
+        <script src="news-js/jquery.fancybox.pack.js"></script>
+        <script src="news-js/custom.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
@@ -136,5 +151,6 @@
     </environment>
 
     @this.RenderSection("Scripts", required: false)
+
 </body>
 </html>
