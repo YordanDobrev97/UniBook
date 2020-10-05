@@ -36,7 +36,7 @@
                 </button>
                 <ul class="menu">
                     <li class="menu-item current-menu-item">
-                        <a asp-controller="Home" asp-action="Index">Home</a>
+                        <a asp-controller="Home" asp-action="Index">Начална страница</a>
                     </li>
                     <li class="menu-item">
                         <a asp-controller="Book" asp-action="All">Книги</a>
@@ -48,8 +48,24 @@
                     <li class="menu-item">
                         <a asp-controller="Forum" asp-action="Index">Форум</a>
                     </li>
-                    <li class="menu-item"><a href="#">Вход</a></li>
-                    <li class="menu-item"><a href="#">Регистрация</a></li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="menu-item"><a href="#">Прочетени книги</a></li>
+                        <li class="menu-item"><a href="#">Приятели</a></li>
+                        <li class="menu-item"><a href="#">Изход</a></li>
+                    }
+                    else
+                    {
+                         <li class="menu-item">
+                             <a asp-area="Identity" asp-page="/Account/Login">Вход</a>
+                         </li>
+
+                         <li class="menu-item">
+                            <a asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
+                         </li>
+                    }
+
                 </ul> <!-- .menu -->
             </div> <!-- .main-navigation -->
 
@@ -115,7 +131,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="col-md-2">
                     <div class="widget">
                         <h3 class="widget-title">Блог</h3>
@@ -124,7 +140,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
             </div> <!-- .row -->
         </div> <!-- .container -->
     </footer>
