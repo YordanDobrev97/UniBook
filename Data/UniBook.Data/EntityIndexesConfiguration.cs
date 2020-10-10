@@ -2,9 +2,8 @@
 {
     using System.Linq;
 
-    using UniBook.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+    using UniBook.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

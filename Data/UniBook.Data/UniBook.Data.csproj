@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201010220949_AddNewTablesBooksAuthors.cs" />
+    <Compile Remove="Migrations\20201010220949_AddNewTablesBooksAuthors.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 
