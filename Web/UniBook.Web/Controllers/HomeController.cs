@@ -2,15 +2,24 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics;
-
+    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+    using UniBook.Data;
     using UniBook.Web.ViewModels;
 
     public class HomeController : BaseController
     {
+        private readonly ApplicationDbContext db;
+
+        public HomeController(ApplicationDbContext db)
+        {
+            this.db = db;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var books = this.db.Books.Select(b => b.ImageUrl).ToList();
+            return this.View(books);
         }
 
         public IActionResult Privacy()
