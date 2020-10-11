@@ -3,22 +3,23 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
-    using UniBook.Data;
+    using UniBook.Services.Data;
     using UniBook.Web.ViewModels;
 
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly IBookService service;
 
-        public HomeController(ApplicationDbContext db)
+        public HomeController(IBookService service)
         {
-            this.db = db;
+            this.service = service;
         }
 
         public IActionResult Index()
         {
-            var books = this.db.Books.Select(b => b.ImageUrl).ToList();
+            var books = this.service.All();
             return this.View(books);
         }
 

@@ -2,11 +2,13 @@
 {
     using System.Collections.Generic;
 
-    public class Book
+    using UniBook.Data.Common.Models;
+
+    public class Book : BaseDeletableModel<int>
     {
         public Book()
         {
-            this.Comments = new HashSet<BookComments>();
+            this.Comments = new HashSet<BookComment>();
         }
 
         public int Id { get; set; }
@@ -23,6 +25,6 @@
 
         public int Votes { get; set; }
 
-        public ICollection<BookComments> Comments { get; set; }
+        public ICollection<BookComment> Comments { get; set; }
     }
 }
