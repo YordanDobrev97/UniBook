@@ -1,6 +1,6 @@
 ﻿@using UniBook.Web.ViewModels
 
-@model List<string>
+@model List<ListAllBooksViewModel>
 
 @{ this.ViewData["Title"] = "Home Page"; }
 
@@ -11,8 +11,9 @@
                 @foreach (var item in Model)
                 {
                     <div class="col-md-2 m-2">
-                        <img class="d-inline" src=@item alt="Movie 1">
-                        <button class="btn-detail">Детайли</button>
+                        <img class="d-inline" src=@item.ImageUrl alt="Movie 1">
+                        @*<button class="btn-detail">Детайли</button>*@
+                        <a asp-action="ReadBook" asp-controller="Book" asp-route-id=@item.Id class="btn btn-outline-dark btn-lg">Чети онлайн</a>
                     </div>
                 }
             </div>

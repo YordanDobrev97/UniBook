@@ -1,0 +1,20 @@
+﻿@using UniBook.Web.ViewModels
+@model ContentBookViewModel
+
+<div id="wrapper">
+    <div id="container">
+        <section class="open-book">
+            <article>
+                <h2 class="chapter-title">@Model.Title</h2>
+                <p>@Model.Content.Substring(0, 1800)</p>
+            </article>
+            <footer>
+                <ol id="page-numbers">
+                    <li>1</li>
+                    <li>2</li>
+                </ol>
+            </footer>
+        </section>
+
+    </div>
+</div>
