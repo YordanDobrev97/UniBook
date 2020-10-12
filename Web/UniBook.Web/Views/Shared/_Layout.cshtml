@@ -16,11 +16,12 @@
     <environment names="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/friends.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/home-page.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/all.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/forum.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/read-book.css" rel="stylesheet" asp-append-version="true" />
-
+        
     </environment>
     <environment names="Staging,Production">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
@@ -63,7 +64,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="menu-item"><a href="#">Прочетени книги</a></li>
-                        <li class="menu-item"><a href="#">Приятели</a></li>
+                        <li class="menu-item"><a asp-controller="Friends" asp-action="Index">Приятели</a></li>
                         <li class="menu-item"><a href="#">Изход</a></li>
                     }
                     else
@@ -143,6 +144,9 @@
         <script src="news-js/jquery.newsTicker.min.js"></script>
         <script src="news-js/jquery.fancybox.pack.js"></script>
         <script src="news-js/custom.js"></script>
+        <script src="~/js/classie.js"></script>
+        <script src="~/js/uisearch.js"></script>
+
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
