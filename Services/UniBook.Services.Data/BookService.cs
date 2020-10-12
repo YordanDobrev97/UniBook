@@ -35,6 +35,7 @@
         public ContentBookViewModel ReadBook(int id)
         {
             var book = this.repository.All()
+                .Where(b => b.Id == id)
                 .Select(b => new ContentBookViewModel
                 {
                     Title = b.Name,
