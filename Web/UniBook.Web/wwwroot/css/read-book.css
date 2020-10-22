@@ -80,18 +80,17 @@ body {
                 text-align: right;
             }
 
-    /* Chapter Title */
-    .open-book .chapter-title {
-        color: black;
-        background-size: 0.3em 0.5em;
-        font: 600 7vw/1.25 'Playfair Display', sans-serif;
-        letter-spacing: 0.125em;
-        margin: 0 0 1em 0;
-        padding: 1em 0;
-        position: relative;
-        text-align: center;
-        text-transform: uppercase;
-    }
+.open-book .chapter-title {
+    color: black;
+    background-size: 0.3em 0.5em;
+    font: 600 7vw/1.25 'Playfair Display', sans-serif;
+    letter-spacing: 0.125em;
+    margin: 0 0 1em 0;
+    padding: 1em 0;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+}
 
         .open-book .chapter-title:before,
         .open-book .chapter-title:after {
@@ -247,93 +246,93 @@ body {
             z-index: 1;
         }
 
-/* Header/Footer */
-.open-book header:before,
-.open-book header:after,
-.open-book footer:before,
-.open-book footer:after {
-    background: #fff;
-    border-radius: 25%;
-    content: '';
-    height: 2em;
-    position: absolute;
-    z-index: -1;
-    width: calc(50% + 2em);
+        /* Header/Footer */
+        .open-book header:before,
+        .open-book header:after,
+        .open-book footer:before,
+        .open-book footer:after {
+            background: #fff;
+            border-radius: 25%;
+            content: '';
+            height: 2em;
+            position: absolute;
+            z-index: -1;
+            width: calc(50% + 2em);
+        }
+
+        .open-book header:before,
+        .open-book footer:before,
+        .open-book footer:after {
+            border-top-left-radius: 0;
+        }
+
+        .open-book header:after,
+        .open-book footer:before,
+        .open-book footer:after {
+            border-top-right-radius: 0;
+        }
+
+        .open-book header:before,
+        .open-book header:after,
+        .open-book footer:after {
+            border-bottom-right-radius: 0;
+        }
+
+        .open-book header:before,
+        .open-book header:after,
+        .open-book footer:before {
+            border-bottom-left-radius: 0;
+        }
+
+        .open-book header:before,
+        .open-book header:after {
+            top: -2.65em;
+        }
+
+        .open-book header:before,
+        .open-book footer:before {
+            right: 50%;
+        }
+
+        .open-book header:before {
+            transform: rotate(-2deg);
+        }
+
+        .open-book header:after,
+        .open-book footer:after {
+            left: 50%;
+        }
+
+        .open-book header:after {
+            transform: rotate(2deg);
+        }
+
+        .open-book footer:before,
+        .open-book footer:after {
+            bottom: -2.65em;
+        }
+
+        .open-book footer:before {
+            transform: rotate(2deg);
+        }
+
+        .open-book footer:after {
+            transform: rotate(-2deg);
+        }
+
+        .open-book header > *:last-child,
+        .open-book footer > *:last-child {
+            text-align: right;
+        }
+
+        .open-book footer #page-numbers {
+            display: block;
+        }
+
+
+.open-book .chapter-title {
+    font-size: 2em;
 }
-
-.open-book header:before,
-.open-book footer:before,
-.open-book footer:after {
-    border-top-left-radius: 0;
-}
-
-.open-book header:after,
-.open-book footer:before,
-.open-book footer:after {
-    border-top-right-radius: 0;
-}
-
-.open-book header:before,
-.open-book header:after,
-.open-book footer:after {
-    border-bottom-right-radius: 0;
-}
-
-.open-book header:before,
-.open-book header:after,
-.open-book footer:before {
-    border-bottom-left-radius: 0;
-}
-
-.open-book header:before,
-.open-book header:after {
-    top: -2.65em;
-}
-
-.open-book header:before,
-.open-book footer:before {
-    right: 50%;
-}
-
-.open-book header:before {
-    transform: rotate(-2deg);
-}
-
-.open-book header:after,
-.open-book footer:after {
-    left: 50%;
-}
-
-.open-book header:after {
-    transform: rotate(2deg);
-}
-
-.open-book footer:before,
-.open-book footer:after {
-    bottom: -2.65em;
-}
-
-.open-book footer:before {
-    transform: rotate(2deg);
-}
-
-.open-book footer:after {
-    transform: rotate(-2deg);
-}
-
-.open-book header > *:last-child,
-.open-book footer > *:last-child {
-    text-align: right;
-}
-
- .open-book footer #page-numbers {
-     display: block;
- }
-
- /* Chapter Title */
- .open-book .chapter-title {
-     font-size: 3em;
- }
 
 .open-book .chapter-title:before,
 .open-book .chapter-title:after {
@@ -349,4 +348,21 @@ body {
 .open-book article > ol {
     padding-left: 4em;
 }
+}
+
+.previous {
+    margin-right: 262px;
+}
+
+.next {
+    float: right;
+    margin-left: 90px;
+}
+
+.save {
+    font-size: 18px;
+}
+
+#save-btn {
+    background-color: #DC143C
 }

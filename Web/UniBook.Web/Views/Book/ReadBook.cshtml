@@ -6,15 +6,21 @@
         <section class="open-book">
             <article>
                 <h2 class="chapter-title">@Model.Title</h2>
-                <p>@Model.Content.Substring(0, 1800)</p>
+                <p>@Model.Content.Substring(0, 2000)</p>
             </article>
-            <footer>
-                <ol id="page-numbers">
-                    <li>1</li>
-                    <li>2</li>
-                </ol>
-            </footer>
-        </section>
 
+            <ul class="pager">
+                <li class="previous">
+                    <a href="#">Предишна страница</a>
+                </li>
+                <li class="next">
+                    <a href="#">Следваща страница</a>
+                </li>
+            </ul>
+        </section>
     </div>
+
+    <button type="button" id="save-btn" class="btn btn-primary btn-lg btn-block">
+        <span class="save">Запиши текущата страница</span>
+    </button>
 </div>
