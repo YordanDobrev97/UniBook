@@ -1,0 +1,24 @@
+﻿@using UniBook.Web.ViewModels
+@model DetailsBookViewModel 
+
+<div id="container">
+    <div class="product-details">
+        <h1>@Model.Name</h1>
+        <div>
+            <p>@Model.Description</p>
+        </div>
+
+        <div class="control">
+            <button class="btn">
+                <span class="price">FREE</span>
+                <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                <span class="buy"></span>
+                <a class="buy" asp-controller="Book" asp-action="ReadBook" asp-route-id="@Model.Id">Чети онлайн</a>
+            </button>
+        </div>
+    </div>
+
+    <div class="product-image">
+        <img src="@Model.ImageUrl" alt="BookImage">
+    </div>
+</div>

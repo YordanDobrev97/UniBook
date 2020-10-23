@@ -23,5 +23,11 @@
 
             return this.View(book);
         }
+
+        public IActionResult Details(int id)
+        {
+            var book = this.service.Details(id);
+            return this.View(book);
+        }
     }
 }

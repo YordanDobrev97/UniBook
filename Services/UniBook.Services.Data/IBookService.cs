@@ -10,5 +10,7 @@
         IEnumerable<ListAllBooksViewModel> All();
 
         ContentBookViewModel ReadBook(int id);
+
+        DetailsBookViewModel Details(int id);
     }
 }

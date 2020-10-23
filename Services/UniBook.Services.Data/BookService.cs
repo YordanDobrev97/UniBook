@@ -32,6 +32,22 @@
             return allBooks;
         }
 
+        public DetailsBookViewModel Details(int id)
+        {
+            var book = this.repository.All()
+                .Where(x => x.Id == id)
+                .Select(e => new DetailsBookViewModel
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Author = e.Author.Name,
+                    ImageUrl = e.ImageUrl,
+                    Description = e.Description,
+                }).FirstOrDefault();
+
+            return book;
+        }
+
         public ContentBookViewModel ReadBook(int id)
         {
             var book = this.repository.All()
