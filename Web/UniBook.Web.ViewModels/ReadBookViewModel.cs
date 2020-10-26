@@ -1,10 +1,8 @@
 ﻿namespace UniBook.Web.ViewModels
 {
-    public class ContentBookViewModel
+    public class ReadBookViewModel
     {
-        public string Title { get; set; }
-
-        public string Content { get; set; }
+        public int ReadCount { get; set; }
 
         public int BookId { get; set; }
 

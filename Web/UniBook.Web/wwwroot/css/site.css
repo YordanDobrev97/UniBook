@@ -18,10 +18,11 @@ video {
     display: inline-block;
 }
 
-    audio:not([controls]) {
-        display: none;
-        height: 0;
-    }
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
 html {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -38,6 +39,8 @@ textarea {
 body {
     margin: 0;
     font-family: 'Raleway', sans-serif;
+    font-size: 3rem;
+    line-height: 1.5;
 }
 
 a {

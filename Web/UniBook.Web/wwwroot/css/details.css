@@ -13,7 +13,7 @@ body {
     border-radius: 5px;
     overflow: hidden;
     margin: 5em auto;
-    height: 550px;
+    height: 495px;
     width: 1200px;
 }
 
@@ -79,7 +79,6 @@ body {
 .btn {
     transform: translateY(0px);
     transition: 0.3s linear;
-    background: #49C608;
     border-radius: 5px;
     position: relative;
     overflow: hidden;

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
 
     using AutoMapper.QueryableExtensions;
@@ -48,14 +49,16 @@
             return book;
         }
 
-        public ContentBookViewModel ReadBook(int id)
+        public ContentBookViewModel ReadBook(int id, string userId)
         {
             var book = this.repository.All()
                 .Where(b => b.Id == id)
                 .Select(b => new ContentBookViewModel
                 {
+                    BookId = b.Id,
                     Title = b.Name,
                     Content = b.Body,
+                    UserId = userId,
                 }).FirstOrDefault();
 
             return book;

@@ -9,7 +9,7 @@
     {
         IEnumerable<ListAllBooksViewModel> All();
 
-        ContentBookViewModel ReadBook(int id);
+        ContentBookViewModel ReadBook(int id, string userId);
 
         DetailsBookViewModel Details(int id);
     }

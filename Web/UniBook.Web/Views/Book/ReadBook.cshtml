@@ -6,21 +6,72 @@
         <section class="open-book">
             <article>
                 <h2 class="chapter-title">@Model.Title</h2>
-                <p>@Model.Content.Substring(0, 1500)</p>
+                <p id="content"></p>
             </article>
 
-            <ul class="pager">
-                <li class="previous">
-                    <a href="#">Предишна страница</a>
-                </li>
-                <li class="next">
-                    <a href="#">Следваща страница</a>
-                </li>
-            </ul>
+            @*<ul class="pager">
+            <li class="previous">
+                <a href="#">Предишна страница</a>
+            </li>
+        </ul>*@
+            <button type="button" class="btn btn-info mx-4 float-left mt-3 btn-lg" onclick="previousPage()">Предишна страница</button>
+
+            <button type="button" class="btn btn-info mx-4 float-right btn-lg" onclick="nextPage()">Следваща страница</button>
         </section>
     </div>
 
-    <button type="button" id="save-btn" class="btn btn-primary btn-lg btn-block">
+    <button type="button" onclick="savePageBook()" id="save-btn" class="btn btn-primary btn-lg btn-block">
         <span class="save">Запиши текущата страница</span>
     </button>
 </div>
+
+<script>
+    var startIndex = 0;
+    var length = 1500;
+    window.onload = () => {
+        let content = @Html.Raw(Json.Serialize(Model.Content));
+        content = content.substr(startIndex, length);
+        document.getElementById('content').innerHTML = content;
+    }
+
+    function nextPage() {
+        let content = @Html.Raw(Json.Serialize(Model.Content));
+        startIndex += length;
+        content = content.substr(startIndex, length);
+        document.getElementById('content').innerHTML = content;
+    }
+
+    function previousPage() {
+        if (startIndex != 0) {
+            let content = @Html.Raw(Json.Serialize(Model.Content));
+            startIndex -= length;
+            content = content.substr(startIndex, length);
+            document.getElementById('content').innerHTML = content;
+        }
+    }
+
+    function savePageBook() {
+        const bookId = @Html.Raw(Json.Serialize(Model.BookId));
+        const userId = @Html.Raw(Json.Serialize(Model.UserId));
+        
+        const bookData = {
+            readCount: startIndex,
+            bookId: bookId,
+            userId: userId,
+        }
+
+        const jsonData = JSON.stringify(bookData);
+        $.ajax({
+            url: '/api/Users/BookData',
+            type: 'post',
+            contentType: 'application/json',
+            data: jsonData,
+            success: function (data, status) {
+                console.log('success saved in database.');
+            },
+            error: function (html, status, err) {
+                console.log('error not saved.')
+            }
+        });
+    }
+</script>

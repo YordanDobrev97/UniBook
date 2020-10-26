@@ -1,5 +1,4 @@
-﻿@import url(https://fonts.googleapis.com/css?family=Crimson+Text:400,700,900,400italic,700italic,900italic|Playfair+Display:400,700,900,400italic,700italic,900italic|Rock+Salt:400);
-
+﻿
 *,
 :before,
 :after {
@@ -9,7 +8,8 @@
 body {
     background-color: #1d1f20;
     color: #e5e5e5;
-    font: 16px/1.25 'Crimson Text', sans-serif;
+    font-size: 1.5rem;
+    font-family: 'Crimson Text', sans-serif;
     margin: 0;
 }
 
@@ -364,5 +364,7 @@ body {
 }
 
 #save-btn {
-    background-color: #DC143C
+    background-color: #DC143C;
+    position: relative;
+    bottom: 65px;
 }
