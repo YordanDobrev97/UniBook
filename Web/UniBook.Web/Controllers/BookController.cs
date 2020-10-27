@@ -1,13 +1,11 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
-    using System.Security.Claims;
-    using UniBook.Data;
     using UniBook.Data.Models;
     using UniBook.Services.Data;
-    using UniBook.Web.ViewModels;
 
     public class BookController : BaseController
     {
@@ -33,7 +31,9 @@
 
             var book = this.service.ReadBook(id, userId);
 
-            if (book.IsStartRead)
+            var isStartReadBook = this.userBookService.IsStartReadBook(userId, id);
+
+            if (isStartReadBook)
             {
                 book = this.userBookService.GetStartReadBook(userId, id);
             }

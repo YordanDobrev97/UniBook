@@ -11,5 +11,7 @@
         ContentBookViewModel GetStartReadBook(string userId, int bookId);
 
         void SaveStartRead(int bookId);
+
+        bool IsStartReadBook(string userId, int bookId);
     }
 }

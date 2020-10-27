@@ -10,12 +10,12 @@
     public class UserBookService : IUserBookService
     {
         private readonly IDeletableEntityRepository<UserBook> repository;
-        private readonly IDeletableEntityRepository<Book> booRepository;
+        private readonly IDeletableEntityRepository<Book> bookRepository;
 
         public UserBookService(IDeletableEntityRepository<UserBook> repository, IDeletableEntityRepository<Book> booRepository)
         {
             this.repository = repository;
-            this.booRepository = booRepository;
+            this.bookRepository = booRepository;
         }
 
         public async Task SaveAsync(int bookId, string userId, int readCount)
@@ -65,11 +65,17 @@
 
         public void SaveStartRead(int bookId)
         {
-            var book = this.booRepository.All()
+            var book = this.bookRepository.All()
                 .Where(x => x.Id == bookId)
                 .FirstOrDefault();
 
             book.IsStartRead = true;
+        }
+
+        public bool IsStartReadBook(string userId, int bookId)
+        {
+            return this.repository.All()
+                .Any(x => x.UserId == userId && x.BookId == bookId);
         }
     }
 }
