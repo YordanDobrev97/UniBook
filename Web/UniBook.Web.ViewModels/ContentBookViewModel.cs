@@ -9,5 +9,9 @@
         public int BookId { get; set; }
 
         public string UserId { get; set; }
+
+        public bool IsStartRead { get; set; }
+
+        public int ReadCount { get; set; }
     }
 }

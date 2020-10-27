@@ -25,6 +25,8 @@
 
         public string Description { get; set; }
 
+        public bool IsStartRead { get; set; }
+
         public ICollection<BookComment> Comments { get; set; }
     }
 }

@@ -30,6 +30,9 @@
                     ReadCount = value.ReadCount,
                 });
                 this.db.SaveChanges();
+                this.userBookService.SaveStartRead(value.BookId);
+                //TODO fix working with service
+
                 //this.userBookService.SaveAsync(value.BookId, value.UserId, value.ReadCount);
             }
 

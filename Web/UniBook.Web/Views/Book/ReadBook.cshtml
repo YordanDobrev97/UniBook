@@ -26,7 +26,7 @@
 </div>
 
 <script>
-    var startIndex = 0;
+    var startIndex = @Html.Raw(Json.Serialize(Model.ReadCount));
     var length = 1500;
     window.onload = () => {
         let content = @Html.Raw(Json.Serialize(Model.Content));
@@ -53,7 +53,7 @@
     function savePageBook() {
         const bookId = @Html.Raw(Json.Serialize(Model.BookId));
         const userId = @Html.Raw(Json.Serialize(Model.UserId));
-        
+
         const bookData = {
             readCount: startIndex,
             bookId: bookId,

@@ -32,6 +32,12 @@
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var book = this.service.ReadBook(id, userId);
+
+            if (book.IsStartRead)
+            {
+                book = this.userBookService.GetStartReadBook(userId, id);
+            }
+
             return this.View(book);
         }
 
@@ -40,24 +46,5 @@
             var book = this.service.Details(id);
             return this.View(book);
         }
-
-        //[HttpPost]
-        //[Route("api/[controller]/BookData")]
-        //public IActionResult Save([FromBody] ReadBookViewModel value)
-        //{
-        //    if (this.ModelState.IsValid)
-        //    {
-        //        this.db.UserBooks.Add(new UserBook
-        //        {
-        //            BookId = value.BookId,
-        //            UserId = value.UserId,
-        //            ReadCount = value.ReadCount,
-        //        });
-        //        this.db.SaveChanges();
-        //        //this.userBookService.SaveAsync(value.BookId, value.UserId, value.ReadCount);
-        //    }
-
-        //    return Ok("saved");
-        //}
     }
 }
