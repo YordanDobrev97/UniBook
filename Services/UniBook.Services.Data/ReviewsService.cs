@@ -45,7 +45,7 @@
             {
             }
 
-            return videoLinks.Take(20).ToList();
+            return videoLinks.Take(6).ToList();
         }
     }
 }

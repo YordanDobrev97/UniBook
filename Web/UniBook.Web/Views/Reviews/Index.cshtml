@@ -1,13 +1,30 @@
-﻿
-<main class="main-content">
-    <div class="container">
-        <div class="page">
-            @foreach (var link in Model)
-            {
-                <div class="embed-responsive embed-responsive-16by9 w-75 col-sm-3 ml-5">
-                    <iframe class="embed-responsive-item" src="@link" allowfullscreen></iframe>
-                </div>
-            }
+﻿@*<main class="main-content">
+        <div class="container">
+            <div class="page">
+                @foreach (var link in Model)
+                {
+                    <div class="embed-responsive embed-responsive-16by9 w-75 col-sm-3 ml-5">
+                        <iframe class="embed-responsive-item" src="@link" allowfullscreen></iframe>
+                    </div>
+                }
+            </div>
         </div>
+    </main>*@
+
+<div class="container">
+    <div class="row">
+        @foreach (var link in Model)
+        {
+            <div class="col-md-6 ">
+                <div class="card">
+                    <div class="card-image">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe width="560" height="315" src="@link" frameborder="0" allowfullscreen></iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-</main>
+</div>
