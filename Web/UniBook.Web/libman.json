@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0",
   "defaultProvider": "jsdelivr",
   "libraries": [
@@ -35,6 +35,11 @@
         "dist/jquery.validate.unobtrusive.js",
         "dist/jquery.validate.unobtrusive.min.js"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@5.15.1",
+      "destination": "wwwroot/lib/font-awesome/"
     }
   ]
 }

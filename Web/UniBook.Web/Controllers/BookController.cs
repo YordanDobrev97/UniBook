@@ -1,7 +1,8 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using System.IO;
     using System.Security.Claims;
-
+    using System.Text;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Data.Models;
@@ -38,7 +39,33 @@
                 book = this.userBookService.GetStartReadBook(userId, id);
             }
 
+            book.Content = this.ToHtml(book.Content);
             return this.View(book);
+        }
+
+        private string ToHtml(string text)
+        {
+            var sb = new StringBuilder();
+
+            var sr = new StringReader(text);
+            var str = sr.ReadLine();
+            while (str != null)
+            {
+                str = str.TrimEnd();
+                str.Replace("  ", " &nbsp;");
+                if (str.Length > 80)
+                {
+                    sb.AppendLine($"<p>{str}</p>");
+                }
+                else if (str.Length > 0)
+                {
+                    sb.AppendLine($"{str}</br>");
+                }
+
+                str = sr.ReadLine();
+            }
+
+            return sb.ToString();
         }
 
         public IActionResult Details(int id)

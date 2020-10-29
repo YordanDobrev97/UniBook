@@ -1,4 +1,5 @@
-﻿
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
 *,
 :before,
 :after {
@@ -8,9 +9,10 @@
 body {
     background-color: #1d1f20;
     color: #e5e5e5;
-    font-size: 1.5rem;
-    font-family: 'Crimson Text', sans-serif;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
+    line-height: 1.5;
 }
 
 #wrapper {
@@ -25,66 +27,65 @@ body {
     width: 100%;
 }
 
-
-
 /*** OPEN BOOK ***/
 .open-book {
     background: #fff;
     box-shadow: rgba(0,0,0,0.5) 0 1em 3em;
     color: #000;
     padding: 2em;
+    height: 490px;
 }
 
-    .open-book * {
-        position: relative;
-    }
+.open-book * {
+    position: relative;
+}
 
-        /* Highlight */
-        .open-book *::-moz-selection {
-            background: rgba(222,255,0,0.75);
-        }
+/* Highlight */
+.open-book *::-moz-selection {
+    background: rgba(222,255,0,0.75);
+}
 
-        .open-book *::selection {
-            background: rgba(222,255,0,0.75);
-        }
+.open-book *::selection {
+    background: rgba(222,255,0,0.75);
+}
 
-    /* Header/Footer */
-    .open-book header {
-        padding-bottom: 1em;
-    }
+/* Header/Footer */
+.open-book header {
+    padding-bottom: 1em;
+}
 
-        .open-book header *,
-        .open-book footer * {
-            font: 700 1em/1.25 'Playfair Display', sans-serif;
-            letter-spacing: 0.125em;
-            margin: 0;
-        }
+.open-book header *,
+.open-book footer * {
+    font: 700 1em/1.25 'Playfair Display', sans-serif;
+    letter-spacing: 0.125em;
+    margin: 0;
+}
 
-        .open-book header * {
-            font-size: 0.75em;
-            text-transform: uppercase;
-        }
+.open-book header * {
+    font-size: 0.75em;
+    text-transform: uppercase;
+}
 
-    .open-book footer {
-        padding-top: 1em;
-    }
+.open-book footer {
+    padding-top: 1em;
+}
 
-        .open-book footer #page-numbers {
-            display: none;
-            list-style: none;
-            padding: 0;
-            text-align: left;
-        }
+.open-book footer #page-numbers {
+    display: none;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
 
-            .open-book footer #page-numbers > li:last-child {
-                text-align: right;
-            }
+.open-book footer #page-numbers > li:last-child {
+    text-align: right;
+}
 
 .open-book .chapter-title {
     color: black;
     background-size: 0.3em 0.5em;
-    font: 600 7vw/1.25 'Playfair Display', sans-serif;
-    letter-spacing: 0.125em;
+    /*font: 600 7vw/1.25 'Playfair Display', sans-serif;*/
+   /* letter-spacing: 0.125em;*/
     margin: 0 0 1em 0;
     padding: 1em 0;
     position: relative;
@@ -92,120 +93,112 @@ body {
     text-transform: uppercase;
 }
 
-        .open-book .chapter-title:before,
-        .open-book .chapter-title:after {
-            border: solid 0 #000;
-            border-width: 0.05em 0;
-            bottom: calc((0.125em / 2) * 3);
-            content: '';
-            height: 0.15em;
-            position: absolute;
-            width: calc(50% - (1em / 2));
-        }
+.open-book .chapter-title:before,
+.open-book .chapter-title:after {
+    border: solid 0 #000;
+    border-width: 0.05em 0;
+    bottom: calc((0.125em / 2) * 3);
+    content: '';
+    height: 0.15em;
+    position: absolute;
+    width: calc(50% - (1em / 2));
+}
 
-        .open-book .chapter-title:before {
-            left: 0;
-        }
+.open-book .chapter-title:before {
+    left: 0;
+}
 
-        .open-book .chapter-title:after {
-            right: 0;
-        }
+.open-book .chapter-title:after {
+    right: 0;
+}
 
     /* Body Copy */
-    .open-book article {
-        line-height: 1.5;
-    }
+.open-book article {
+    line-height: 1.5;
+}
 
-        .open-book article *:not(.chapter-title):not(hr):not(dl) {
-            margin: 0 auto;
-            max-width: 28.125em;
-        }
+.open-book article *:not(.chapter-title):not(hr):not(dl) {
+    margin: 0 auto;
+    max-width: 28.125em;
+}
 
-        .open-book article p {
-            text-indent: 2em;
-        }
+.open-book article p {
+    text-indent: 2em;
+}
 
-    .open-book .chapter-title + p:first-of-type {
-        text-indent: 0;
-    }
+.open-book .chapter-title + p:first-of-type {
+    text-indent: 0;
+}
 
-        .open-book .chapter-title + p:first-of-type:first-letter {
-            float: left;
-            padding: 0.15em 0.05em 0 0;
-            text-transform: uppercase;
-        }
+.open-book article > ul,
+.open-book article > ol {
+    padding-left: 3em;
+}
 
-    .open-book article > ul,
-    .open-book article > ol {
-        padding-left: 3em;
-    }
+.open-book article > ul ul {
+    padding-left: 1em;
+}
 
-        .open-book article > ul ul {
-            padding-left: 1em;
-        }
+.open-book a {
+    background: url('https://media.istockphoto.com/photos/image-of-openantique-book-on-wooden-table-with-glitter-background-pictureid868054620?k=6&m=868054620&s=612x612&w=0&h=ncowHFG9gcrx56qF18aTbnCEttafdo2PRGSmbKSLog=') bottom repeat-x;
+    background-size: auto 0.25em;
+    color: inherit;
+    text-decoration: none;
+}
 
-    .open-book a {
-        background: url('https://media.istockphoto.com/photos/image-of-open-antique-book-on-wooden-table-with-glitter-background-picture-id868054620?k=6&m=868054620&s=612x612&w=0&h=ncowHFG9gcrx56qF18aTb-nCEttafdo2PRGSmbKSLog=') bottom repeat-x;
-        background-size: auto 0.25em;
-        color: inherit;
-        text-decoration: none;
-    }
+.open-book s,
+.open-book strike {
+    background: url('https://media.istockphoto.com/photos/image-of-openantique-book-on-wooden-table-with-glitter-background-pictureid868054620?k=6&m=868054620&s=612x612&w=0&h=ncowHFG9gcrx56qF18aTbnCEttafdo2PRGSmbKSLog=') center repeat-x;
+    background-size: auto 0.5em;
+    color: rgba(0,0,0,0.5);
+    text-decoration: none;
+}
 
-    .open-book s,
-    .open-book strike {
-        background: url('https://media.istockphoto.com/photos/image-of-open-antique-book-on-wooden-table-with-glitter-background-picture-id868054620?k=6&m=868054620&s=612x612&w=0&h=ncowHFG9gcrx56qF18aTb-nCEttafdo2PRGSmbKSLog=') center repeat-x;
-        background-size: auto 0.5em;
-        color: rgba(0,0,0,0.5);
-        text-decoration: none;
-    }
+.open-book sup {
+    color: #cc0000;
+    font-family: 'Rock Salt', cursive;
+    left: 0;
+    margin-top: -1em !important;
+    max-width: 100% !important;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
 
-    .open-book sup {
-        color: #cc0000;
-        font-family: 'Rock Salt', cursive;
-        left: 0;
-        margin-top: -1em !important;
-        max-width: 100% !important;
-        position: absolute;
-        text-align: center;
-        width: 100%;
-    }
+.open-book mark {
+    background: linear-gradient(to bottom, rgba(222,255,0,1) 0%,rgb(222,255,0,0.5) 60%,rgba(222,255,0,1) 100%);
+}
 
-    .open-book mark {
-        background: linear-gradient(to bottom, rgba(222,255,0,1) 0%,rgba(222,255,0,0.5) 60%,rgba(222,255,0,1) 100%);
-    }
+.open-book mark.pink {
+    background: linear-gradient(to bottom, rgba(255,69,190,1) 0%,rg(255,107,203,0.5) 60%,rgba(255,107,203,1) 100%);
+}
 
-        .open-book mark.pink {
-            background: linear-gradient(to bottom, rgba(255,69,190,1) 0%,rgba(255,107,203,0.5) 60%,rgba(255,107,203,1) 100%);
-        }
+.open-book mark.blue {
+    background: linear-gradient(to bottom, rgba(73,179,255,1) 0%,rg(107,193,255,0.5) 60%,rgba(107,193,255,1) 100%);
+}
 
-        .open-book mark.blue {
-            background: linear-gradient(to bottom, rgba(73,179,255,1) 0%,rgba(107,193,255,0.5) 60%,rgba(107,193,255,1) 100%);
-        }
+.open-book mark.green {
+    background: linear-gradient(to bottom, rgba(67,226,15,1) 0%,rg(39,229,54,0.5) 60%,rgba(39,229,54,1) 100%);
+}
 
-        .open-book mark.green {
-            background: linear-gradient(to bottom, rgba(67,226,15,1) 0%,rgba(39,229,54,0.5) 60%,rgba(39,229,54,1) 100%);
-        }
+.open-book mark.orange {
+    background: linear-gradient(to bottom, rgba(255,134,9,1) 0%,rg(255,177,34,0.5) 60%,rgba(255,177,34,1) 100%);
+}
 
-        .open-book mark.orange {
-            background: linear-gradient(to bottom, rgba(255,134,9,1) 0%,rgba(255,177,34,0.5) 60%,rgba(255,177,34,1) 100%);
-        }
+.open-book hr {
+    background-color: #000;
+    border: 0;
+    height: 2px;
+    margin: 1em 0;
+}
 
-    .open-book hr {
-        background-color: #000;
-        border: 0;
-        height: 2px;
-        margin: 1em 0;
-    }
-
-    .open-book dl {
-        border: solid 0 #ccc;
-        border-width: 0.0625em 0;
-        break-inside: avoid-column;
-        margin: 1em auto;
-        padding: 1em 0;
-    }
-
-
+.open-book dl {
+    border: solid 0 #ccc;
+    border-width: 0.0625em 0;
+    break-inside: avoid-column;
+    margin: 1em auto;
+    padding: 1em 0;
+}
 
 /*** MEDIA QUERIES ***/
 @media only screen and ( min-width: 50em ) {

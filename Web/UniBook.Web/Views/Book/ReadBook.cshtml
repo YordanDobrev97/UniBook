@@ -9,14 +9,11 @@
                 <p id="content"></p>
             </article>
 
-            @*<ul class="pager">
-            <li class="previous">
-                <a href="#">Предишна страница</a>
-            </li>
-        </ul>*@
-            <button type="button" class="btn btn-info mx-4 float-left mt-3 btn-lg" onclick="previousPage()">Предишна страница</button>
+            <button type="button" class="btn btn-info mx-4 mt-lg-0 w-25 p-2 float-left" onclick="previousPage()">Предишна страница</button>
 
-            <button type="button" class="btn btn-info mx-4 float-right btn-lg" onclick="nextPage()">Следваща страница</button>
+            <button type="button" class="btn btn-info mx-4 mt-lg-0 w-25 p-2 float-right btn-lg" onclick="nextPage()">
+                Следваща страница
+            </button>
         </section>
     </div>
 
@@ -27,7 +24,7 @@
 
 <script>
     var startIndex = @Html.Raw(Json.Serialize(Model.ReadCount));
-    var length = 1500;
+    var length = 1100;
     window.onload = () => {
         let content = @Html.Raw(Json.Serialize(Model.Content));
         content = content.substr(startIndex, length);
