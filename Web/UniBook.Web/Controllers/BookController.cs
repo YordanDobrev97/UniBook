@@ -3,6 +3,7 @@
     using System.IO;
     using System.Security.Claims;
     using System.Text;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Data.Models;
@@ -12,13 +13,13 @@
     {
         private readonly IBookService service;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IUserBookService userBookService;
+        private readonly IUsersService usersService;
 
-        public BookController(IBookService service, UserManager<ApplicationUser> userManager, IUserBookService userBookService)
+        public BookController(IBookService service, UserManager<ApplicationUser> userManager, IUsersService usersService)
         {
             this.service = service;
             this.userManager = userManager;
-            this.userBookService = userBookService;
+            this.usersService = usersService;
         }
 
         public IActionResult All()
@@ -31,12 +32,11 @@
             string userId = this.GetUserId();
 
             var book = this.service.ReadBook(id, userId);
-
-            var isStartReadBook = this.userBookService.IsStartReadBook(userId, id);
+            var isStartReadBook = this.usersService.IsStartReadBook(userId, id);
 
             if (isStartReadBook)
             {
-                book = this.userBookService.GetStartReadBook(userId, id);
+                book = this.usersService.GetStartReadBook(userId, id);
             }
 
             book.Content = this.ToHtml(book.Content);

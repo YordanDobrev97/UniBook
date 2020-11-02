@@ -60,7 +60,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IReviewsService, ReviewsService>();
-            services.AddTransient<IUserBookService, UserBookService>();
+            services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IPostsService, PostsService>();
 
         }

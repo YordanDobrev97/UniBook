@@ -2,28 +2,22 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Threading.Tasks;
 
-    using AutoMapper.QueryableExtensions;
-    using UniBook.Data.Common.Repositories;
-    using UniBook.Data.Models;
-    using UniBook.Services.Mapping;
+    using UniBook.Data;
     using UniBook.Web.ViewModels;
 
     public class BookService : IBookService
     {
-        private readonly IDeletableEntityRepository<Book> repository;
+        private readonly ApplicationDbContext db;
 
-        public BookService(IDeletableEntityRepository<Book> repository)
+        public BookService(ApplicationDbContext db)
         {
-            this.repository = repository;
+            this.db = db;
         }
 
         public IEnumerable<ListAllBooksViewModel> All()
         {
-            var allBooks = this.repository
-                .All()
+            var allBooks = this.db.Books
                 .Select(b => new ListAllBooksViewModel
                 {
                     ImageUrl = b.ImageUrl,
@@ -35,7 +29,7 @@
 
         public DetailsBookViewModel Details(int id, string userId)
         {
-            var book = this.repository.All()
+            var book = this.db.Books
                 .Where(x => x.Id == id)
                 .Select(e => new DetailsBookViewModel
                 {
@@ -52,7 +46,7 @@
 
         public ContentBookViewModel ReadBook(int id, string userId)
         {
-            var book = this.repository.All()
+            var book = this.db.Books
                 .Where(b => b.Id == id)
                 .Select(b => new ContentBookViewModel
                 {

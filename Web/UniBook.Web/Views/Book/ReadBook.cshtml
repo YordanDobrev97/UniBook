@@ -1,5 +1,4 @@
-﻿@using UniBook.Web.ViewModels
-@model ContentBookViewModel
+﻿@model ContentBookViewModel
 
 <div id="wrapper">
     <div id="container">
@@ -56,6 +55,8 @@
             bookId: bookId,
             userId: userId,
         }
+
+        console.log(bookData);
 
         const jsonData = JSON.stringify(bookData);
         $.ajax({
