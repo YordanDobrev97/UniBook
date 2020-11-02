@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\UniBook.Data.Common\UniBook.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\UniBook.Data.Models\UniBook.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\UniBook.Data\UniBook.Data.csproj" />
     <ProjectReference Include="..\..\Web\UniBook.Web.ViewModels\UniBook.Web.ViewModels.csproj" />
     <ProjectReference Include="..\UniBook.Services.Mapping\UniBook.Services.Mapping.csproj" />
   </ItemGroup>

@@ -33,6 +33,16 @@
 
         public DbSet<BookVotes> BookVotes { get; set; }
 
+        public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<PostComment> PostComments { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<PostVote> PostVotes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

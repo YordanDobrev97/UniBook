@@ -1,0 +1,33 @@
+﻿<div class="container text-white">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 class="text-white">Задаване на въпрос</h1>
+            <form method="post" asp-controller="Posts" asp-action="Create">
+                <div>
+                    <label for="title">Заглавие</label>
+                    <input id="title" class="form-control" name="title"/>
+                    <span class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label for="content">Съдържание</label>
+                    <textarea id="content" class="form-control" name="content"></textarea>
+                    <span class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label for="category">Категория</label>
+                    <select id="category" class="form-control" name="category">
+                        <option value="general">General</option>
+                        <option value="books">Books</option>
+                        <option value="news">News</option>
+                        <option value="suggestions and problems">Suggestions and problems</option>
+                    </select>
+                    <span class="text-danger"></span>
+                </div>
+                <hr />
+                <input type="submit" class="btn btn-primary" />
+            </form>
+        </div>
+    </div>
+</div>

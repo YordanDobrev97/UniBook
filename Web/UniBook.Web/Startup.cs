@@ -61,6 +61,7 @@
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IReviewsService, ReviewsService>();
             services.AddTransient<IUserBookService, UserBookService>();
+            services.AddTransient<IPostsService, PostsService>();
 
         }
 
