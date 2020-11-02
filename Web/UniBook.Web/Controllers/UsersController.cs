@@ -1,6 +1,7 @@
 ﻿namespace UniBook.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using System.Linq;
     using UniBook.Data;
     using UniBook.Data.Models;
     using UniBook.Services.Data;
@@ -37,6 +38,31 @@
             }
 
             return new JsonResult("Okey");
+        }
+
+        [HttpPost("api/[controller]/Book")]
+        public IActionResult VoteBook([FromBody] VoteBookViewModel bookViewModel)
+        {
+            var bookVote = this.db.BookVotes
+                .FirstOrDefault(x => x.BookId == bookViewModel.BookId
+                                && x.UserId == bookViewModel.UserId);
+
+            if (bookVote == null)
+            {
+                var book = this.db.Books.FirstOrDefault(x => x.Id == bookViewModel.BookId);
+
+                book.Votes++;
+
+                this.db.BookVotes.Add(new BookVotes
+                {
+                    UserId = bookViewModel.UserId,
+                    BookId = bookViewModel.BookId,
+                    IsVoting = true,
+                });
+                this.db.SaveChanges();
+            }
+
+            return new JsonResult("Ok");
         }
     }
 }

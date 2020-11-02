@@ -31,6 +31,8 @@
 
         public DbSet<UserBook> UserBooks { get; set; }
 
+        public DbSet<BookVotes> BookVotes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

@@ -13,8 +13,11 @@
                 <span class="price">FREE</span>
                 <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
                 <span class="buy"></span>
-                <a class="buy" asp-controller="Book" asp-action="ReadBook" asp-route-id="@Model.Id">Чети онлайн</a>
+                <a class="btn btn-info" asp-controller="Book" asp-action="ReadBook" asp-route-id="@Model.BookId">Чети онлайн</a>
             </button>
+
+            <button type="button" class="btn btn-success" 
+                    onclick="likeBook()">Харесва ми</button>
         </div>
     </div>
 
@@ -22,3 +25,24 @@
         <img src="@Model.ImageUrl" alt="BookImage">
     </div>
 </div>
+
+<script>
+    const bookId = @Html.Raw(Json.Serialize(Model.BookId));
+    const userId = @Html.Raw(Json.Serialize(Model.UserId));
+
+    function likeBook() {
+        const data = {
+            bookId: bookId,
+            userId: userId
+        };
+
+        const jsonData = JSON.stringify(data);
+
+        $.ajax({
+            url: '/api/Users/Book',
+            method: 'POST',
+            data: jsonData,
+            contentType: 'application/json',
+        });
+    }
+</script>

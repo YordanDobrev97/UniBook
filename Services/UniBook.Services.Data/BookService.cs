@@ -33,13 +33,14 @@
             return allBooks;
         }
 
-        public DetailsBookViewModel Details(int id)
+        public DetailsBookViewModel Details(int id, string userId)
         {
             var book = this.repository.All()
                 .Where(x => x.Id == id)
                 .Select(e => new DetailsBookViewModel
                 {
-                    Id = e.Id,
+                    BookId = e.Id,
+                    UserId = userId,
                     Name = e.Name,
                     Author = e.Author.Name,
                     ImageUrl = e.ImageUrl,

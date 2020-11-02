@@ -28,7 +28,7 @@
 
         public IActionResult ReadBook(int id)
         {
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = this.GetUserId();
 
             var book = this.service.ReadBook(id, userId);
 
@@ -41,6 +41,18 @@
 
             book.Content = this.ToHtml(book.Content);
             return this.View(book);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var userId = this.GetUserId();
+            var book = this.service.Details(id, userId);
+            return this.View(book);
+        }
+
+        private string GetUserId()
+        {
+            return this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
         private string ToHtml(string text)
@@ -66,12 +78,6 @@
             }
 
             return sb.ToString();
-        }
-
-        public IActionResult Details(int id)
-        {
-            var book = this.service.Details(id);
-            return this.View(book);
         }
     }
 }

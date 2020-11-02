@@ -11,6 +11,6 @@
 
         ContentBookViewModel ReadBook(int id, string userId);
 
-        DetailsBookViewModel Details(int id);
+        DetailsBookViewModel Details(int id, string userId);
     }
 }
