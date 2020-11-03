@@ -19,7 +19,11 @@
 
         public IActionResult Index()
         {
-            var books = this.service.All();
+            var books = this.service
+                .All()
+                .OrderByDescending(x => x.Votes)
+                .Take(20)
+                .ToList();
             return this.View(books);
         }
 

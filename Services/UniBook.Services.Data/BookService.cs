@@ -22,6 +22,7 @@
                 {
                     ImageUrl = b.ImageUrl,
                     Id = b.Id,
+                    Votes = b.Votes,
                 }).ToList();
 
             return allBooks;
