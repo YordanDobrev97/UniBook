@@ -1,6 +1,7 @@
 ﻿namespace UniBook.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using System.Security.Claims;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels.Posts;
 
@@ -19,6 +20,12 @@
             return this.View(posts);
         }
 
+        public IActionResult GetById(int id)
+        {
+            var post = this.postsService.GetById(id);
+            return this.View(post);
+        }
+
         public IActionResult Create()
         {
             return this.View();
@@ -32,8 +39,14 @@
                 return this.View();
             }
 
-            this.postsService.Create(inputModel);
+            var userId = this.GetUserId();
+            this.postsService.Create(inputModel, userId);
             return this.Redirect("/Posts/All");
+        }
+
+        private string GetUserId()
+        {
+            return this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
     }
 }

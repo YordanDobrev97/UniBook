@@ -22,16 +22,17 @@
         {
             var posts = this.db.Posts
                 .Select(e => new PostViewModel
-            {
-                Title = e.Title,
-                Content = e.Content,
-                Category = e.Category.Name,
-            }).ToList();
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    Content = e.Content,
+                    Category = e.Category.Name,
+                }).ToList();
 
             return posts;
         }
 
-        public void Create(PostViewModel postInputModel)
+        public void Create(PostViewModel postInputModel, string userId)
         {
             var category = this.db.Categories.FirstOrDefault(e => e.Name == postInputModel.Category);
 
@@ -41,10 +42,30 @@
                 Category = category,
                 Content = postInputModel.Content,
                 CreatedOn = DateTime.UtcNow,
+                UserId = userId,
             };
 
             this.db.Posts.Add(post);
             this.db.SaveChanges();
+        }
+
+        public DetailsPostViewModel GetById(int id)
+        {
+            var currentPost = this.db.Posts
+                .Where(e => e.Id == id)
+                .Select(e => new DetailsPostViewModel
+                {
+                    Title = e.Title,
+                    Content = e.Content,
+                    Comments = e.PostComments.Select(x => new CommentPostViewModel
+                    {
+                        UserName = x.User.UserName,
+                        CommentBody = x.CommentBody,
+                    }).ToList(),
+                    Author = e.User.UserName,
+                }).FirstOrDefault();
+
+            return currentPost;
         }
     }
 }
