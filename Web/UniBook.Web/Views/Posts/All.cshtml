@@ -34,6 +34,7 @@
                                     <p class="text-light">@post.Content</p>
                                     <p class="text-light">Категория: @post.Category</p>
                                     <a asp-controller="Posts" asp-action="GetById" asp-route-id="@post.Id" class="bg-primary">Детайли</a>
+                                    <p>Отговори: (@post.CountComments)</p>
                                 </div>
                             </div>
                         </div>

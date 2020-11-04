@@ -1,7 +1,9 @@
 ﻿namespace UniBook.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+
     using System.Security.Claims;
+
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels.Posts;
 
@@ -42,6 +44,19 @@
             var userId = this.GetUserId();
             this.postsService.Create(inputModel, userId);
             return this.Redirect("/Posts/All");
+        }
+
+        [HttpPost]
+        public IActionResult AddComment(AddCommentViewModel commentViewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            var userId = this.GetUserId();
+            this.postsService.AddComment(commentViewModel, userId);
+            return this.RedirectToAction("GetById", "Posts", new { id = commentViewModel.PostId });
         }
 
         private string GetUserId()

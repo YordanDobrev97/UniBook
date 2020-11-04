@@ -8,6 +8,8 @@
     {
         void Create(PostViewModel postInputModel, string userId);
 
+        void AddComment(AddCommentViewModel inputModel, string userId);
+
         List<PostViewModel> All();
 
         DetailsPostViewModel GetById(int id);

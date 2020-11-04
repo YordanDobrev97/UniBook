@@ -27,9 +27,30 @@
                     Title = e.Title,
                     Content = e.Content,
                     Category = e.Category.Name,
+                    CountComments = e.PostComments.Count,
                 }).ToList();
 
             return posts;
+        }
+
+        public DetailsPostViewModel GetById(int id)
+        {
+            var currentPost = this.db.Posts
+                .Where(e => e.Id == id)
+                .Select(e => new DetailsPostViewModel
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    Content = e.Content,
+                    Comments = e.PostComments.Select(x => new CommentPostViewModel
+                    {
+                        UserName = x.User.UserName,
+                        CommentBody = x.CommentBody,
+                    }).ToList(),
+                    Author = e.User.UserName,
+                }).FirstOrDefault();
+
+            return currentPost;
         }
 
         public void Create(PostViewModel postInputModel, string userId)
@@ -49,23 +70,16 @@
             this.db.SaveChanges();
         }
 
-        public DetailsPostViewModel GetById(int id)
+        public void AddComment(AddCommentViewModel inputModel, string userId)
         {
-            var currentPost = this.db.Posts
-                .Where(e => e.Id == id)
-                .Select(e => new DetailsPostViewModel
-                {
-                    Title = e.Title,
-                    Content = e.Content,
-                    Comments = e.PostComments.Select(x => new CommentPostViewModel
-                    {
-                        UserName = x.User.UserName,
-                        CommentBody = x.CommentBody,
-                    }).ToList(),
-                    Author = e.User.UserName,
-                }).FirstOrDefault();
+            this.db.PostComments.Add(new PostComment
+            {
+                PostId = inputModel.PostId,
+                UserId = userId,
+                CommentBody = inputModel.Body,
+            });
 
-            return currentPost;
+            this.db.SaveChanges();
         }
     }
 }

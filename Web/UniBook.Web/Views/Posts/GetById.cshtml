@@ -9,13 +9,54 @@
     <div class="card-footer text-danger">@Model.Author</div>
 </div>
 
-<a class="btn btn-primary">Добави коментар</a>
+<button class="btn btn-primary" onclick="addComment()">Добави коментар</button>
 
-<ul class="list-group">
-    @foreach (var comment in Model.Comments)
-    {
-        <li class="list-group-item d-flex justify-content-between align-items-center">@comment.CommentBody
-            <span class="badge badge-primary badge-pill">@comment.UserName</span>
-        </li>
+<div id="comment-body" class="container pb-cmnt-container hidden">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form asp-controller="Posts" asp-action="AddComment" class="form-inline" method="post">
+                        <textarea class="pb-cmnt-textarea" name="body"></textarea>
+                        <input hidden="hidden" name="postId" value="@Model.Id" />
+                        <input class="btn btn-primary pull-right" type="submit" value="Добави коментар" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addComment() {
+        $('#comment-body').show('slow').removeClass('hidden');
     }
-</ul>
+</script>
+
+<style>
+    .pb-cmnt-container {
+        font-family: Lato;
+        margin-top: 100px;
+    }
+
+    .pb-cmnt-textarea {
+        resize: none;
+        padding: 20px;
+        height: 130px;
+        width: 100%;
+        border: 1px solid #F2F2F2;
+    }
+</style>
+
+@if (Model.Comments.Count > 0)
+{
+    <ul class="list-group">
+        @foreach (var comment in Model.Comments)
+        {
+            <li class="bg-dark mb-3 list-group-item d-flex justify-content-between align-items-center">
+                @comment.CommentBody
+                <span class="badge badge-primary badge-pill">@comment.UserName</span>
+            </li>
+        }
+    </ul>
+}
