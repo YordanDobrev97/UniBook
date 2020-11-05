@@ -1,5 +1,6 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using System.Security.Claims;
@@ -24,7 +25,8 @@
 
         public IActionResult GetById(int id)
         {
-            var post = this.postsService.GetById(id);
+            var userId = this.GetUserId();
+            var post = this.postsService.GetById(id, userId);
             return this.View(post);
         }
 
@@ -33,6 +35,7 @@
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(PostViewModel inputModel)
         {
@@ -46,6 +49,7 @@
             return this.Redirect("/Posts/All");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddComment(AddCommentViewModel commentViewModel)
         {
@@ -57,6 +61,14 @@
             var userId = this.GetUserId();
             this.postsService.AddComment(commentViewModel, userId);
             return this.RedirectToAction("GetById", "Posts", new { id = commentViewModel.PostId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult DeleteComment(int postId, string userId)
+        {
+            this.postsService.DeleteComment(postId, userId);
+            return this.RedirectToAction("GetById", "Posts", new { id = postId });
         }
 
         private string GetUserId()

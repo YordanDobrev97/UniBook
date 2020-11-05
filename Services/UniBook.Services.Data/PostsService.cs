@@ -1,5 +1,6 @@
 ﻿namespace UniBook.Services.Data
 {
+    using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -33,7 +34,7 @@
             return posts;
         }
 
-        public DetailsPostViewModel GetById(int id)
+        public DetailsPostViewModel GetById(int id, string loggedUserId)
         {
             var currentPost = this.db.Posts
                 .Where(e => e.Id == id)
@@ -46,6 +47,8 @@
                     {
                         UserName = x.User.UserName,
                         CommentBody = x.CommentBody,
+                        CommentUserId = x.UserId,
+                        LoggedUserId = loggedUserId,
                     }).ToList(),
                     Author = e.User.UserName,
                 }).FirstOrDefault();
@@ -79,6 +82,14 @@
                 CommentBody = inputModel.Body,
             });
 
+            this.db.SaveChanges();
+        }
+
+        public void DeleteComment(int postId, string userId)
+        {
+            var comment = this.db.PostComments.Where(e => e.PostId == postId && e.UserId == userId).FirstOrDefault();
+
+            this.db.PostComments.Remove(comment);
             this.db.SaveChanges();
         }
     }

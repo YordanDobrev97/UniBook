@@ -10,8 +10,10 @@
 
         void AddComment(AddCommentViewModel inputModel, string userId);
 
+        void DeleteComment(int postId, string userId);
+
         List<PostViewModel> All();
 
-        DetailsPostViewModel GetById(int id);
+        DetailsPostViewModel GetById(int id, string loggedUserId);
     }
 }
