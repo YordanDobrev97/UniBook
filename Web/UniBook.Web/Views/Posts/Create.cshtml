@@ -1,29 +1,31 @@
-﻿<div class="container text-white">
+﻿@model PostViewModel
+
+<div class="container text-white">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h1 class="text-white">Задаване на въпрос</h1>
             <form method="post" asp-controller="Posts" asp-action="Create">
                 <div>
-                    <label for="title">Заглавие</label>
-                    <input id="title" class="form-control" name="title"/>
-                    <span class="text-danger"></span>
+                    <label asp-for="@Model.Title" >Заглавие</label>
+                    <input asp-for="@Model.Title" class="form-control" />
+                    <span asp-validation-for="@Model.Title" class="text-danger"></span>
                 </div>
 
                 <div>
-                    <label for="content">Съдържание</label>
-                    <textarea id="content" class="form-control" name="content"></textarea>
-                    <span class="text-danger"></span>
+                    <label asp-for="@Model.Content">Съдържание</label>
+                    <textarea asp-for="@Model.Content" class="form-control"></textarea>
+                    <span asp-validation-for="@Model.Content" class="text-danger"></span>
                 </div>
 
                 <div>
-                    <label for="category">Категория</label>
-                    <select id="category" class="form-control" name="category">
+                    <label asp-for="@Model.Category">Категория</label>
+                    <select asp-for="@Model.Category" class="form-control">
                         <option value="general">Общи</option>
                         <option value="books">Книги</option>
                         <option value="news">Новини</option>
                         <option value="suggestions and problems">Предложения и проблеми</option>
                     </select>
-                    <span class="text-danger"></span>
+                    <span asp-validation-for="@Model.Category" class="text-danger"></span>
                 </div>
                 <hr />
                 <input type="submit" class="btn btn-primary" />

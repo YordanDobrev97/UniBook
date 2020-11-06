@@ -46,8 +46,8 @@
                     Comments = e.PostComments.Select(x => new CommentPostViewModel
                     {
                         UserName = x.User.UserName,
-                        CommentBody = x.CommentBody,
-                        CommentUserId = x.UserId,
+                        Body = x.CommentBody,
+                        PostId = x.UserId,
                         LoggedUserId = loggedUserId,
                     }).ToList(),
                     Author = e.User.UserName,

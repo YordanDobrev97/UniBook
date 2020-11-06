@@ -85,7 +85,6 @@
                     ReadCount = e.ReadCount,
                     Title = e.Book.Name,
                     Content = e.Book.Body,
-                    IsStartRead = e.Book.IsStartRead,
                     UserId = e.UserId,
                     BookId = e.BookId,
                 }).FirstOrDefault();

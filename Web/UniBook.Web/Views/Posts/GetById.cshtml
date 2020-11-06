@@ -54,14 +54,14 @@
         @foreach (var comment in Model.Comments)
         {
             <li class="bg-dark mb-3 list-group-item d-flex justify-content-between align-items-center">
-                @comment.CommentBody
+                @comment.Body
                 <span class="badge badge-primary badge-pill">@comment.UserName</span>
 
-                @if (comment.CommentUserId == comment.LoggedUserId)
+                @if (comment.PostId == comment.LoggedUserId)
                 {
                     <form asp-controller="Posts" asp-action="DeleteComment" method="post" >
                         <input hidden="hidden" name="postId" value="@Model.Id" />
-                        <input hidden="hidden" name="userId" value="@comment.CommentUserId" />
+                        <input hidden="hidden" name="userId" value="@comment.PostId" />
                         <input type="submit" class="btn btn-danger" value="Изтрий"/>
                     </form>
                     }

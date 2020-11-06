@@ -55,7 +55,6 @@
                     Title = b.Name,
                     Content = b.Body,
                     UserId = userId,
-                    IsStartRead = b.IsStartRead,
                 }).FirstOrDefault();
 
             return book;
