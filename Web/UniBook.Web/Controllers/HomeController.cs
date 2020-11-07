@@ -20,7 +20,7 @@
         public IActionResult Index()
         {
             var books = this.service
-                .All()
+                .GetAllFree()
                 .OrderByDescending(x => x.Votes)
                 .Take(20)
                 .ToList();

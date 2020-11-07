@@ -1,13 +1,14 @@
 ﻿namespace UniBook.Services.Data
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
 
-    using UniBook.Web.ViewModels;
+    using UniBook.Web.ViewModels.Books;
 
     public interface IBookService
     {
         IEnumerable<ListAllBooksViewModel> All();
+
+        IEnumerable<ListAllBooksViewModel> GetAllFree();
 
         ContentBookViewModel ReadBook(int id, string userId);
 

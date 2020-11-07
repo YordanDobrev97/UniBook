@@ -1,6 +1,6 @@
 ﻿namespace UniBook.Services.Data
 {
-    using UniBook.Web.ViewModels;
+    using UniBook.Web.ViewModels.Books;
 
     public interface IUsersService
     {

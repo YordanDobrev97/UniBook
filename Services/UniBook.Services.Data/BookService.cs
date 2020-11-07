@@ -4,7 +4,7 @@
     using System.Linq;
 
     using UniBook.Data;
-    using UniBook.Web.ViewModels;
+    using UniBook.Web.ViewModels.Books;
 
     public class BookService : IBookService
     {
@@ -28,6 +28,20 @@
             return allBooks;
         }
 
+        public IEnumerable<ListAllBooksViewModel> GetAllFree()
+        {
+            var freeBooks = this.db.Books
+                .Where(e => e.IsFree)
+                .Select(e => new ListAllBooksViewModel
+                {
+                    ImageUrl = e.ImageUrl,
+                    Id = e.Id,
+                    Votes = e.Votes,
+                }).ToList();
+
+            return freeBooks;
+        }
+
         public DetailsBookViewModel Details(int id, string userId)
         {
             var book = this.db.Books
@@ -44,7 +58,7 @@
 
             return book;
         }
-
+        
         public ContentBookViewModel ReadBook(int id, string userId)
         {
             var book = this.db.Books

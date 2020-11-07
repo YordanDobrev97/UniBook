@@ -1,4 +1,4 @@
-﻿namespace UniBook.Web.ViewModels
+﻿namespace UniBook.Web.ViewModels.Books
 {
     public class ListAllBooksViewModel
     {

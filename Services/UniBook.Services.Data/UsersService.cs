@@ -5,7 +5,7 @@
 
     using UniBook.Data;
     using UniBook.Data.Models;
-    using UniBook.Web.ViewModels;
+    using UniBook.Web.ViewModels.Books;
 
     public class UsersService : IUsersService
     {
