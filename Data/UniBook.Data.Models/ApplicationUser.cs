@@ -16,6 +16,7 @@ namespace UniBook.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Posts = new HashSet<Post>();
+            this.ReadedBooks = new HashSet<ReadedBook>();
         }
 
         // Audit info
@@ -29,6 +30,8 @@ namespace UniBook.Data.Models
         public DateTime? DeletedOn { get; set; }
 
         public ICollection<Post> Posts { get; set; }
+
+        public ICollection<ReadedBook> ReadedBooks { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

@@ -50,6 +50,13 @@
             return this.View(book);
         }
 
+        public IActionResult ReadedBooks()
+        {
+            var userId = this.GetUserId();
+            var readed = this.service.GetReadedBooks(userId);
+            return this.View(readed);
+        }
+
         private string GetUserId()
         {
             return this.User.FindFirst(ClaimTypes.NameIdentifier).Value;

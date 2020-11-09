@@ -19,6 +19,10 @@
     <button type="button" onclick="savePageBook()" id="save-btn" class="btn btn-primary btn-lg btn-block">
         <span class="save">Запиши текущата страница</span>
     </button>
+
+    <button type="button" onclick="addToReadedBooks()" id="readed" class="btn btn-outline-success btn-lg btn-block mt-3">
+        <span class="readedBook">Добави в Прочетени</span>
+    </button>
 </div>
 
 <script>
@@ -61,6 +65,32 @@
         const jsonData = JSON.stringify(bookData);
         $.ajax({
             url: '/api/Users/BookData',
+            type: 'post',
+            contentType: 'application/json',
+            data: jsonData,
+            success: function (data, status) {
+                console.log('success saved in database.');
+            },
+            error: function (html, status, err) {
+                console.log('error not saved.')
+            }
+        });
+    }
+</script>
+
+<script>
+    function addToReadedBooks() {
+        const bookId = @Html.Raw(Json.Serialize(Model.BookId));
+        const userId = @Html.Raw(Json.Serialize(Model.UserId));
+
+        const bookData = {
+            bookId: bookId,
+            userId: userId,
+        }
+
+        const jsonData = JSON.stringify(bookData);
+        $.ajax({
+            url: '/api/Users/AddToReadedBooks',
             type: 'post',
             contentType: 'application/json',
             data: jsonData,

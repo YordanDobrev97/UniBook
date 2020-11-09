@@ -42,6 +42,20 @@
             return freeBooks;
         }
 
+        public IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId)
+        {
+            var readedBooks = this.db.ReadedBooks
+                .Where(e => e.UserId == userId)
+                .Select(e => new ReadedBookViewModel
+                {
+                    BookId = e.BookId,
+                    UserId = e.UserId,
+                    ImageUrl = e.Book.ImageUrl,
+                }).ToList();
+
+            return readedBooks;
+        }
+
         public DetailsBookViewModel Details(int id, string userId)
         {
             var book = this.db.Books
@@ -58,7 +72,7 @@
 
             return book;
         }
-        
+
         public ContentBookViewModel ReadBook(int id, string userId)
         {
             var book = this.db.Books

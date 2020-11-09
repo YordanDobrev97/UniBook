@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ReadedBookViewModel>
+
+<div class="container">
+    <div class="row">
+        @foreach (var book in Model)
+        {
+            <div class="col-xs-4 col-md-2">
+                <a asp-controller="Book" asp-action="ReadBook" asp-route-id="@book.BookId">
+                    <img src="@book.ImageUrl" class="img-responsive book">
+                </a>
+            </div>
+        }
+        <div class="col-xs-12 shelf"></div>
+    </div>
+</div>

@@ -71,6 +71,22 @@
             }
         }
 
+        public void AddToReadedBooks(ReadBookViewModel value)
+        {
+            var book = this.db.ReadedBooks
+                .FirstOrDefault(e => e.UserId == value.UserId && e.BookId == value.BookId);
+
+            if (book == null)
+            {
+                this.db.ReadedBooks.Add(new ReadedBook
+                {
+                    BookId = value.BookId,
+                    UserId = value.UserId,
+                });
+                this.db.SaveChanges();
+            }
+        }
+
         public bool IsStartReadBook(string userId, int bookId)
         {
             return this.db.UserBooks.Any(e => e.UserId == userId && e.BookId == bookId);

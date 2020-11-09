@@ -227,7 +227,6 @@
                     Body = table.Column<string>(nullable: true),
                     Votes = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    IsStartRead = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -37,5 +37,17 @@
             this.usersService.VoteBook(bookViewModel);
             return new JsonResult("Ok");
         }
+
+        [HttpPost("api/[controller]/AddToReadedBooks")]
+        public IActionResult AddToReadedBooks([FromBody] ReadBookViewModel viewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            this.usersService.AddToReadedBooks(viewModel);
+            return new JsonResult("Ok");
+        }
     }
 }
