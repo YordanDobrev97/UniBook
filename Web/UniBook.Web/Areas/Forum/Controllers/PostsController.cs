@@ -1,26 +1,19 @@
-﻿namespace UniBook.Web.Controllers
+﻿namespace UniBook.Web.Areas.Forum.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
     using System.Security.Claims;
 
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels.Posts;
 
-    public class PostsController : BaseController
+    public class PostsController : ForumBaseController
     {
         private readonly IPostsService postsService;
 
         public PostsController(IPostsService postsService)
         {
             this.postsService = postsService;
-        }
-
-        public IActionResult All()
-        {
-            var posts = this.postsService.All();
-            return this.View(posts);
         }
 
         public IActionResult GetById(int id)
@@ -46,7 +39,7 @@
 
             var userId = this.GetUserId();
             this.postsService.Create(inputModel, userId);
-            return this.Redirect("/Posts/All");
+            return this.Redirect("/Home/Index");
         }
 
         [Authorize]

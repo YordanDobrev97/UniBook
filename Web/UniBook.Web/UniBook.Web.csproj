@@ -43,4 +43,18 @@
     <ProjectReference Include="..\UniBook.Web.Infrastructure\UniBook.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\UniBook.Web.ViewModels\UniBook.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Forum\Data\" />
+    <Folder Include="Areas\Forum\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Forum\Views\Posts\Create.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Areas\Forum\Views\Posts\GetById.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

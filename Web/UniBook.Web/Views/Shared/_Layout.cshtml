@@ -63,7 +63,7 @@
                         <a asp-controller="News" asp-action="Index">Новини</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-controller="Posts" asp-action="All">Форум</a>
+                        <a asp-area="Forum" asp-controller="Home" asp-action="Index">Форум</a>
                     </li>
 
                     @if (User.Identity.IsAuthenticated)

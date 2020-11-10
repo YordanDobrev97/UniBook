@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace UniBook.Web.Views.Forum
+namespace UniBook.Web.Areas.Forum.Views.Home
 {
     public class IndexModel : PageModel
     {
