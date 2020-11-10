@@ -51,27 +51,27 @@
                 </button>
                 <ul class="menu">
                     <li class="menu-item current-menu-item">
-                        <a asp-controller="Home" asp-action="Index">Начална страница</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index">Начална страница</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-controller="Book" asp-action="All">Книги</a>
+                        <a asp-area="" asp-controller="Book" asp-action="All">Книги</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-controller="Reviews" asp-action="Index">Видео ревюта</a>
+                        <a asp-area="" asp-controller="Reviews" asp-action="Index">Видео ревюта</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-controller="News" asp-action="Index">Новини</a>
+                        <a asp-area="" asp-controller="News" asp-action="Index">Новини</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-area="Forum" asp-controller="Home" asp-action="Index">Форум</a>
+                        <a asp-area="Forum" asp-controller="ForumHome" asp-action="ForumIndex">Форум</a>
                     </li>
 
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="menu-item">
-                            <a asp-controller="Book" asp-action="ReadedBooks" >Прочетени книги</a>
+                            <a asp-area="" asp-controller="Book" asp-action="ReadedBooks" >Прочетени книги</a>
                         </li>
-                        <li class="menu-item"><a asp-controller="Friends" asp-action="Index">Приятели</a></li>
+                        <li class="menu-item"><a asp-area="" asp-controller="Friends" asp-action="Index">Приятели</a></li>
                         <li class="menu-item"><a href="#">Изход</a></li>
                     }
                     else
