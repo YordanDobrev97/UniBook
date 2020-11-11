@@ -5,7 +5,7 @@
         @foreach (var book in Model)
         {
             <div class="col-xs-4 col-md-2">
-                <a asp-controller="Book" asp-action="ReadBook" asp-route-id="@book.BookId">
+                <a asp-area="" asp-controller="Books" asp-action="ReadBook" asp-route-id="@book.BookId">
                     <img src="@book.ImageUrl" class="img-responsive book">
                 </a>
             </div>
