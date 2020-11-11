@@ -25,7 +25,7 @@
             id = Math.Max(1, id);
             int skip = (id - 1) * maxBooks;
             var allBooks = this.service
-                .All();
+                .GetAllFree();
 
             var books = allBooks
                 .OrderByDescending(e => e.Votes)
