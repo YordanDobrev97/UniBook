@@ -1,0 +1,46 @@
+﻿@model List<PostViewModel>
+
+<main class="main-content">
+    <div class="container">
+        <div class="page">
+            <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+            <div class="row">
+                <div class="large-6 column lpad top-msg breadcrumb">
+                    <span id="breadcrumb">
+                        <a href="#"><i class="icon-home"></i></a>
+                        <a href="#">Форум</a>
+                    </span>
+                </div>
+                <div class="large-6 small-12 column lpad top-msg ar">
+                    Здравей,
+                    <a href="#" class="underline">Pesho</a>
+                </div>
+            </div>
+
+            <div class="row mt mb">
+                <div class="large-12">
+                    <div class="large-12 small-12 forum-category rounded top lpad">
+                        <span>Форум</span>
+                    </div>
+                    <a class="btn btn-success mb-3 mt-3" asp-area="Forum" asp-controller="Posts" asp-action="Create">Задай въпрос</a>
+
+                    @foreach (var post in Model)
+                    {
+                        <div class="container bg-dark md-3 mb-4">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <h1 class="text-light">@post.Title</h1>
+                                    <p class="text-light">@post.Content</p>
+                                    <p class="text-light">Категория: @post.Category</p>
+                                    <a asp-controller="Posts" asp-action="GetById" asp-route-id="@post.Id" class="bg-primary">Детайли</a>
+                                    <p>Отговори: (@post.CountComments)</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

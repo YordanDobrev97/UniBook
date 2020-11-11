@@ -1,5 +1,6 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -7,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels;
+    using UniBook.Web.ViewModels.Books;
 
     public class HomeController : BaseController
     {
@@ -17,14 +19,31 @@
             this.service = service;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id, int currentPage = 1)
         {
-            var books = this.service
-                .All()
-                .OrderByDescending(x => x.Votes)
-                .Take(20)
+            int maxBooks = 10;
+            id = Math.Max(1, id);
+            int skip = (id - 1) * maxBooks;
+            var allBooks = this.service
+                .All();
+
+            var books = allBooks
+                .OrderByDescending(e => e.Votes)
+                .Skip(skip)
+                .Take(maxBooks)
                 .ToList();
-            return this.View(books);
+
+            int booksCount = allBooks.Count();
+            int pageCount = (int)Math.Ceiling(booksCount / (decimal)maxBooks);
+            var viewModel = new BooksListViewModel
+            {
+                Books = books,
+                CurrentPage = id,
+                PagesCount = pageCount,
+                BooksCount = booksCount,
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

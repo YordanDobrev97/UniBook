@@ -9,13 +9,13 @@
     using UniBook.Data.Models;
     using UniBook.Services.Data;
 
-    public class BookController : BaseController
+    public class BooksController : BaseController
     {
         private readonly IBookService service;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
 
-        public BookController(IBookService service, UserManager<ApplicationUser> userManager, IUsersService usersService)
+        public BooksController(IBookService service, UserManager<ApplicationUser> userManager, IUsersService usersService)
         {
             this.service = service;
             this.userManager = userManager;
