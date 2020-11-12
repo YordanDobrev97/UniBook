@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using UniBook.Common.Extensions;
     using UniBook.Data;
     using UniBook.Web.ViewModels.Books;
 
