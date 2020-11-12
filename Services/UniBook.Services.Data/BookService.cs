@@ -29,7 +29,7 @@
             return allBooks;
         }
 
-        public PaginationResult<ListAllBooksViewModel> GetAllFree()
+        public IEnumerable<ListAllBooksViewModel> GetAllFree()
         {
             var freeBooks = this.db.Books
                 .Where(e => e.IsFree)
@@ -39,7 +39,7 @@
                     Id = e.Id,
                     Votes = e.Votes,
                 })
-                .GetPaged<ListAllBooksViewModel>(1, 10);
+                .ToList();
 
             return freeBooks;
         }

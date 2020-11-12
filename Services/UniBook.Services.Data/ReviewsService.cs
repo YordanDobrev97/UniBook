@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-
+    
     using Google.Apis.Services;
     using Google.Apis.YouTube.v3;
 
@@ -46,7 +45,7 @@
             {
             }
 
-            return videoLinks.Take(6).ToList();
+            return videoLinks;
         }
     }
 }

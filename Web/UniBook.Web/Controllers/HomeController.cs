@@ -25,11 +25,24 @@
             var allBooks = this.service
                 .GetAllFree();
 
-            var books = allBooks;
+            var books = allBooks
+                .OrderByDescending(e => e.Votes)
+                .Skip(skip)
+                .Take(maxBooks)
+                .ToList();
 
+            int pageCount = (int)Math.Ceiling(allBooks.Count() / (decimal)maxBooks);
             var viewModel = new BooksListViewModel
             {
                 Books = books,
+                PaginationViewModel = new PaginationViewModel
+                {
+                    CurrentPage = id,
+                    PagesCount = pageCount,
+                    DataCount = books.Count,
+                    Controller = "Home",
+                    Action = "Index",
+                },
             };
 
             return this.View(viewModel);

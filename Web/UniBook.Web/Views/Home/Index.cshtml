@@ -6,7 +6,7 @@
     <div class="container">
         <div class="page">
             <div class="row">
-                @foreach (var item in Model.Books.Result)
+                @foreach (var item in Model.Books)
                 {
                     <div class="col-md-2 m-2">
                         <img class="d-inline" src=@item.ImageUrl alt="Movie 1">
@@ -18,4 +18,8 @@
     </div>
 </main>
 
-<vc:pagination BooksListViewModel="@Model.Books"></vc:pagination>
+@{
+    var pagination = Model.PaginationViewModel;
+}
+
+@(await Component.InvokeAsync<PaginationViewComponent>(pagination))

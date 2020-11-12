@@ -1,16 +1,13 @@
 ﻿namespace UniBook.Web.ViewComponents
 {
-    using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Mvc;
-    using UniBook.Common.Extensions;
-    using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels;
 
     public class PaginationViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(BooksListViewModel result)
+        public IViewComponentResult Invoke(PaginationViewModel model)
         {
-            return this.View(result);
+            return this.View(model);
         }
     }
 }

@@ -9,7 +9,7 @@
     {
         IEnumerable<ListAllBooksViewModel> All();
 
-        PaginationResult<ListAllBooksViewModel> GetAllFree();
+        IEnumerable<ListAllBooksViewModel> GetAllFree();
 
         IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId);
 

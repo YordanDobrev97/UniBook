@@ -1,6 +1,8 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using System;
     using System.IO;
+    using System.Linq;
     using System.Security.Claims;
     using System.Text;
 
@@ -8,6 +10,8 @@
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Data.Models;
     using UniBook.Services.Data;
+    using UniBook.Web.ViewModels;
+    using UniBook.Web.ViewModels.Books;
 
     public class BooksController : BaseController
     {
@@ -22,9 +26,32 @@
             this.usersService = usersService;
         }
 
-        public IActionResult All()
+        public IActionResult All(int id)
         {
-            return this.View();
+            int maxBooks = 10;
+            int skip = (id - 1) * maxBooks;
+            var allBooks = this.service
+                .All();
+
+            var books = allBooks
+                .Skip(skip)
+                .Take(maxBooks)
+                .ToList();
+
+            int pageCount = (int)Math.Ceiling(allBooks.Count() / (decimal)maxBooks);
+            var viewModel = new BooksListViewModel
+            {
+                Books = books,
+                PaginationViewModel = new PaginationViewModel
+                {
+                    CurrentPage = id,
+                    PagesCount = pageCount,
+                    DataCount = books.Count,
+                    Controller = "Books",
+                    Action = "All",
+                },
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult ReadBook(int id)

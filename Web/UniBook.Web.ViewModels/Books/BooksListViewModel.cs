@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
 
-    using UniBook.Common.Extensions;
-
     public class BooksListViewModel
     {
-        public PaginationResult<ListAllBooksViewModel> Books { get; set; }
+        public IEnumerable<ListAllBooksViewModel> Books { get; set; }
+
+        public PaginationViewModel PaginationViewModel { get; set; }
     }
 }
