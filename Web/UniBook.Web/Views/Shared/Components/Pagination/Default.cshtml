@@ -1,0 +1,68 @@
+﻿@model BooksListViewModel
+
+<nav>
+    <ul class="pagination justify-content-center">
+        @if (this.Model.Books.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@this.Model.Books.FirstRowOnPage">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+
+        @{
+            const int pageToShow = 3;
+            var pagesToShow = new List<int>();
+
+            for (int i = 1; i <= pageToShow; i++)
+            {
+                pagesToShow.Add(i);
+            }
+
+            for (var i = this.Model.Books.CurrentPage - pageToShow; i <= this.Model.Books.CurrentPage + pageToShow; i++)
+            {
+                if (i > 0)
+                {
+                    pagesToShow.Add(i);
+                }
+            }
+
+            for (var i = this.Model.Books.PageCount - pageToShow + 1; i <= this.Model.Books.PageCount; i++)
+            {
+                if (i > 0)
+                {
+                    pagesToShow.Add(i);
+                }
+            }
+
+            pagesToShow = pagesToShow.Where(x => x <= this.Model.Books.PageCount).Distinct().OrderBy(x => x).ToList();
+        }
+
+        @for (var i = 0; i < pagesToShow.Count; i++)
+        {
+            var className = string.Empty;
+            var pageNumber = pagesToShow[i];
+            if (pageNumber == this.Model.Books.CurrentPage)
+            {
+                className = "active";
+            }
+
+            if (i > 0 && pageNumber - 1 != pagesToShow[i - 1])
+            {
+                <li class="page-item @className">
+                    <a class="page-link" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@(pagesToShow[i - 1] + 1)">...</a>
+                </li>
+            }
+            <li class="page-item @className"><a class="page-link" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@pageNumber">@pageNumber</a></li>
+        }
+        @if (this.Model.Books.CurrentPage < this.Model.Books.PageCount)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@this.Model.Books.RowCount" aria-label="Следваща">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

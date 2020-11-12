@@ -2,13 +2,14 @@
 {
     using System.Collections.Generic;
 
+    using UniBook.Common.Extensions;
     using UniBook.Web.ViewModels.Books;
 
     public interface IBookService
     {
         IEnumerable<ListAllBooksViewModel> All();
 
-        IEnumerable<ListAllBooksViewModel> GetAllFree();
+        PaginationResult<ListAllBooksViewModel> GetAllFree();
 
         IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId);
 

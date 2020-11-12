@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using UniBook.Common.Extensions;
     using UniBook.Data;
     using UniBook.Web.ViewModels.Books;
 
@@ -28,7 +29,7 @@
             return allBooks;
         }
 
-        public IEnumerable<ListAllBooksViewModel> GetAllFree()
+        public PaginationResult<ListAllBooksViewModel> GetAllFree()
         {
             var freeBooks = this.db.Books
                 .Where(e => e.IsFree)
@@ -37,7 +38,8 @@
                     ImageUrl = e.ImageUrl,
                     Id = e.Id,
                     Votes = e.Votes,
-                }).ToList();
+                })
+                .GetPaged<ListAllBooksViewModel>(1, 10);
 
             return freeBooks;
         }

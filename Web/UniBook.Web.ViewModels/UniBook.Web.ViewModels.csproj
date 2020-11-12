@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\UniBook.Data.Models\UniBook.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\UniBook.Services.Mapping\UniBook.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\UniBook.Common\UniBook.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,6 @@
 ﻿namespace UniBook.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
 
@@ -19,28 +18,18 @@
             this.service = service;
         }
 
-        public IActionResult Index(int id, int currentPage = 1)
+        public IActionResult Index(int id)
         {
             int maxBooks = 10;
-            id = Math.Max(1, id);
             int skip = (id - 1) * maxBooks;
             var allBooks = this.service
                 .GetAllFree();
 
-            var books = allBooks
-                .OrderByDescending(e => e.Votes)
-                .Skip(skip)
-                .Take(maxBooks)
-                .ToList();
+            var books = allBooks;
 
-            int booksCount = allBooks.Count();
-            int pageCount = (int)Math.Ceiling(booksCount / (decimal)maxBooks);
             var viewModel = new BooksListViewModel
             {
                 Books = books,
-                CurrentPage = id,
-                PagesCount = pageCount,
-                BooksCount = booksCount,
             };
 
             return this.View(viewModel);
