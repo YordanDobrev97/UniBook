@@ -6,7 +6,9 @@
         <p class="card-text">@Model.Content</p>
     </div>
 
-    <div class="card-footer text-danger">@Model.Author</div>
+    <div class="card-footer text-danger">
+        <i class="fas fa-user"></i> @Model.Author
+    </div>
 </div>
 
 <button class="btn btn-primary" onclick="addComment()">Добави коментар</button>
