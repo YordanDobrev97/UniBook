@@ -27,6 +27,8 @@
 
         public bool IsFree { get; set; }
 
+        public double Price { get; set; }
+
         public ICollection<BookComment> Comments { get; set; }
     }
 }
