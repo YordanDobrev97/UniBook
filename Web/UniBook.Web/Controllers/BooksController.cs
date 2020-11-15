@@ -1,6 +1,7 @@
 ﻿namespace UniBook.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Security.Claims;
@@ -28,30 +29,10 @@
 
         public IActionResult All(int id)
         {
-            int maxBooks = 10;
-            int skip = (id - 1) * maxBooks;
             var allBooks = this.service
                 .All();
 
-            var books = allBooks
-                .Skip(skip)
-                .Take(maxBooks)
-                .ToList();
-
-            int pageCount = (int)Math.Ceiling(allBooks.Count() / (decimal)maxBooks);
-            var viewModel = new BooksListViewModel
-            {
-                Books = books,
-                PaginationViewModel = new PaginationViewModel
-                {
-                    CurrentPage = id,
-                    PagesCount = pageCount,
-                    DataCount = books.Count,
-                    Controller = "Books",
-                    Action = "All",
-                },
-            };
-            return this.View(viewModel);
+            return this.PaginationBooks(id, allBooks);
         }
 
         public IActionResult ReadBook(int id)
@@ -82,6 +63,38 @@
             var userId = this.GetUserId();
             var readed = this.service.GetReadedBooks(userId);
             return this.View(readed);
+        }
+
+        public IActionResult Search(SearchBookViewModel searchInput)
+        {
+            var books = this.service.Search(searchInput);
+
+            return this.PaginationBooks(1, books);
+        }
+
+        public IActionResult PaginationBooks(
+            int id, IEnumerable<ListAllBooksViewModel> books)
+        {
+            int maxBooks = 10;
+            int skip = (id - 1) * maxBooks;
+
+            var allBooks = books.Skip(skip).Take(maxBooks).ToList();
+ 
+            int pageCount = (int)Math.Ceiling(books.Count() / (decimal)maxBooks);
+            var viewModel = new BooksListViewModel
+            {
+                Books = allBooks,
+                PaginationViewModel = new PaginationViewModel
+                {
+                    CurrentPage = id,
+                    PagesCount = pageCount,
+                    DataCount = books.Count(),
+                    Controller = "Books",
+                    Action = "All",
+                },
+            };
+
+            return this.View("All", viewModel);
         }
 
         private string GetUserId()

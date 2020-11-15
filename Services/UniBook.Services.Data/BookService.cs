@@ -88,5 +88,42 @@
 
             return book;
         }
+
+        public IEnumerable<ListAllBooksViewModel> Search(SearchBookViewModel search)
+        {
+            if (!string.IsNullOrWhiteSpace(search.BookName))
+            {
+                return this.db.Books
+                        .Where(e => e.Name == search.BookName)
+                        .Select(e => new ListAllBooksViewModel
+                        {
+                            Id = e.Id,
+                            ImageUrl = e.ImageUrl,
+                            Votes = e.Votes,
+                        }).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(search.AuthorName))
+            {
+                return this.db.Books
+                        .Where(e => e.Author.Name == search.AuthorName)
+                        .Select(e => new ListAllBooksViewModel
+                        {
+                            Id = e.Id,
+                            ImageUrl = e.ImageUrl,
+                            Votes = e.Votes,
+                        }).ToList();
+            }
+
+            int year = int.Parse(search.Year);
+            return this.db.Books
+                    .Where(e => e.YearOfIssue.Year == year)
+                    .Select(e => new ListAllBooksViewModel
+                    {
+                        Id = e.Id,
+                        ImageUrl = e.ImageUrl,
+                        Votes = e.Votes,
+                    }).ToList();
+        }
     }
 }

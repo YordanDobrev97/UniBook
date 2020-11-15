@@ -2,27 +2,28 @@
 
 <section class="search-sec">
     <div class="container">
-        <form action="#" method="post" novalidate="novalidate">
+        <form asp-controller="Books" asp-action="Search" method="get" novalidate="novalidate">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-12 p-0 mt-md-2">
-                            <input type="text" class="form-control search-slt" placeholder="Търсене по име на книга">
+                            <input type="text" name="bookName" class="form-control search-slt" placeholder="Търсене по име на книга">
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-12 p-0 mt-md-2">
-                            <input type="text" class="form-control search-slt" placeholder="Търсене по автор">
+                            <input type="text" name="authorName" class="form-control search-slt" placeholder="Търсене по автор">
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-12 p-0 mt-md-2">
-                            <select class="form-control search-slt" id="exampleFormControlSelect1">
+                            <select class="form-control search-slt" name="year" id="exampleFormControlSelect1">
                                 <option>Търсене по година</option>
                                 <option>2020</option>
                                 <option>2019</option>
                                 <option>2018</option>
                                 <option>2017</option>
+                                <option>1894</option>
                             </select>
                         </div>
                         <div class="col-md-3 p-4">
-                            <button type="button" class="btn btn-danger wrn-btn">Търсене</button>
+                            <input type="submit" class="btn btn-danger wrn-btn" value="Търсене" />
                         </div>
                     </div>
                 </div>

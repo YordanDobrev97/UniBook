@@ -10,6 +10,8 @@
 
         IEnumerable<ListAllBooksViewModel> GetAllFree();
 
+        IEnumerable<ListAllBooksViewModel> Search(SearchBookViewModel search);
+
         IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId);
 
         ContentBookViewModel ReadBook(int id, string userId);

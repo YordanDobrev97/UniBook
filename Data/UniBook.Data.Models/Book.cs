@@ -1,5 +1,6 @@
 ﻿namespace UniBook.Data.Models
 {
+    using System;
     using System.Collections.Generic;
 
     using UniBook.Data.Common.Models;
@@ -28,6 +29,8 @@
         public bool IsFree { get; set; }
 
         public double Price { get; set; }
+
+        public DateTime YearOfIssue { get; set; }
 
         public ICollection<BookComment> Comments { get; set; }
     }
