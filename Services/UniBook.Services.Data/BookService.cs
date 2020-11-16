@@ -5,6 +5,7 @@
 
     using UniBook.Data;
     using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels.Payments;
 
     public class BookService : IBookService
     {
@@ -69,6 +70,7 @@
                     Author = e.Author.Name,
                     ImageUrl = e.ImageUrl,
                     Description = e.Description,
+                    IsFree = e.IsFree,
                 }).FirstOrDefault();
 
             return book;
@@ -124,6 +126,19 @@
                         ImageUrl = e.ImageUrl,
                         Votes = e.Votes,
                     }).ToList();
+        }
+
+        public BookDetailsViewModel PaymentDetails(int id)
+        {
+            var book = this.db.Books
+                .Where(e => e.Id == id)
+                .Select(e => new BookDetailsViewModel
+                {
+                    Name = e.Name,
+                    Price = e.Price,
+                }).FirstOrDefault();
+
+            return book;
         }
     }
 }

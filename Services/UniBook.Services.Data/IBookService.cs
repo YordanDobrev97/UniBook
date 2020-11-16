@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels.Payments;
 
     public interface IBookService
     {
@@ -17,5 +18,7 @@
         ContentBookViewModel ReadBook(int id, string userId);
 
         DetailsBookViewModel Details(int id, string userId);
+
+        BookDetailsViewModel PaymentDetails(int id);
     }
 }
