@@ -128,7 +128,7 @@
                     }).ToList();
         }
 
-        public BookDetailsViewModel PaymentDetails(int id)
+        public BookDetailsViewModel PaymentDetails(int id, string userId)
         {
             var book = this.db.Books
                 .Where(e => e.Id == id)
@@ -136,6 +136,8 @@
                 {
                     Name = e.Name,
                     Price = e.Price,
+                    BookId = e.Id,
+                    UserId = userId,
                 }).FirstOrDefault();
 
             return book;

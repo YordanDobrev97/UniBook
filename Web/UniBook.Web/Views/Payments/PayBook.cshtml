@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label or="NameOnCard">Име на картата</label>
-                <input id="NameOnCard" name="name" class="form-control" type="text" maxlength="255" />
+                <input id="NameOnCard" name="customerName" class="form-control" type="text" maxlength="255" />
             </div>
             <div class="form-group">
                 <label for="CreditCardNumber">Номер на карта</label>
@@ -57,6 +57,13 @@
                     <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="left" data-content="Enter the ZIP/Postal code for your credit card billing address."><i class="fa fa-question-circle"></i></a>
                 </div>
             </div>
+
+            <input hidden="hidden" name="BookName" value="@Model.Name" />
+            <input hidden="hidden" name="Price" value="@Model.Price" />
+
+            <input hidden="hidden" name="bookId" value="@Model.BookId" />
+            <input hidden="hidden" name="userId" value="@Model.UserId" />
+
             <button id="PayButton" class="btn btn-block btn-success submit-button" type="submit">
                 <span class="submit-button-lock"></span>
                 <span class="align-middle">Плати</span>

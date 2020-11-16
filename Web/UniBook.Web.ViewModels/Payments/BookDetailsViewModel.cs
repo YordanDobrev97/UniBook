@@ -5,5 +5,9 @@
         public string Name { get; set; }
 
         public double Price { get; set; }
+
+        public int BookId { get; set; }
+
+        public string UserId { get; set; }
     }
 }

@@ -19,6 +19,6 @@
 
         DetailsBookViewModel Details(int id, string userId);
 
-        BookDetailsViewModel PaymentDetails(int id);
+        BookDetailsViewModel PaymentDetails(int id, string userId);
     }
 }

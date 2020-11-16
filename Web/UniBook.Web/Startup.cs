@@ -9,6 +9,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Stripe;
     using UniBook.Data;
     using UniBook.Data.Common;
     using UniBook.Data.Common.Repositories;
@@ -50,6 +51,9 @@
 
             services.AddSingleton(this.configuration);
 
+            // Stripe
+            services.Configure<StripeSettings>(this.configuration.GetSection("Stripe"));
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -62,7 +66,7 @@
             services.AddTransient<IReviewsService, ReviewsService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IPostsService, PostsService>();
-
+            services.AddTransient<IPaymentService, PaymentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +78,8 @@
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                StripeConfiguration.ApiKey = this.configuration.GetSection("Stripe")["SecretKey"];
 
                 if (env.IsDevelopment())
                 {
