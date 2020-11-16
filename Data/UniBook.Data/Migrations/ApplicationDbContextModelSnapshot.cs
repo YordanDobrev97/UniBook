@@ -393,6 +393,28 @@ namespace UniBook.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("UniBook.Data.Models.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("UniBook.Data.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -682,6 +704,19 @@ namespace UniBook.Data.Migrations
 
                     b.HasOne("UniBook.Data.Models.ApplicationUser", "User")
                         .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("UniBook.Data.Models.Payment", b =>
+                {
+                    b.HasOne("UniBook.Data.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("UniBook.Data.Models.ApplicationUser", "User")
+                        .WithMany("Payments")
                         .HasForeignKey("UserId");
                 });
 

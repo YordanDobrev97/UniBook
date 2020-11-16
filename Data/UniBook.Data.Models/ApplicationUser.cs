@@ -17,6 +17,7 @@ namespace UniBook.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Posts = new HashSet<Post>();
             this.ReadedBooks = new HashSet<ReadedBook>();
+            this.Payments = new HashSet<Payment>();
         }
 
         // Audit info
@@ -32,6 +33,8 @@ namespace UniBook.Data.Models
         public ICollection<Post> Posts { get; set; }
 
         public ICollection<ReadedBook> ReadedBooks { get; set; }
+
+        public ICollection<Payment> Payments { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
