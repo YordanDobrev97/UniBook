@@ -60,6 +60,9 @@
 
         public DetailsBookViewModel Details(int id, string userId)
         {
+            var isPaidBook = this.db.Payments
+                .Any(e => e.UserId == userId && e.BookId == id);
+
             var book = this.db.Books
                 .Where(x => x.Id == id)
                 .Select(e => new DetailsBookViewModel
@@ -70,7 +73,7 @@
                     Author = e.Author.Name,
                     ImageUrl = e.ImageUrl,
                     Description = e.Description,
-                    IsFree = e.IsFree,
+                    IsFree = isPaidBook ? isPaidBook : e.IsFree,
                 }).FirstOrDefault();
 
             return book;
