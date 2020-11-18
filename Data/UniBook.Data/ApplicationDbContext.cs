@@ -47,6 +47,8 @@
 
         public DbSet<Payment> Payments { get; set; }
 
+        public DbSet<News> News { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

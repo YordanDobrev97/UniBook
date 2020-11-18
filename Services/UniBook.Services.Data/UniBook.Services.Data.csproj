@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\Data\UniBook.Data\UniBook.Data.csproj" />
     <ProjectReference Include="..\..\Web\UniBook.Web.ViewModels\UniBook.Web.ViewModels.csproj" />
     <ProjectReference Include="..\UniBook.Services.Mapping\UniBook.Services.Mapping.csproj" />
+    <ProjectReference Include="..\UniBook.Services\UniBook.Services.csproj" />
   </ItemGroup>
 
 </Project>
