@@ -1,12 +1,11 @@
 ﻿namespace UniBook.Services.Data
 {
-    using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using UniBook.Data;
-
     using UniBook.Data.Models;
     using UniBook.Web.ViewModels.Posts;
 
@@ -56,7 +55,7 @@
             return currentPost;
         }
 
-        public void Create(PostViewModel postInputModel, string userId)
+        public async Task<int> CreateAsync(PostViewModel postInputModel, string userId)
         {
             var category = this.db.Categories.FirstOrDefault(e => e.Name == postInputModel.Category);
 
@@ -69,28 +68,30 @@
                 UserId = userId,
             };
 
-            this.db.Posts.Add(post);
-            this.db.SaveChanges();
+            await this.db.Posts.AddAsync(post);
+            await this.db.SaveChangesAsync();
+
+            return post.Id;
         }
 
-        public void AddComment(AddCommentViewModel inputModel, string userId)
+        public async Task AddCommentAsync(AddCommentViewModel inputModel, string userId)
         {
-            this.db.PostComments.Add(new PostComment
+            await this.db.PostComments.AddAsync(new PostComment
             {
                 PostId = inputModel.PostId,
                 UserId = userId,
                 CommentBody = inputModel.Body,
             });
 
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
-        public void DeleteComment(int postId, string userId)
+        public async Task DeleteCommentAsync(int postId, string userId)
         {
             var comment = this.db.PostComments.Where(e => e.PostId == postId && e.UserId == userId).FirstOrDefault();
 
             this.db.PostComments.Remove(comment);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
     }
 }

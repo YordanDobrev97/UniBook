@@ -48,6 +48,24 @@
         "fonts/fontawesome-webfont.woff2",
         "fonts/FontAwesome.otf"
       ]
+    },
+    {
+      "library": "tinymce@5.5.1",
+      "destination": "wwwroot/lib/tinymce/",
+      "files": [
+        "tinymce.min.js",
+        "themes/silver/theme.min.js",
+        "skins/ui/oxide/content.min.css",
+        "skins/ui/oxide/skin.min.css",
+        "skins/content/default/content.min.css",
+        "icons/default/icons.min.js",
+        "plugins/image/plugin.min.js",
+        "plugins/paste/plugin.min.js",
+        "plugins/table/plugin.min.js",
+        "plugins/link/plugin.min.js",
+        "plugins/code/plugin.min.js",
+        "plugins/media/plugin.min.js"
+      ]
     }
   ]
 }

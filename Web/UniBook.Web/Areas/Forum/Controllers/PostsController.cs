@@ -1,7 +1,7 @@
 ﻿namespace UniBook.Web.Areas.Forum.Controllers
 {
     using System.Security.Claims;
-
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
@@ -30,21 +30,21 @@
 
         [Authorize]
         [HttpPost]
-        public IActionResult Create(PostViewModel inputModel)
+        public async Task<IActionResult> Create(PostViewModel inputModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.View(inputModel);
             }
 
             var userId = this.GetUserId();
-            this.postsService.Create(inputModel, userId);
-            return this.Redirect("/Home/Index");
+            int postId = await this.postsService.CreateAsync(inputModel, userId);
+            return this.RedirectToAction("GetById", "Posts", new { id = postId });
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddComment(AddCommentViewModel commentViewModel)
+        public async Task<IActionResult> AddCommentAsync(AddCommentViewModel commentViewModel)
         {
             if (!this.ModelState.IsValid)
             {
@@ -52,15 +52,15 @@
             }
 
             var userId = this.GetUserId();
-            this.postsService.AddComment(commentViewModel, userId);
+            await this.postsService.AddCommentAsync(commentViewModel, userId);
             return this.RedirectToAction("GetById", "Posts", new { id = commentViewModel.PostId });
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult DeleteComment(int postId, string userId)
+        public async Task<IActionResult> DeleteComment(int postId, string userId)
         {
-            this.postsService.DeleteComment(postId, userId);
+            await this.postsService.DeleteCommentAsync(postId, userId);
             return this.RedirectToAction("GetById", "Posts", new { id = postId });
         }
 

@@ -4,9 +4,19 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h1 class="text-white">Задаване на въпрос</h1>
-            <form method="post" asp-area="Forum" asp-controller="Posts" asp-action="Create">
+
+            <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                tinyMCE.init({
+                selector: "textarea",
+                plugins: [
+                    "image paste table link code media"
+                ]
+            });</script>
+
+            <form method="post" asp-area="Forum">
                 <div>
-                    <label asp-for="@Model.Title" >Заглавие</label>
+                    <label asp-for="@Model.Title">Заглавие</label>
                     <input asp-for="@Model.Title" class="form-control" />
                     <span asp-validation-for="@Model.Title" class="text-danger"></span>
                 </div>
@@ -28,7 +38,7 @@
                     <span asp-validation-for="@Model.Category" class="text-danger"></span>
                 </div>
                 <hr />
-                <input type="submit" class="btn btn-primary" />
+                <input type="submit" class="btn btn-primary" value="Изпрати" />
             </form>
         </div>
     </div>
