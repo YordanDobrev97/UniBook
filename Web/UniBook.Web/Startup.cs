@@ -1,7 +1,12 @@
 ﻿namespace UniBook.Web
 {
+    using System;
+    using System.Collections.Generic;
     using System.Reflection;
 
+    using Hangfire;
+    using Hangfire.Dashboard;
+    using Hangfire.SqlServer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -68,6 +73,9 @@
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<INewsService, NewsService>();
+
+            services.AddHangfire(x => x.UseSqlServerStorage(this.configuration.GetConnectionString("DefaultConnection")));
+            services.AddHangfireServer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,14 +118,46 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //var options = new DashboardOptions
+            //{
+            //    Authorization = new[]
+            //    {
+            //        new HangfireAuthorizationFilter(),
+            //    },
+            //};
+
+            app.UseHangfireDashboard();
+
+            app.UseHangfireServer();
+
             app.UseEndpoints(
                 endpoints =>
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
+                        endpoints.MapHangfireDashboard();
                         endpoints.MapRazorPages();
                     });
+        }
+
+        private IEnumerable<IDisposable> GetHangfireServers()
+        {
+            GlobalConfiguration.Configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage("Server=.\\SQLEXPRESS; Database=UniBookDb; Integrated Security=True;", new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true,
+                });
+
+            yield return new BackgroundJobServer();
         }
     }
 }

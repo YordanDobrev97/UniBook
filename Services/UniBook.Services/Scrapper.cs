@@ -85,7 +85,7 @@
             {
                 var divs = articleContent.QuerySelectorAll("#content_inner_article_box > div");
                 var html = divs[0].TextContent;
-                var result = Parse(html).Trim();
+                var result = this.Parse(html).Trim();
 
                 return result;
             }
@@ -99,7 +99,7 @@
         {
             html = html.Trim();
 
-            var regex = @"^[А-Яа-я 0-9\-?\,A-Za-z\.\(\)\“\”]+$";
+            var regex = @"^[А-Яа-я 0-9\-?\,A-Za-z\.\(\)\“\”\–\„\“\:\""]+$";
             StringBuilder sb = new StringBuilder();
             RegexOptions options = RegexOptions.Multiline;
 

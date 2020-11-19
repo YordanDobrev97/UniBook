@@ -1,5 +1,7 @@
 ﻿namespace UniBook.Services.Data
 {
+    using Hangfire;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -18,7 +20,9 @@
 
         public IEnumerable<NewsViewModel> GetNews()
         {
-            // this.Scrape();
+            var jobId = BackgroundJob.Schedule(
+                    () => this.Scrape(),
+                    TimeSpan.FromHours(2));
 
             var news = this.db.News.Select(e => new NewsViewModel
             {
@@ -30,17 +34,20 @@
             return news;
         }
 
-        private void Scrape()
+        public void Scrape()
         {
             Scrapper scrapper = new Scrapper();
             var news = scrapper.Scrape("https://www.actualno.com/books?cpage=1");
 
             foreach (News item in news)
             {
-                this.db.News.Add(item);
+                var isExist = this.db.News.Any(e => e.Title == item.Title);
+                if (!isExist)
+                {
+                    this.db.News.Add(item);
+                    this.db.SaveChanges();
+                }
             }
-
-            this.db.SaveChanges();
         }
     }
 }
