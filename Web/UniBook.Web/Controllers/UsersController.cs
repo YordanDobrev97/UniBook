@@ -1,9 +1,13 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using System.Security.Claims;
+
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels.Books;
 
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUsersService usersService;
@@ -22,7 +26,8 @@
                 return this.BadRequest();
             }
 
-            this.usersService.SaveBookPage(value);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            this.usersService.SaveBookPage(value, userId);
             return new JsonResult("Ok");
         }
 
@@ -34,7 +39,8 @@
                 return this.BadRequest();
             }
 
-            this.usersService.VoteBook(bookViewModel);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            this.usersService.VoteBook(bookViewModel, userId);
             return new JsonResult("Ok");
         }
 
@@ -46,7 +52,8 @@
                 return this.BadRequest();
             }
 
-            this.usersService.AddToReadedBooks(viewModel);
+            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            this.usersService.AddToReadedBooks(viewModel, userId);
             return new JsonResult("Ok");
         }
     }

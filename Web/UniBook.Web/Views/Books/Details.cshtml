@@ -38,12 +38,10 @@
 
 <script>
     const bookId = @Html.Raw(Json.Serialize(Model.BookId));
-    const userId = @Html.Raw(Json.Serialize(Model.UserId));
-
+    
     function likeBook() {
         const data = {
             bookId: bookId,
-            userId: userId
         };
 
         const jsonData = JSON.stringify(data);

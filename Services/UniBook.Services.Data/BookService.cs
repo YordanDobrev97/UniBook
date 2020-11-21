@@ -68,7 +68,6 @@
                 .Select(e => new DetailsBookViewModel
                 {
                     BookId = e.Id,
-                    UserId = userId,
                     Name = e.Name,
                     Author = e.Author.Name,
                     ImageUrl = e.ImageUrl,
@@ -88,7 +87,6 @@
                     BookId = b.Id,
                     Title = b.Name,
                     Content = b.Body,
-                    UserId = userId,
                 }).FirstOrDefault();
 
             return book;

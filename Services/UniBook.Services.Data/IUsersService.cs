@@ -4,11 +4,11 @@
 
     public interface IUsersService
     {
-        bool SaveBookPage(ReadBookViewModel value);
+        bool SaveBookPage(ReadBookViewModel value, string userId);
 
-        void VoteBook(VoteBookViewModel bookViewModel);
+        void VoteBook(VoteBookViewModel bookViewModel, string userId);
 
-        void AddToReadedBooks(ReadBookViewModel value);
+        void AddToReadedBooks(ReadBookViewModel value, string userId);
 
         bool IsStartReadBook(string userId, int bookId);
 

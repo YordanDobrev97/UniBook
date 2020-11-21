@@ -52,12 +52,10 @@
 
     function savePageBook() {
         const bookId = @Html.Raw(Json.Serialize(Model.BookId));
-        const userId = @Html.Raw(Json.Serialize(Model.UserId));
-
+        
         const bookData = {
             readCount: startIndex,
             bookId: bookId,
-            userId: userId,
         }
 
         console.log(bookData);
@@ -81,11 +79,9 @@
 <script>
     function addToReadedBooks() {
         const bookId = @Html.Raw(Json.Serialize(Model.BookId));
-        const userId = @Html.Raw(Json.Serialize(Model.UserId));
-
+        
         const bookData = {
             bookId: bookId,
-            userId: userId,
         }
 
         const jsonData = JSON.stringify(bookData);

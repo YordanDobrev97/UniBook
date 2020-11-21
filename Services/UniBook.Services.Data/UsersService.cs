@@ -17,9 +17,8 @@
             this.db = db;
         }
 
-        public bool SaveBookPage(ReadBookViewModel bookViewModel)
+        public bool SaveBookPage(ReadBookViewModel bookViewModel, string userId)
         {
-            string userId = bookViewModel.UserId;
             int bookId = bookViewModel.BookId;
 
             if (userId == null || bookId == InvalidId)
@@ -49,11 +48,11 @@
             return true;
         }
 
-        public void VoteBook(VoteBookViewModel bookViewModel)
+        public void VoteBook(VoteBookViewModel bookViewModel, string userId)
         {
             var bookVote = this.db.BookVotes
                .FirstOrDefault(x => x.BookId == bookViewModel.BookId
-                               && x.UserId == bookViewModel.UserId);
+                               && x.UserId == userId);
 
             if (bookVote == null)
             {
@@ -63,7 +62,7 @@
 
                 this.db.BookVotes.Add(new BookVotes
                 {
-                    UserId = bookViewModel.UserId,
+                    UserId = userId,
                     BookId = bookViewModel.BookId,
                     IsVoting = true,
                 });
@@ -71,17 +70,17 @@
             }
         }
 
-        public void AddToReadedBooks(ReadBookViewModel value)
+        public void AddToReadedBooks(ReadBookViewModel value, string userId)
         {
             var book = this.db.ReadedBooks
-                .FirstOrDefault(e => e.UserId == value.UserId && e.BookId == value.BookId);
+                .FirstOrDefault(e => e.UserId == userId && e.BookId == value.BookId);
 
             if (book == null)
             {
                 this.db.ReadedBooks.Add(new ReadedBook
                 {
                     BookId = value.BookId,
-                    UserId = value.UserId,
+                    UserId = userId,
                 });
                 this.db.SaveChanges();
             }
@@ -101,7 +100,6 @@
                     ReadCount = e.ReadCount,
                     Title = e.Book.Name,
                     Content = e.Book.Body,
-                    UserId = e.UserId,
                     BookId = e.BookId,
                 }).FirstOrDefault();
 
