@@ -138,8 +138,6 @@ body {
         transform: translateX(0%);
     }
 
-
-
 /* product image  */
 .product-image {
     transition: all 0.3s ease-out;
@@ -196,4 +194,57 @@ body {
 
 .product-image:hover img {
     transform: scale(1.2, 1.2);
+}
+
+/* add comments */
+.container {
+    margin-top: 15px;
+}
+
+.margin-bottom {
+    margin-bottom: 150px;
+}
+
+.comment {
+    display: block;
+    transition: all 1s;
+    color: white;
+}
+
+.commentClicked {
+    min-height: 0px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 5px 10px
+}
+
+textarea {
+    width: 100%;
+    border: none;
+    background: #E8E8E8;
+    padding: 5px 10px;
+    height: 50%;
+    border-radius: 5px 5px 0px 0px;
+    border-bottom: 2px solid #016BA8;
+    transition: all 0.5s;
+    margin-top: 15px;
+}
+
+input.primaryContained {
+    background: #016ba8;
+    color: #fff;
+    padding: 10px 10px;
+    border: none;
+    margin-top: 0px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.25);
+    transition: 1s all;
+    font-size: 10px;
+    border-radius: 5px;
+}
+
+input.primaryContained:hover {
+    background: #9201A8;
 }

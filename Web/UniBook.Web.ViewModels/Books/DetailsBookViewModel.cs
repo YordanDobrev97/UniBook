@@ -1,8 +1,12 @@
 ﻿namespace UniBook.Web.ViewModels.Books
 {
+    using System.Collections.Generic;
+
     public class DetailsBookViewModel
     {
         public int BookId { get; set; }
+
+        public string User { get; set; }
 
         public string Name { get; set; }
 
@@ -13,5 +17,7 @@
         public string Description { get; set; }
 
         public bool IsFree { get; set; }
+
+        public ICollection<CommentsViewModel> Comments { get; set; }
     }
 }

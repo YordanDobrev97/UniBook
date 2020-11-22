@@ -1,7 +1,7 @@
 ﻿namespace UniBook.Services.Data
 {
     using System.Collections.Generic;
-
+    using System.Threading.Tasks;
     using UniBook.Web.ViewModels.Books;
     using UniBook.Web.ViewModels.Payments;
 
@@ -18,6 +18,8 @@
         ContentBookViewModel ReadBook(int id, string userId);
 
         DetailsBookViewModel Details(int id, string userId);
+
+        void AddComment(string userId, int bookId, string body);
 
         BookDetailsViewModel PaymentDetails(int id, string userId);
     }

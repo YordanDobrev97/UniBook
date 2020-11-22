@@ -2,8 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using UniBook.Data;
+    using UniBook.Data.Models;
     using UniBook.Web.ViewModels.Books;
     using UniBook.Web.ViewModels.Payments;
 
@@ -73,9 +75,27 @@
                     ImageUrl = e.ImageUrl,
                     Description = e.Description,
                     IsFree = isPaidBook ? isPaidBook : e.IsFree,
+                    Comments = e.Comments.Select(c => new CommentsViewModel
+                    {
+                        Body = c.CommentBody,
+                        User = c.User.Email,
+                    }).ToList(),
                 }).FirstOrDefault();
 
             return book;
+        }
+
+        public void AddComment(string userId, int bookId, string body)
+        {
+            var bookComment = new BookComment
+            {
+                BookId = bookId,
+                CommentBody = body,
+                UserId = userId,
+            };
+
+            this.db.BookComments.Add(bookComment);
+            this.db.SaveChanges();
         }
 
         public ContentBookViewModel ReadBook(int id, string userId)

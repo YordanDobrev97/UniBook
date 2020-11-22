@@ -1,4 +1,4 @@
-﻿@model DetailsBookViewModel 
+﻿@model DetailsBookViewModel
 
 <div id="container">
     <div class="product-details">
@@ -36,9 +36,41 @@
     </div>
 </div>
 
+<section id="app">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 bg-dark">
+                @foreach (var item in Model.Comments)
+                {
+                    <div class="comment">
+                        <div>
+                            <i class="fas fa-user-circle"></i>
+                            <span>@item.User</span>
+                        </div>
+                        <p>@item.Body</p>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <form method="post" asp-controller="Books" asp-action="AddComment">
+                <div class="col-6">
+                    <textarea type="text" rows="20" cols="80" name="body" class="input-container" placeholder="Напиши коментар към книгата"></textarea>
+                    <input hidden="hidden" name="bookId" value="@Model.BookId" />
+                    <input type="submit" class='primaryContained float-right' value="Добави коментар" />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+
+</script>
+
 <script>
     const bookId = @Html.Raw(Json.Serialize(Model.BookId));
-    
+
     function likeBook() {
         const data = {
             bookId: bookId,

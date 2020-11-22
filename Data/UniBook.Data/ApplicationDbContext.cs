@@ -33,6 +33,8 @@
 
         public DbSet<BookVotes> BookVotes { get; set; }
 
+        public DbSet<BookComment> BookComments { get; set; }
+
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<Tag> Tags { get; set; }

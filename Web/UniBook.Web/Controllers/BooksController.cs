@@ -58,6 +58,13 @@
             return this.View(book);
         }
 
+        public IActionResult AddComment(int bookId, string body)
+        {
+            var userId = this.GetUserId();
+            this.service.AddComment(userId, bookId, body);
+            return this.RedirectToAction("Details", new { id = bookId });
+        }
+
         public IActionResult ReadedBooks()
         {
             var userId = this.GetUserId();
