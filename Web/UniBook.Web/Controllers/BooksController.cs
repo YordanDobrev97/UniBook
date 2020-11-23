@@ -16,6 +16,8 @@
 
     public class BooksController : BaseController
     {
+        private const int MaxBooks = 10;
+
         private readonly IBookService service;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
@@ -29,9 +31,7 @@
 
         public IActionResult All(int id)
         {
-            var allBooks = this.service
-                .All();
-
+            var allBooks = this.service.All();
             return this.PaginationBooks(id, allBooks);
         }
 
@@ -82,12 +82,10 @@
         public IActionResult PaginationBooks(
             int id, IEnumerable<ListAllBooksViewModel> books)
         {
-            int maxBooks = 10;
-            int skip = (id - 1) * maxBooks;
+            int skip = (id - 1) * MaxBooks;
+            var allBooks = books.Skip(skip).Take(MaxBooks).ToList();
 
-            var allBooks = books.Skip(skip).Take(maxBooks).ToList();
- 
-            int pageCount = (int)Math.Ceiling(books.Count() / (decimal)maxBooks);
+            int pageCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks);
             var viewModel = new BooksListViewModel
             {
                 Books = allBooks,

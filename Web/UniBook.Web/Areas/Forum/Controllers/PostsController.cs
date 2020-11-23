@@ -48,7 +48,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.View(commentViewModel);
             }
 
             var userId = this.GetUserId();
