@@ -1,6 +1,7 @@
 ﻿namespace UniBook.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     using UniBook.Data.Common.Models;
 
@@ -11,6 +12,7 @@
             this.CreatedOn = DateTime.UtcNow;
         }
 
+        [Required]
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using UniBook.Data.Common.Models;
 
@@ -12,14 +13,20 @@
             this.Comments = new HashSet<BookComment>();
         }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string ImageUrl { get; set; }
 
         public Genre Genre { get; set; }
 
+        [Required]
+        public int AuthorId { get; set; }
+
         public Author Author { get; set; }
 
+        [Required]
         public string Body { get; set; }
 
         public int Votes { get; set; }

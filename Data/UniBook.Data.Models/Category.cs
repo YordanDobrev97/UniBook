@@ -1,6 +1,7 @@
 ﻿namespace UniBook.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using UniBook.Data.Common.Models;
 
@@ -11,6 +12,7 @@
             this.Posts = new HashSet<Post>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         public ICollection<Post> Posts { get; set; }

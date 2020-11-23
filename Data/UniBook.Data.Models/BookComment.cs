@@ -1,5 +1,7 @@
 ﻿namespace UniBook.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class BookComment
     {
         public int Id { get; set; }
@@ -10,6 +12,7 @@
 
         public ApplicationUser User { get; set; }
 
+        [Required]
         public string CommentBody { get; set; }
     }
 }
