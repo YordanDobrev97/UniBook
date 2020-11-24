@@ -51,7 +51,7 @@
                     {
                         UserName = x.User.UserName,
                         Body = x.CommentBody,
-                        PostId = x.PostId.ToString(),
+                        PostId = x.UserId,
                         LoggedUserId = loggedUserId,
                     }).ToList(),
                     Author = e.User.UserName,
