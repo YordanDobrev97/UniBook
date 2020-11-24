@@ -35,7 +35,7 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-info">
                 <div class="panel-body">
-                    <form asp-area="Forum" asp-action="AddCommentAsync" class="form-inline" method="post">
+                    <form asp-area="Forum" asp-controller="Posts" asp-action="AddComment" class="form-inline" method="post">
                         <textarea class="pb-cmnt-textarea" name="body"></textarea>
                         <input hidden="hidden" name="postId" value="@Model.Id" />
                         <input class="btn btn-primary pull-right" type="submit" value="Добави коментар" />

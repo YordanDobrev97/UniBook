@@ -44,7 +44,7 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddCommentAsync(AddCommentViewModel commentViewModel)
+        public async Task<IActionResult> AddComment(AddCommentViewModel commentViewModel)
         {
             if (!this.ModelState.IsValid)
             {
