@@ -13,6 +13,11 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
+            if (dbContext.Books.Any())
+            {
+                return;
+            }
+
             var folderPath = Assembly.GetExecutingAssembly().Location;
             folderPath = folderPath.Replace("UniBook.Data.dll", "Books");
 
