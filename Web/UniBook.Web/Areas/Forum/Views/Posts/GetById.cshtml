@@ -1,17 +1,34 @@
 ﻿@model DetailsPostViewModel
 
-<div class="card border-success mb-3 w-100">
-    <div class="card-header text-justify text-dark">@Model.Title</div>
-    <div class="card-body text-dark">
-        <p class="card-text">@Html.Raw(Model.Content)</p>
-    </div>
-
-    <div class="card-footer text-danger">
-        <i class="fas fa-user"></i> @Model.Author
+<div class="container-fluid mt-100">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block ui-w-40 rounded-circle" alt="">
+                        <div class="media-body ml-3">
+                            <a href="javascript:void(0)" data-abc="true">@Model.Author</a>
+                        </div>
+                        <div class="text-muted small ml-3">
+                            <div><strong>@Model.Comments.Count</strong>comments</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="text-dark">@Html.Raw(@Model.SanitizedContent)</p>
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    <div class="px-4 pt-3"> 
+                        <button type="button" class="btn btn-primary" onclick="addComment()">
+                            <i class="ion ion-md-create"></i>&nbsp; Добави коментар
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<button class="btn btn-primary" onclick="addComment()">Добави коментар</button>
 
 <div id="comment-body" class="container pb-cmnt-container hidden">
     <div class="row">
@@ -61,12 +78,12 @@
 
                 @if (comment.PostId == comment.LoggedUserId)
                 {
-                    <form asp-area="Forum" asp-action="DeleteComment" method="post" >
+                    <form asp-area="Forum" asp-action="DeleteComment" method="post">
                         <input hidden="hidden" name="postId" value="@Model.Id" />
                         <input hidden="hidden" name="userId" value="@comment.PostId" />
-                        <input type="submit" class="btn btn-danger" value="Изтрий"/>
+                        <input type="submit" class="btn btn-danger" value="Изтрий" />
                     </form>
-                    }
+                }
             </li>
         }
     </ul>

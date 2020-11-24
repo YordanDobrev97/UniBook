@@ -1,4 +1,4 @@
-﻿@model List<PostViewModel>
+﻿@model List<DetailsPostViewModel>
 
 <main class="main-content">
     <div class="container">
@@ -31,10 +31,10 @@
                             <div class="row">
                                 <div class="col-xs-10">
                                     <h1 class="text-light">@post.Title</h1>
-                                    <p class="text-light">@post.Content</p>
-                                    <p class="text-light">Категория: @post.Category</p>
+                                    <p class="text-light">@Html.Raw(post.SanitizedContent)</p>
+                                    <p class="text-light">Автор: @post.Author</p>
                                     <a asp-controller="Posts" asp-action="GetById" asp-route-id="@post.Id" class="bg-primary">Детайли</a>
-                                    <p>Отговори: (@post.CountComments)</p>
+                                    <p>Отговори: (@post.Comments.Count)</p>
                                 </div>
                             </div>
                         </div>

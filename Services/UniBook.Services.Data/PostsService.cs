@@ -18,16 +18,21 @@
             this.db = db;
         }
 
-        public List<PostViewModel> All()
+        public List<DetailsPostViewModel> All()
         {
             var posts = this.db.Posts
-                .Select(e => new PostViewModel
+                .Select(e => new DetailsPostViewModel
                 {
                     Id = e.Id,
                     Title = e.Title,
                     Content = e.Content,
-                    Category = e.Category.Name,
-                    CountComments = e.PostComments.Count,
+                    Author = e.User.Email,
+                    Comments = e.PostComments.Select(c => new CommentPostViewModel
+                    {
+                        Body = c.CommentBody,
+                        PostId = c.PostId.ToString(),
+                        UserName = c.User.Email,
+                    }).ToList(),
                 }).ToList();
 
             return posts;
@@ -46,7 +51,7 @@
                     {
                         UserName = x.User.UserName,
                         Body = x.CommentBody,
-                        PostId = x.UserId,
+                        PostId = x.PostId.ToString(),
                         LoggedUserId = loggedUserId,
                     }).ToList(),
                     Author = e.User.UserName,

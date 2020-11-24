@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using UniBook.Web.ViewModels.Posts;
 
     public interface IPostsService
@@ -12,7 +13,7 @@
 
         Task DeleteCommentAsync(int postId, string userId);
 
-        List<PostViewModel> All();
+        List<DetailsPostViewModel> All();
 
         DetailsPostViewModel GetById(int id, string loggedUserId);
     }
