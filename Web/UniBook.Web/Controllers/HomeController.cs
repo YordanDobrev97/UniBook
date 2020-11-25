@@ -20,10 +20,10 @@
 
         public IActionResult Index(int id)
         {
-            int maxBooks = 10;
+            int maxBooks = 9;
             int skip = (id - 1) * maxBooks;
             var allBooks = this.service
-                .GetAllFree();
+                .All();
 
             var books = allBooks
                 .OrderByDescending(e => e.Votes)

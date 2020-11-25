@@ -2,21 +2,145 @@
 
 @{ this.ViewData["Title"] = "Home Page"; }
 
-<main class="main-content">
-    <div class="container">
-        <div class="page">
-            <div class="row">
-                @foreach (var item in Model.Books)
-                {
-                    <div class="col-md-2 m-2">
-                        <img class="d-inline" src=@item.ImageUrl alt="Movie 1">
-                        <a asp-area="" asp-action="Details" asp-controller="Books" asp-route-id=@item.Id class="btn btn-info btn-lg">Детайли</a>
+<script>
+    function sort() {
+        const att = $(this)[0].hasAttribute('hidden');
+        console.log(att);
+
+        if (typeof attr !== typeof undefined && attr !== false) {
+            $('.dropdown-menu').show('slow').removeAttr('hidden');
+        } else {
+            $('.dropdown-menu').attr('hidden');
+        }
+    }
+</script>
+
+<div class="container pt-5 my-3 bg-dark text-white">
+    <div class="row">
+        <div class="col-md-8 order-md-2 col-lg-9">
+            <div class="container-fluid">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="dropdown text-md-left text-center float-md-left mb-3 mt-3 mt-md-0 mb-md-0 bg-dark">
+                            <label class="mr-2">Сортирай :</label>
+                            <button class="btn btn-lg btn-dark dropdown-toggle" onclick="sort()"></button>
+                            <div class="dropdown-menu bg-white" hidden="hidden">
+                                <a class="dropdown-item bg-white" href="#">Азбучен ред</a>
+                                <a class="dropdown-item bg-white" href="#">Харесвания</a>
+                                <a class="dropdown-item bg-white" href="#">Последно добавени</a>
+                            </div>
+                        </div>
                     </div>
-                }
+                </div>
+                <div class="row">
+                    @foreach (var book in Model.Books)
+                    {
+                        <div class="d-inline m-md-3 bg-white">
+                            <img width="200" height="150" src="@book.ImageUrl">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">
+                                    <a style="max-width: 190px;" class="font-weight-bold text-dark text-uppercase small">
+                                        @book.Name
+                                    </a>
+                                </h4>
+                                <h5 class="card-price small text-warning">
+                                    <i>
+                                    </i>
+                                </h5>
+
+                                <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-primary">Детайли</a>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
+        <div class="col-md-4 order-md-1 col-lg-3 sidebar-filter">
+            <h3 class="mt-0 mb-5 text-white">Tърсене</h3>
+            <h6 class="text-uppercase font-weight-bold mb-3 text-white">Автор</h6>
+
+            <form class="form-inline ">
+                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Намери автор"
+                       aria-label="Search">
+            </form>
+
+            <h6 class="text-uppercase font-weight-bold mb-3 text-white">Книга</h6>
+
+            <form class="form-inline ">
+                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Намери книга"
+                       aria-label="Search">
+            </form>
+
+            <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
+            <h6 class="text-uppercase mt-5 mb-3 font-weight-bold text-white">Жанр</h6>
+            <div class="mt-2 mb-2 pl-2">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="filter-size-1">
+                    <label class="custom-control-label" for="filter-size-1">Приключения</label>
+                </div>
+            </div>
+            <div class="mt-2 mb-2 pl-2">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="filter-size-2">
+                    <label class="custom-control-label" for="filter-size-2">Фантастика</label>
+                </div>
+            </div>
+            <div class="mt-2 mb-2 pl-2">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="filter-size-3">
+                    <label class="custom-control-label" for="filter-size-3">Любовни романи</label>
+                </div>
+            </div>
+            <div class="mt-2 mb-2 pl-2">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="filter-size-4">
+                    <label class="custom-control-label" for="filter-size-4">Трилър</label>
+                </div>
+            </div>
+            <div class="mt-2 mb-2 pl-2">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="filter-size-5">
+                    <label class="custom-control-label" for="filter-size-5">Хорър</label>
+                </div>
+            </div>
+
+            <input id="ex2" type="text" class="slider " value="50,150" data-slider-min="10" data-slider-max="200" data-slider-step="5" data-slider-value="[50,150]" data-value="50,150" style="display: none;">
+            <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
+
+            <div>
+                <label class="form-check-label p-3">
+                    <input type="checkbox" class="form-check-input pm-3">
+                    <span class="ml-md-4">Свободни</span>
+                </label>
+            </div>
+
+            <div>
+                <label class="form-check-label p-3">
+                    <input type="checkbox" class="form-check-input pm-3">
+                    <span class="ml-md-4">Платени</span>
+                </label>
+            </div>
+            <a href="#" class="btn btn-lg btn-block btn-primary mt-5">Търсене</a>
+        </div>
+
     </div>
-</main>
+</div>
+
+@*<main class="main-content">
+        <div class="container">
+            <div class="page">
+                <div class="row">
+                    @foreach (var item in Model.Books)
+                    {
+                        <div class="col-md-2 m-2">
+                            <img class="d-inline" src=@item.ImageUrl alt="Movie 1">
+                            <a asp-area="" asp-action="Details" asp-controller="Books" asp-route-id=@item.Id class="btn btn-info btn-lg">Детайли</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </main>*@
 
 @{
     var pagination = Model.PaginationViewModel;

@@ -55,9 +55,6 @@
                         <a asp-area="" asp-controller="Home" asp-action="Index">Начална страница</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-area="" asp-controller="Books" asp-action="All">Книги</a>
-                    </li>
-                    <li class="menu-item">
                         <a asp-area="" asp-controller="Reviews" asp-action="Index">Видео ревюта</a>
                     </li>
                     <li class="menu-item">
@@ -69,10 +66,7 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="menu-item">
-                            <a asp-area="" asp-controller="Books" asp-action="ReadedBooks" >Прочетени книги</a>
-                        </li>
-                        <li class="menu-item"><a asp-area="" asp-controller="Friends" asp-action="Index">Приятели</a></li>
+                        <li class="menu-item"><a asp-area="" asp-controller="" asp-action="">Профил</a></li>
                         <li class="menu-item"><a href="#">Изход</a></li>
                     }
                     else

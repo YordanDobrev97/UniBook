@@ -1,10 +1,9 @@
-﻿namespace UniBook.Data.Migrations
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace UniBook.Data.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
-    public partial class InitDb : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,7 +60,7 @@
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     DeadDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -79,11 +78,28 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "News",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    ShortDescription = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_News", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,13 +236,16 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    ImageUrl = table.Column<string>(nullable: true),
-                    Genre = table.Column<int>(nullable: false),
-                    AuthorId = table.Column<int>(nullable: true),
-                    Body = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: false),
+                    Genre = table.Column<string>(nullable: true),
+                    AuthorId = table.Column<int>(nullable: false),
+                    Body = table.Column<string>(nullable: false),
                     Votes = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    IsFree = table.Column<bool>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
+                    YearOfIssue = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -273,21 +292,28 @@
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookComment",
+                name: "BookComments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(nullable: false),
-                    CommentBody = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    CommentBody = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookComment", x => x.Id);
+                    table.PrimaryKey("PK_BookComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookComment_Books_BookId",
+                        name: "FK_BookComments_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BookComments_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -320,6 +346,58 @@
                 });
 
             migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payments_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReadedBooks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReadedBooks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReadedBooks_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReadedBooks_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserBooks",
                 columns: table => new
                 {
@@ -329,7 +407,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
                     BookId = table.Column<int>(nullable: false),
                     ReadCount = table.Column<int>(nullable: false)
                 },
@@ -473,9 +551,14 @@
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookComment_BookId",
-                table: "BookComment",
+                name: "IX_BookComments_BookId",
+                table: "BookComments",
                 column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookComments_UserId",
+                table: "BookComments",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_AuthorId",
@@ -501,6 +584,16 @@
                 name: "IX_Categories_IsDeleted",
                 table: "Categories",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_BookId",
+                table: "Payments",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_UserId",
+                table: "Payments",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostComments_PostId",
@@ -535,6 +628,16 @@
             migrationBuilder.CreateIndex(
                 name: "IX_PostVotes_UserId",
                 table: "PostVotes",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReadedBooks_BookId",
+                table: "ReadedBooks",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReadedBooks_UserId",
+                table: "ReadedBooks",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -581,16 +684,25 @@
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BookComment");
+                name: "BookComments");
 
             migrationBuilder.DropTable(
                 name: "BookVotes");
+
+            migrationBuilder.DropTable(
+                name: "News");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "PostComments");
 
             migrationBuilder.DropTable(
                 name: "PostVotes");
+
+            migrationBuilder.DropTable(
+                name: "ReadedBooks");
 
             migrationBuilder.DropTable(
                 name: "Settings");

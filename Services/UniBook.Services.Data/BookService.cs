@@ -23,8 +23,9 @@
             var allBooks = this.db.Books
                 .Select(b => new ListAllBooksViewModel
                 {
-                    ImageUrl = b.ImageUrl,
                     Id = b.Id,
+                    Name = b.Name,
+                    ImageUrl = b.ImageUrl,
                     Votes = b.Votes,
                 }).ToList();
 
@@ -38,6 +39,7 @@
                 .Select(e => new ListAllBooksViewModel
                 {
                     ImageUrl = e.ImageUrl,
+                    Name = e.Name,
                     Id = e.Id,
                     Votes = e.Votes,
                 })

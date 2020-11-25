@@ -16,7 +16,7 @@
 
     public class BooksController : BaseController
     {
-        private const int MaxBooks = 10;
+        private const int MaxBooks = 9;
 
         private readonly IBookService service;
         private readonly UserManager<ApplicationUser> userManager;

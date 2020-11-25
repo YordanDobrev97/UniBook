@@ -1,12 +1,18 @@
 ﻿namespace UniBook.Data.Models
 {
-    public enum Genre
+    using System.Collections.Generic;
+
+    using UniBook.Data.Common.Models;
+
+    public class Genre : BaseDeletableModel<int>
     {
-        AdventureLiterature = 1,
-        ContemporaryNovel = 2,
-        Horror = 3,
-        Thriller = 4,
-        ScienceFiction = 5,
-        LoveNovels = 6,
+        public Genre()
+        {
+            this.Books = new HashSet<Book>();
+        }
+
+        public string Name { get; set; }
+
+        public ICollection<Book> Books { get; set; }
     }
 }
