@@ -84,22 +84,24 @@
         {
             int skip = (id - 1) * MaxBooks;
             var allBooks = books.Skip(skip).Take(MaxBooks).ToList();
+            var genres = this.service.GetGenres();
 
             int pageCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks);
             var viewModel = new BooksListViewModel
             {
                 Books = allBooks,
+                Genres = genres,
                 PaginationViewModel = new PaginationViewModel
                 {
                     CurrentPage = id,
                     PagesCount = pageCount,
                     DataCount = books.Count(),
-                    Controller = "Books",
-                    Action = "All",
+                    Controller = "Home",
+                    Action = "Index",
                 },
             };
 
-            return this.View("All", viewModel);
+            return this.View("Views/Home/Index.cshtml", viewModel);
         }
 
         private string GetUserId()

@@ -15,9 +15,9 @@
     }
 </script>
 
-<div class="container pt-5 my-3 bg-dark text-white">
+<div class="container pt-5 pl-lg-4 my-3 bg-dark text-white">
     <div class="row">
-        <div class="col-md-8 order-md-2 col-lg-9">
+        <div class="col-md-8 order-md-2 col-lg-9 ml-lg-auto">
             <div class="container-fluid">
                 <div class="row mb-5">
                     <div class="col-12">
@@ -55,76 +55,58 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 order-md-1 col-lg-3 sidebar-filter">
-            <h3 class="mt-0 mb-5 text-white">Tърсене</h3>
-            <h6 class="text-uppercase font-weight-bold mb-3 text-white">Автор</h6>
+        <form class="form-group ml-md-3" asp-controller="Books" asp-action="Search" method="post">
+            <h3 class="mt-0 mb-5 text-white pr-3">Tърсене</h3>
 
-            <form class="form-inline ">
-                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Намери автор"
-                       aria-label="Search">
-            </form>
+            <h6 class="text-uppercase font-weight-bold mb-3 text-white pr-3">Автор</h6>
+            <input class="form-control mr-3 w-100 pr-3" name="author" type="text" placeholder="Намери автор"
+                   aria-label="Search">
 
-            <h6 class="text-uppercase font-weight-bold mb-3 text-white">Книга</h6>
+            <h6 class="text-uppercase font-weight-bold mb-3 text-white pr-3">Книга</h6>
+            <input class="form-control w-100" type="text" name="bookName" placeholder="Намери книга"
+                   aria-label="Search">
 
-            <form class="form-inline ">
-                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Намери книга"
-                       aria-label="Search">
-            </form>
+            <div class="divider mt-5 mb-5 border-bottom border-secondary pr-3"></div>
 
-            <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
-            <h6 class="text-uppercase mt-5 mb-3 font-weight-bold text-white">Жанр</h6>
-            <div class="mt-2 mb-2 pl-2">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="filter-size-1">
-                    <label class="custom-control-label" for="filter-size-1">Приключения</label>
+            <h6 class="text-uppercase mt-5 mb-3 font-weight-bold text-white pr-3">Жанр</h6>
+            @foreach (var genre in Model.Genres)
+            {
+                <div class="form-check pr-3">
+                    <label class="form-check-label">
+                        <input type="checkbox" onclick="check()" class="form-check-input" name="genre" value="@genre.Name">
+                        <span class="ml-md-4">@genre.Name</span>
+                    </label>
                 </div>
-            </div>
-            <div class="mt-2 mb-2 pl-2">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="filter-size-2">
-                    <label class="custom-control-label" for="filter-size-2">Фантастика</label>
-                </div>
-            </div>
-            <div class="mt-2 mb-2 pl-2">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="filter-size-3">
-                    <label class="custom-control-label" for="filter-size-3">Любовни романи</label>
-                </div>
-            </div>
-            <div class="mt-2 mb-2 pl-2">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="filter-size-4">
-                    <label class="custom-control-label" for="filter-size-4">Трилър</label>
-                </div>
-            </div>
-            <div class="mt-2 mb-2 pl-2">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="filter-size-5">
-                    <label class="custom-control-label" for="filter-size-5">Хорър</label>
-                </div>
-            </div>
+            }
 
-            <input id="ex2" type="text" class="slider " value="50,150" data-slider-min="10" data-slider-max="200" data-slider-step="5" data-slider-value="[50,150]" data-value="50,150" style="display: none;">
-            <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
+            <div class="divider mt-5 mb-5 border-bottom border-secondary pr-3"></div>
 
             <div>
-                <label class="form-check-label p-3">
-                    <input type="checkbox" class="form-check-input pm-3">
+                <label class="form-check-label p-3 pr-3">
+                    <input type="checkbox" name="freeBook" class="form-check-input pm-3">
                     <span class="ml-md-4">Свободни</span>
                 </label>
             </div>
 
             <div>
-                <label class="form-check-label p-3">
-                    <input type="checkbox" class="form-check-input pm-3">
+                <label class="form-check-label p-3 pr-3">
+                    <input type="checkbox" name="paidBook" class="form-check-input pm-3">
                     <span class="ml-md-4">Платени</span>
                 </label>
             </div>
-            <a href="#" class="btn btn-lg btn-block btn-primary mt-5">Търсене</a>
-        </div>
+            <input type="submit" class="btn btn-lg btn-block btn-primary mt-5 pr-3" value="Търсене" />
 
+        </form>
     </div>
 </div>
+
+<script>
+    function check() {
+        $(this).prop('checked', 'checked');
+        //const checkbox = $('input[type=checkbox]');
+        //checkbox.attr('checked', 'checked');
+    }
+</script>
 
 @*<main class="main-content">
         <div class="container">

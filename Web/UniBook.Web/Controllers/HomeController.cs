@@ -31,10 +31,13 @@
                 .Take(maxBooks)
                 .ToList();
 
+            var genres = this.service.GetGenres();
+
             int pageCount = (int)Math.Ceiling(allBooks.Count() / (decimal)maxBooks);
             var viewModel = new BooksListViewModel
             {
                 Books = books,
+                Genres = genres,
                 PaginationViewModel = new PaginationViewModel
                 {
                     CurrentPage = id,

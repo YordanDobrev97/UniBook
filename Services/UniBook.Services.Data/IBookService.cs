@@ -1,8 +1,8 @@
 ﻿namespace UniBook.Services.Data
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels.Genres;
     using UniBook.Web.ViewModels.Payments;
 
     public interface IBookService
@@ -10,6 +10,8 @@
         IEnumerable<ListAllBooksViewModel> All();
 
         IEnumerable<ListAllBooksViewModel> GetAllFree();
+
+        IEnumerable<ListGenreViewModel> GetGenres();
 
         IEnumerable<ListAllBooksViewModel> Search(SearchBookViewModel search);
 

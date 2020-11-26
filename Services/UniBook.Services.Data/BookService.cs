@@ -7,6 +7,7 @@
     using UniBook.Data;
     using UniBook.Data.Models;
     using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels.Genres;
     using UniBook.Web.ViewModels.Payments;
 
     public class BookService : IBookService
@@ -116,39 +117,27 @@
 
         public IEnumerable<ListAllBooksViewModel> Search(SearchBookViewModel search)
         {
-            if (!string.IsNullOrWhiteSpace(search.BookName))
+            if (search.Author != null)
             {
-                return this.db.Books
-                        .Where(e => e.Name == search.BookName)
-                        .Select(e => new ListAllBooksViewModel
-                        {
-                            Id = e.Id,
-                            ImageUrl = e.ImageUrl,
-                            Votes = e.Votes,
-                        }).ToList();
+                return this.SearchByAuthor(search);
             }
 
-            if (!string.IsNullOrWhiteSpace(search.AuthorName))
+            if (search.BookName != null)
             {
-                return this.db.Books
-                        .Where(e => e.Author.Name == search.AuthorName)
-                        .Select(e => new ListAllBooksViewModel
-                        {
-                            Id = e.Id,
-                            ImageUrl = e.ImageUrl,
-                            Votes = e.Votes,
-                        }).ToList();
+                return this.SearchByBookName(search);
             }
 
-            int year = int.Parse(search.Year);
-            return this.db.Books
-                    .Where(e => e.YearOfIssue.Year == year)
-                    .Select(e => new ListAllBooksViewModel
-                    {
-                        Id = e.Id,
-                        ImageUrl = e.ImageUrl,
-                        Votes = e.Votes,
-                    }).ToList();
+            if (search.Genre != null)
+            {
+                return this.SearchByGenre(search);
+            }
+
+            if (search.FreeBook != null)
+            {
+                return this.SearchFreeBooks();
+            }
+
+            return this.SearchPaidBooks();
         }
 
         public BookDetailsViewModel PaymentDetails(int id, string userId)
@@ -164,6 +153,84 @@
                 }).FirstOrDefault();
 
             return book;
+        }
+
+        public IEnumerable<ListGenreViewModel> GetGenres()
+        {
+            return this.db.Genres
+                .Select(e => new ListGenreViewModel
+                {
+                    Name = e.Name,
+                }).ToList();
+        }
+
+        private IEnumerable<ListAllBooksViewModel> SearchByGenre(SearchBookViewModel search)
+        {
+            List<ListAllBooksViewModel> booksGenre = new List<ListAllBooksViewModel>();
+
+            foreach (var genre in search.Genre)
+            {
+                var books = this.db.Books
+                    .Where(e => e.Genre.Name == genre)
+                    .Select(e => new ListAllBooksViewModel
+                    {
+                        Id = e.Id,
+                        Name = e.Name,
+                        ImageUrl = e.ImageUrl,
+                    }).ToList();
+
+                booksGenre.AddRange(books);
+            }
+
+            return booksGenre;
+        }
+
+        private IEnumerable<ListAllBooksViewModel> SearchByAuthor(SearchBookViewModel search)
+        {
+            return this.db.Books
+                .Where(e => e.Author.Name == search.Author)
+                .Select(e => new ListAllBooksViewModel
+                {
+                    Id = e.Id,
+                    ImageUrl = e.ImageUrl,
+                    Votes = e.Votes,
+                }).ToList();
+        }
+
+        private IEnumerable<ListAllBooksViewModel> SearchByBookName(SearchBookViewModel search)
+        {
+            return this.db.Books
+                    .Where(e => e.Name == search.BookName)
+                    .Select(e => new ListAllBooksViewModel
+                    {
+                        Id = e.Id,
+                        ImageUrl = e.ImageUrl,
+                        Votes = e.Votes,
+                    }).ToList();
+        }
+
+        private IEnumerable<ListAllBooksViewModel> SearchPaidBooks()
+        {
+            return this.db.Books
+                .Where(e => !e.IsFree)
+                .Select(e => new ListAllBooksViewModel
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    ImageUrl = e.ImageUrl,
+                }).ToList();
+        }
+
+        private IEnumerable<ListAllBooksViewModel> SearchFreeBooks()
+        {
+            return this.db.Books
+                .Where(e => e.IsFree)
+                .Select(e => new ListAllBooksViewModel
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    ImageUrl = e.ImageUrl,
+                }).ToList();
         }
     }
 }
