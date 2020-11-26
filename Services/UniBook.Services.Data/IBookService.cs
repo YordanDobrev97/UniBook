@@ -13,7 +13,11 @@
 
         IEnumerable<ListGenreViewModel> GetGenres();
 
+        IEnumerable<ListAllBooksViewModel> SortByAlphabetical();
+
         IEnumerable<ListAllBooksViewModel> Search(SearchBookViewModel search);
+
+        
 
         IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId);
 

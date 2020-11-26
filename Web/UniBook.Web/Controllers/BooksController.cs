@@ -32,7 +32,7 @@
         public IActionResult All(int id)
         {
             var allBooks = this.service.All();
-            return this.PaginationBooks(id, allBooks);
+            return this.PaginationBooks(id, allBooks, "Books", "All");
         }
 
         public IActionResult ReadBook(int id)
@@ -75,12 +75,17 @@
         public IActionResult Search(SearchBookViewModel searchInput)
         {
             var books = this.service.Search(searchInput);
+            return this.PaginationBooks(1, books, "Books", "Search");
+        }
 
-            return this.PaginationBooks(1, books);
+        public IActionResult SortAlphabetical(int id)
+        {
+            var books = this.service.SortByAlphabetical();
+            return this.PaginationBooks(id, books, "Books", "SortAlphabetical");
         }
 
         public IActionResult PaginationBooks(
-            int id, IEnumerable<ListAllBooksViewModel> books)
+            int id, IEnumerable<ListAllBooksViewModel> books, string controller = "Home", string action = "Index")
         {
             int skip = (id - 1) * MaxBooks;
             var allBooks = books.Skip(skip).Take(MaxBooks).ToList();
@@ -96,8 +101,8 @@
                     CurrentPage = id,
                     PagesCount = pageCount,
                     DataCount = books.Count(),
-                    Controller = "Home",
-                    Action = "Index",
+                    Controller = controller,
+                    Action = action,
                 },
             };
 
