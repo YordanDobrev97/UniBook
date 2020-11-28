@@ -25,7 +25,7 @@
         <link href="~/css/details.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/reviews.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/readed-books.css" rel="stylesheet" asp-append-version="true" />
-
+        <link href="~/css/profile/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
 
     </environment>
@@ -66,7 +66,7 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="menu-item"><a asp-area="" asp-controller="" asp-action="">Профил</a></li>
+                        <li class="menu-item"><a asp-controller="Profile" asp-action="Details">Профил</a></li>
 
                         @if (User.IsInRole("Administrator"))
                         {
