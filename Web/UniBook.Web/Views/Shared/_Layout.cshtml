@@ -64,7 +64,7 @@
                         <a asp-area="Forum" asp-controller="Home" asp-action="Index">Форум</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-controller="Friends" asp-action="Index">Потребители</a>
+                        <a asp-area="" asp-controller="Friends" asp-action="Index">Потребители</a>
                     </li>
 
                     @if (User.Identity.IsAuthenticated)

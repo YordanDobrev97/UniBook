@@ -1,4 +1,7 @@
-﻿<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+﻿@using UniBook.Web.ViewModels.Friends
+@model ProfileDetailsViewModel
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-md-4">
@@ -35,6 +38,12 @@
                             <a href="#settings" data-toggle="tab" aria-expanded="false">
                                 <span class="visible-xs"><i class="fa fa-cog"></i></span>
                                 <span class="hidden-xs">Приятели</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="#settings" data-toggle="tab" aria-expanded="false">
+                                <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                                <span class="hidden-xs">Заявки за приятелство</span>
                             </a>
                         </li>
                     </ul>
@@ -158,198 +167,21 @@
                             <div class="profile-content">
                                 <div class="tab-content p-0">
                                     <div class="tab-pane fade in active show" id="profile-friends">
-                                        <h4 class="m-t-0 m-b-20">Friend List (14)</h4>
+                                        <h4 class="m-t-0 m-b-20">Приятели</h4>
                                         <div class="row row-space-2">
                                             <div class="col-md-6 m-b-2">
                                                 <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">James Pittman</b>
+                                                    @foreach (var friend in Model.Friends)
+                                                    {
+                                                        <div class="media media-xs overflow-visible">
+                                                            <a class="media-left" href="javascript:;">
+                                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="media-object img-circle">
+                                                            </a>
+                                                            <div class="media-body valign-middle">
+                                                                <b class="text-inverse">@friend.Username</b>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Mitchell Ashcroft</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Ella Cabena</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Declan Dyson</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">George Seyler</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Patrick Musgrove</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Taj Connal</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Laura Pollock</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Dakota Mannix</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Timothy Woolley</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Benjamin Congreve</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Mariam Maddock</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end col-6 -->
-                                            <!-- begin col-6 -->
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Blake Gerrald</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="javascript:;">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="" class="media-object img-circle">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <b class="text-inverse">Gabrielle Bunton</b>
-                                                        </div>
-                                                    </div>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
