@@ -50,6 +50,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <ul class="menu">
                     <li class="menu-item current-menu-item">
                         <a asp-area="" asp-controller="Home" asp-action="Index">Начална страница</a>
@@ -79,14 +80,12 @@
                         }
 
                         <li class="menu-item">
-                            @*<a asp-area="Identity" asp-controller="Account" asp-action="Logout">
-                    Изход
-                </a>*@
-
                             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
                                 <button class="btn btn-link" type="submit">Изход</button>
                             </form>
                         </li>
+
+                        <partial name="_RequestFriendPartial"/>
                     }
                     else
                     {

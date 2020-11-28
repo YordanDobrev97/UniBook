@@ -1,0 +1,16 @@
+﻿@using UniBook.Services.Data
+@using System.Security.Claims
+@inject IUsersService UserService
+
+@{
+    var isReceivedRequestFriend = UserService.CheckIsRecivedFriendRequest(
+        User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+    if (isReceivedRequestFriend)
+    {
+        <div class="alert alert-secondary" role="alert">
+            Получи заявка за приятелство
+            <a class="btn btn-link">Погледни</a>
+        </div>
+    }
+}

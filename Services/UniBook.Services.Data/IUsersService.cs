@@ -11,6 +11,8 @@
 
         bool SaveBookPage(ReadBookViewModel value, string userId);
 
+        bool CheckIsRecivedFriendRequest(string id);
+
         void VoteBook(VoteBookViewModel bookViewModel, string userId);
 
         void AddToReadedBooks(ReadBookViewModel value, string userId);

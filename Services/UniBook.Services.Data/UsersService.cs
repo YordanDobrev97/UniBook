@@ -62,6 +62,11 @@
             return true;
         }
 
+        public bool CheckIsRecivedFriendRequest(string id)
+        {
+            return this.db.UserFriendRequests.Any(e => e.Receiver.Id == id);
+        }
+
         public void VoteBook(VoteBookViewModel bookViewModel, string userId)
         {
             var bookVote = this.db.BookVotes
