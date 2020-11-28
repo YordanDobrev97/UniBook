@@ -26,6 +26,7 @@
                 {
                     Id = b.Id,
                     Name = b.Name,
+                    Author = b.Author.Name,
                     ImageUrl = b.ImageUrl,
                     Votes = b.Votes,
                 }).ToList();

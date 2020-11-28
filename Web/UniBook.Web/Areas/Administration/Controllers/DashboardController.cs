@@ -1,25 +1,93 @@
 ﻿namespace UniBook.Web.Areas.Administration.Controllers
 {
-    using System.Threading.Tasks;
-
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using UniBook.Data;
+    using UniBook.Data.Models;
     using UniBook.Services.Data;
     using UniBook.Web.Areas.Administration.ViewModels.Dashboard;
 
-    using Microsoft.AspNetCore.Mvc;
-
     public class DashboardController : AdministrationController
     {
-        private readonly ISettingsService settingsService;
+        private readonly IBookService bookService;
+        private readonly IPostsService postsService;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly ApplicationDbContext db;
 
-        public DashboardController(ISettingsService settingsService)
+        public DashboardController(
+            IBookService bookService,
+            IPostsService postsService,
+            UserManager<ApplicationUser> userManager,
+            ApplicationDbContext db)
         {
-            this.settingsService = settingsService;
+            this.bookService = bookService;
+            this.postsService = postsService;
+            this.userManager = userManager;
+            this.db = db;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = await this.settingsService.GetCountAsync(), };
+            var books = this.bookService.All();
+            var posts = this.postsService.All();
+            var users = this.userManager.Users.ToList();
+
+            var viewModel = new IndexViewModel
+            {
+                Books = books,
+                Posts = posts,
+                Users = users,
+            };
+
             return this.View(viewModel);
+        }
+
+        public IActionResult AddBook()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult AddBook(AddBookViewModel input)
+        {
+            StringBuilder body = new StringBuilder();
+
+            using (var stream = input.Body.OpenReadStream())
+            {
+                var reader = new StreamReader(stream);
+                body.AppendLine(reader.ReadToEnd());
+            }
+
+            var author = new Author
+            {
+                Name = input.Author,
+            };
+
+            var genre = new Genre
+            {
+                Name = input.Genre,
+            };
+
+            var book = new Book
+            {
+                Name = input.BookName,
+                CreatedOn = DateTime.UtcNow,
+                ImageUrl = input.ImageUrl,
+                Body = body.ToString(),
+                Author = author,
+                Votes = 0,
+                IsDeleted = false,
+                Genre = genre,
+                Price = input.Price,
+            };
+
+            this.db.Books.Add(book);
+            this.db.SaveChanges();
+            return this.RedirectToAction("Index");
         }
     }
 }

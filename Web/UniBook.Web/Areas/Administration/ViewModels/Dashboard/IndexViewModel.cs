@@ -1,7 +1,17 @@
 ﻿namespace UniBook.Web.Areas.Administration.ViewModels.Dashboard
 {
+    using System.Collections.Generic;
+
+    using UniBook.Data.Models;
+    using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels.Posts;
+
     public class IndexViewModel
     {
-        public int SettingsCount { get; set; }
+        public IEnumerable<ListAllBooksViewModel> Books { get; set; }
+
+        public IEnumerable<DetailsPostViewModel> Posts { get; set; }
+
+        public IEnumerable<ApplicationUser> Users { get; set; }
     }
 }
