@@ -1,11 +1,13 @@
 ﻿namespace UniBook.Services.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using UniBook.Data;
     using UniBook.Data.Models;
     using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels.Friends;
 
     public class UsersService : IUsersService
     {
@@ -15,6 +17,18 @@
         public UsersService(ApplicationDbContext db)
         {
             this.db = db;
+        }
+
+        public IEnumerable<ListUsersViewModel> All(string userId)
+        {
+            var users = this.db.Users
+                .Where(e => e.Id != userId)
+                .Select(e => new ListUsersViewModel
+                {
+                    Username = e.UserName,
+                }).ToList();
+
+            return users;
         }
 
         public bool SaveBookPage(ReadBookViewModel bookViewModel, string userId)

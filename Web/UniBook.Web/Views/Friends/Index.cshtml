@@ -1,73 +1,29 @@
-﻿
-<div class="container">
-    <div class="top">
-        <h2>Friend's List</h2>
-    </div>
-    <div class="row">
-        <div class="shadow">
-            <div class="col-sm-12">
-                <div class="col-sm-2">
-                    <img src="https://pbs.twimg.com/profile_images/514883256/john-cena71_400x400.jpg" class="img-circle" width="60">
-                </div>
-                <div class="col-sm-8">
-                    <h4><a href="#">Rahul Jain</a></h4>
-                    <p><a href="#">4 mutual friends</a></p>
-                </div>
-                <div class="col-sm-2">
-                    <img src="https://pbs.twimg.com/profile_images/514883256/john-cena71_400x400.jpg" alt="group" width="40" />
-                    <br>
-                    <a href="#">Send Request</a>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <hr />
-            <div class="col-sm-12">
-                <div class="col-sm-2">
-                    <img src="https://pbs.twimg.com/profile_images/514883256/john-cena71_400x400.jpg" class="img-circle" width="60">
-                </div>
-                <div class="col-sm-8">
-                    <h4><a href="#">Ram Ranga Swami</a></h4>
-                    <p><a href="#">4 mutual friends</a></p>
-                </div>
-                <div class="col-sm-2">
-                    <img src="https://pbs.twimg.com/profile_images/514883256/john-cena71_400x400.jpg" alt="group" width="40" />
-                    <br>
-                    <a href="#">Send Request</a>
+﻿@using UniBook.Web.ViewModels.Friends
+@model IEnumerable<ListUsersViewModel>
+
+<div class="profile-content">
+    <div class="tab-content p-0">
+        <div class="tab-pane fade in active show bg-light" id="profile-friends">
+            <h4 class="m-t-0 m-b-20">Всички потребители</h4>
+            <div class="row row-space-2">
+                <div class="col-md-6 m-b-2">
+                    <div class="p-10 bg-white">
+                        @foreach (var user in Model)
+                        {
+                            <div class="media media-xs overflow-visible m-md-4">
+                                <a class="media-left" href="javascript:;">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="media-object img-circle">
+                                </a>
+                                <div class="media-body valign-middle">
+                                    <p class="text-inverse">@user.Username</p>
+
+                                    <button class="btn btn-secondary">Добави в приятели</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
-            <div class="clearfix"></div>
-            <hr />
-            <div class="col-sm-12">
-                <div class="col-sm-2">
-                    <img src="https://pbs.twimg.com/profile_images/514883256/john-cena71_400x400.jpg" class="img-circle" width="60">
-                </div>
-                <div class="col-sm-8">
-                    <h4><a href="#">Ram Ranga Swami</a></h4>
-                    <p><a href="#">4 mutual friends</a></p>
-                </div>
-                <div class="col-sm-2">
-                    <img src="https://pbs.twimg.com/profile_images/514883256/john-cena71_400x400.jpg" alt="group" width="40" />
-                    <br>
-                    <a href="#">Send Request</a>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <hr />
-            <div class="col-sm-12">
-                <div class="col-sm-2">
-                    <img src="https://pbs.twimg.com/profile_images/514883256/john-cena71_400x400.jpg" class="img-circle" width="60">
-                </div>
-                <div class="col-sm-8">
-                    <h4><a href="#">Ram Ranga Swami</a></h4>
-                    <p><a href="#">4 mutual friends</a></p>
-                </div>
-                <div class="col-sm-2">
-                    <img src="https://pbs.twimg.com/profile_images/514883256/john-cena71_400x400.jpg" alt="group" width="40" />
-                    <br>
-                    <a href="#">Send Request</a>
-                </div>
-            </div>
-            <div class="clearfix"></div>
         </div>
     </div>
 </div>
