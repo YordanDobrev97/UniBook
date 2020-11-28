@@ -75,7 +75,15 @@
                             </li>
                         }
 
-                        <li class="menu-item"><a href="#">Изход</a></li>
+                        <li class="menu-item">
+                            @*<a asp-area="Identity" asp-controller="Account" asp-action="Logout">
+                                Изход
+                            </a>*@
+
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                                <button class="btn btn-link" type="submit" >Изход</button>
+                            </form>
+                        </li>
                     }
                     else
                     {

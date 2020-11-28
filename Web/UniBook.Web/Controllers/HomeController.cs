@@ -3,8 +3,10 @@
     using System;
     using System.Diagnostics;
     using System.Linq;
-
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using UniBook.Data.Models;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels;
     using UniBook.Web.ViewModels.Books;
@@ -12,10 +14,14 @@
     public class HomeController : BaseController
     {
         private readonly IBookService service;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public HomeController(IBookService service)
+        public HomeController(
+            IBookService service,
+            SignInManager<ApplicationUser> signInManager)
         {
             this.service = service;
+            this.signInManager = signInManager;
         }
 
         public IActionResult Index(int id)
@@ -49,6 +55,13 @@
             };
 
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await this.signInManager.SignOutAsync();
+            return this.RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
