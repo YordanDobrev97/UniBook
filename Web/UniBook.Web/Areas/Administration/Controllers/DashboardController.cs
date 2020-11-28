@@ -89,5 +89,13 @@
             this.db.SaveChanges();
             return this.RedirectToAction("Index");
         }
+
+        public IActionResult Delete(int id)
+        {
+            var book = this.db.Books.FirstOrDefault(e => e.Id == id);
+            book.IsDeleted = true;
+            this.db.SaveChanges();
+            return this.RedirectToAction("Index");
+        }
     }
 }

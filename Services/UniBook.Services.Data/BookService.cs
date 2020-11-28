@@ -22,6 +22,7 @@
         public IEnumerable<ListAllBooksViewModel> All()
         {
             var allBooks = this.db.Books
+                .Where(e => !e.IsDeleted)
                 .Select(b => new ListAllBooksViewModel
                 {
                     Id = b.Id,

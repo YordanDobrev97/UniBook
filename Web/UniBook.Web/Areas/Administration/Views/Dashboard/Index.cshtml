@@ -22,16 +22,13 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            @*<div class="m-r-10">
-                                                    <img width="100" height="100" class="btn btn-circle btn-info text-white" src="@book.ImageUrl" />
-                                                </div>*@
                                             <div class="">
                                                 <h4 class="m-b-0 font-16">@book.Name</h4>
                                             </div>
                                         </div>
                                     </td>
                                     <td>@book.Author</td>
-                                    <td><a asp-controller="" asp-action="" asp-route-id="@book.Id" class="btn btn-danger">Delete</a></td>
+                                    <td><a asp-area="Administration" asp-controller="Dashboard" asp-action="Delete"  asp-route-id="@book.Id" class="btn btn-danger">Delete</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -55,7 +52,7 @@
                                     <td>@post.Author</td>
                                     <td>@post.Comments.Count</td>
                                     <td>
-                                        <a asp-controller="" asp-action="" asp-route-id="@post.Id" class="btn btn-info">Details</a>
+                                        <a asp-area="" asp-controller="" asp-action="" asp-route-id="@post.Id" class="btn btn-info">Details</a>
                                     </td>
                                 </tr>
                             }
