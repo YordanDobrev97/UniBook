@@ -18,6 +18,9 @@ namespace UniBook.Data.Models
             this.Posts = new HashSet<Post>();
             this.ReadedBooks = new HashSet<ReadedBook>();
             this.Payments = new HashSet<Payment>();
+            this.Friends = new HashSet<Friend>();
+            this.FriendRequestSend = new HashSet<FriendRequest>();
+            this.FriendRequestReceived = new HashSet<FriendRequest>();
         }
 
         // Audit info
@@ -35,6 +38,12 @@ namespace UniBook.Data.Models
         public ICollection<ReadedBook> ReadedBooks { get; set; }
 
         public ICollection<Payment> Payments { get; set; }
+
+        public ICollection<Friend> Friends { get; set; }
+
+        public ICollection<FriendRequest> FriendRequestSend { get; set; }
+
+        public ICollection<FriendRequest> FriendRequestReceived { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

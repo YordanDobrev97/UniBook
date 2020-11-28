@@ -33,6 +33,10 @@
 
         public DbSet<UserBook> UserBooks { get; set; }
 
+        public DbSet<Friend> UserFriends { get; set; }
+
+        public DbSet<FriendRequest> UserFriendRequests { get; set; }
+
         public DbSet<BookVotes> BookVotes { get; set; }
 
         public DbSet<BookComment> BookComments { get; set; }
@@ -80,6 +84,18 @@
             ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Friends)
+                .WithOne(e => e.Receiver);
+
+            builder.Entity<FriendRequest>()
+                .HasOne(e => e.Sender)
+                .WithMany(e => e.FriendRequestSend);
+
+            builder.Entity<FriendRequest>()
+                .HasOne(e => e.Receiver)
+                .WithMany(e => e.FriendRequestReceived);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
