@@ -19,15 +19,23 @@
             this.friendService = friendService;
         }
 
-        public IActionResult Index(string reciverId)
+        public IActionResult Index()
         {
             string userId = this.UserId();
             var users = this.usersService.All(userId);
 
             foreach (var user in users)
             {
-                var isFriend = this.friendService.IsFriends(userId, user.Username);
-                if (isFriend)
+                var isAdded = this.friendService.IsAlreadyFriend(userId, user.Username);
+
+                if (isAdded)
+                {
+                    user.IsAlreadyFriend = true;
+                    continue;
+                }
+
+                var isSendRequestFriend = this.friendService.IsSendRequestFriendship(userId, user.Username);
+                if (isSendRequestFriend)
                 {
                     user.IsSendRequest = true;
                 }
@@ -41,7 +49,16 @@
         {
             var userId = this.UserId();
             string reciverId = this.friendService.SendRequest(userId, input.Username);
-            return this.RedirectToAction("Index", new { reciverId = reciverId});
+            return this.RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Accept(AcceptFriendshipRequest input)
+        {
+            var userId = this.UserId();
+            this.friendService.Accept(userId, input.Username);
+            this.friendService.UpdateStatus(input.Username, userId);
+            return this.RedirectToAction("Details", "Profile");
         }
 
         private string UserId()

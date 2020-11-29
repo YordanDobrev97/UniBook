@@ -17,7 +17,12 @@
                                 <div class="media-body valign-middle">
                                     <p class="text-inverse">@user.Username</p>
 
-                                    @if (!user.IsSendRequest)
+
+                                    @if (user.IsAlreadyFriend)
+                                    {
+                                        <p class="btn btn-secondary">В Приятели</p>
+                                    }
+                                    else if (!user.IsSendRequest)
                                     {
                                         <form asp-controller="Friends" asp-action="RequestFriend">
                                             <input hidden="hidden" name="username" value="@user.Username" />

@@ -35,13 +35,13 @@
                             </a>
                         </li>
                         <li class="active">
-                            <a href="#settings" data-toggle="tab" aria-expanded="false">
+                            <a href="#friends" data-toggle="tab" aria-expanded="false">
                                 <span class="visible-xs"><i class="fa fa-cog"></i></span>
                                 <span class="hidden-xs">Приятели</span>
                             </a>
                         </li>
                         <li class="active">
-                            <a href="#settings" data-toggle="tab" aria-expanded="false">
+                            <a href="#requests" data-toggle="tab" aria-expanded="false">
                                 <span class="visible-xs"><i class="fa fa-cog"></i></span>
                                 <span class="hidden-xs">Заявки за приятелство</span>
                             </a>
@@ -106,64 +106,9 @@
                                         <p class="text-muted text-center"><small>Photography</small></p>
                                     </div>
                                 </div>
-
-                                <div class="col-sm-4">
-                                    <div class="gal-detail thumb">
-                                        <a href="#" class="image-popup" title="Screenshot-2">
-                                            <img src="https://via.placeholder.com/400x300/87CEFA" class="thumb-img" alt="work-thumbnail">
-                                        </a>
-                                        <h4 class="text-center">Gallary Image</h4>
-                                        <div class="ga-border"></div>
-                                        <p class="text-muted text-center"><small>Photography</small></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="gal-detail thumb">
-                                        <a href="#" class="image-popup" title="Screenshot-2">
-                                            <img src="https://via.placeholder.com/400x300/B0C4DE" class="thumb-img" alt="work-thumbnail">
-                                        </a>
-                                        <h4 class="text-center">Gallary Image</h4>
-                                        <div class="ga-border"></div>
-                                        <p class="text-muted text-center"><small>Photography</small></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="gal-detail thumb">
-                                        <a href="#" class="image-popup" title="Screenshot-2">
-                                            <img src="https://via.placeholder.com/400x300/ADD8E6" class="thumb-img" alt="work-thumbnail">
-                                        </a>
-                                        <h4 class="text-center">Gallary Image</h4>
-                                        <div class="ga-border"></div>
-                                        <p class="text-muted text-center"><small>Photography</small></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="gal-detail thumb">
-                                        <a href="#" class="image-popup" title="Screenshot-2">
-                                            <img src="https://via.placeholder.com/400x300/D3D3D3" class="thumb-img" alt="work-thumbnail">
-                                        </a>
-                                        <h4 class="text-center">Gallary Image</h4>
-                                        <div class="ga-border"></div>
-                                        <p class="text-muted text-center"><small>Photography</small></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="gal-detail thumb">
-                                        <a href="#" class="image-popup" title="Screenshot-2">
-                                            <img src="https://via.placeholder.com/400x300/48D1CC" class="thumb-img" alt="work-thumbnail">
-                                        </a>
-                                        <h4 class="text-center">Gallary Image</h4>
-                                        <div class="ga-border"></div>
-                                        <p class="text-muted text-center"><small>Photography</small></p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="settings">
+                        <div class="tab-pane" id="friends">
                             <div class="profile-content">
                                 <div class="tab-content p-0">
                                     <div class="tab-pane fade in active show" id="profile-friends">
@@ -179,6 +124,37 @@
                                                             </a>
                                                             <div class="media-body valign-middle">
                                                                 <b class="text-inverse">@friend.Username</b>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="requests">
+                            <div class="profile-content">
+                                <div class="tab-content p-0">
+                                    <div class="tab-pane fade in active show" id="profile-friends">
+                                        <h4 class="m-t-0 m-b-20">Заявки за приятелство</h4>
+                                        <div class="row row-space-2">
+                                            <div class="col-md-6 m-b-2">
+                                                <div class="p-10 bg-white">
+                                                    @foreach (var friend in Model.RecivedFriendshipRequests)
+                                                    {
+                                                        <div class="media media-xs overflow-visible">
+                                                            <a class="media-left" href="javascript:;">
+                                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="media-object img-circle">
+                                                            </a>
+                                                            <div class="media-body valign-middle">
+                                                                <span class="text-inverse">@friend.Username</span>
+                                                                <form method="post" asp-controller="Friends" asp-action="Accept">
+                                                                    <input hidden="hidden" name="username" value="@friend.Username"/>
+                                                                    <button type="submit" class="btn btn-success">Одобри приятелство</button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     }

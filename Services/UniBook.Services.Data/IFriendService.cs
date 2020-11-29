@@ -6,10 +6,16 @@
 
     public interface IFriendService
     {
-        ProfileDetailsViewModel All();
+        ProfileDetailsViewModel All(string userId);
 
         string SendRequest(string senderId, string username);
 
-        bool IsFriends(string userId, string username);
+        bool IsSendRequestFriendship(string userId, string username);
+
+        bool IsAlreadyFriend(string userId, string username);
+
+        void Accept(string senderId, string reciverId);
+
+        void UpdateStatus(string senderId, string reciverId);
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
 
@@ -14,7 +16,8 @@
 
         public IActionResult Details()
         {
-            var viewModel = this.friendService.All();
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var viewModel = this.friendService.All(userId);
             return this.View(viewModel);
         }
     }

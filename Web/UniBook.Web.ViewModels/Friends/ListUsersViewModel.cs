@@ -5,5 +5,7 @@
         public string Username { get; set; }
 
         public bool IsSendRequest { get; set; }
+
+        public bool IsAlreadyFriend { get; set; }
     }
 }

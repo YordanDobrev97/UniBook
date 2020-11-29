@@ -64,7 +64,9 @@
 
         public bool CheckIsRecivedFriendRequest(string id)
         {
-            return this.db.UserFriendRequests.Any(e => e.Receiver.Id == id);
+            return this.db.UserFriendRequests
+                .Where(e => e.Status != FriendRequestStatus.Accepted)
+                .Any(e => e.Receiver.Id == id);
         }
 
         public void VoteBook(VoteBookViewModel bookViewModel, string userId)

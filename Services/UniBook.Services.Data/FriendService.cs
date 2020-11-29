@@ -1,5 +1,7 @@
 ﻿namespace UniBook.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -16,23 +18,53 @@
             this.db = db;
         }
 
-        public ProfileDetailsViewModel All()
+        public ProfileDetailsViewModel All(string userId)
         {
-            var friends = this.db.UserFriends
+            List<ListUsersViewModel> friends = null;
+
+            if (this.db.UserFriends.Any(e => e.ReceiverId == userId))
+            {
+                friends = this.db.UserFriends
+                .Where(e => !e.IsDeleted && e.ReceiverId == userId)
+                .Select(e => new ListUsersViewModel
+                {
+                    Username = e.Sender.UserName,
+                }).ToList();
+            }
+            else
+            {
+                friends = this.db.UserFriends
+                .Where(e => !e.IsDeleted && e.SenderId == userId)
                 .Select(e => new ListUsersViewModel
                 {
                     Username = e.Receiver.UserName,
                 }).ToList();
+            }
 
+            var recivedRequests = this.db.UserFriendRequests
+                .Where(e => e.Status != FriendRequestStatus.Accepted)
+                .Select(e => new ReceivedFriendshipRequest
+                {
+                    Id = e.SenderId,
+                    Username = e.Sender.UserName,
+                }).ToList();
             var viewModel = new ProfileDetailsViewModel
             {
                 Friends = friends,
+                RecivedFriendshipRequests = recivedRequests,
             };
 
             return viewModel;
         }
 
-        public bool IsFriends(string userId, string username)
+        public bool IsAlreadyFriend(string userId, string username)
+        {
+            var user = this.FindReciver(username);
+            return this.db.UserFriends.Any(
+                e => (e.SenderId == userId && e.ReceiverId == user.Id) || (e.SenderId == user.Id && e.ReceiverId == userId));
+        }
+
+        public bool IsSendRequestFriendship(string userId, string username)
         {
             var user = this.FindReciver(username);
             return this.db.UserFriendRequests
@@ -57,6 +89,38 @@
             this.db.SaveChanges();
 
             return reciver.Id;
+        }
+
+        public void Accept(string senderId, string username)
+        {
+            var reciver = this.FindReciver(username);
+            if (this.db.UserFriends.Any(e => e.SenderId == senderId
+            && e.ReceiverId == reciver.Id))
+            {
+                return;
+            }
+
+            this.db.UserFriends.Add(new Friend
+            {
+                SenderId = senderId,
+                ReceiverId = reciver.Id,
+                CreatedOn = DateTime.UtcNow,
+            });
+
+            this.db.SaveChanges();
+        }
+
+        public void UpdateStatus(string username, string sender)
+        {
+            var reciver = this.FindReciver(username);
+            var request = this.db.UserFriendRequests
+                .FirstOrDefault(e => e.SenderId == reciver.Id && e.ReceiverId == sender);
+
+            if (request != null)
+            {
+                request.Status = FriendRequestStatus.Accepted;
+                this.db.SaveChanges();
+            }
         }
 
         private ApplicationUser FindReciver(string username)
