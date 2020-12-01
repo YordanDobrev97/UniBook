@@ -32,7 +32,6 @@
                 .All();
 
             var books = allBooks
-                .OrderByDescending(e => e.Votes)
                 .Skip(skip)
                 .Take(maxBooks)
                 .ToList();
