@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
+    <PackageReference Include="font-awesome" Version="4.7.0" />
     <PackageReference Include="Hangfire.Core" Version="1.7.*" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.*" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.*" />
