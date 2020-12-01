@@ -66,6 +66,18 @@
             return books;
         }
 
+        public IEnumerable<ListAllBooksViewModel> SortByLikes()
+        {
+            return this.db.Books
+                .OrderByDescending(x => x.Votes)
+                .Select(x => new ListAllBooksViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ImageUrl = x.ImageUrl,
+                }).ToList();
+        }
+
         public IEnumerable<ListAllBooksViewModel> Search(SearchBookViewModel search)
         {
             if (search.Author != null)

@@ -84,6 +84,12 @@
             return this.PaginationBooks(id, books, "Books", "SortAlphabetical");
         }
 
+        public IActionResult SortByLikes(int id)
+        {
+            var books = this.service.SortByLikes();
+            return this.PaginationBooks(id, books, "Books", "SortByLikes");
+        }
+
         public IActionResult PaginationBooks(
             int id, IEnumerable<ListAllBooksViewModel> books, string controller = "Home", string action = "Index")
         {
