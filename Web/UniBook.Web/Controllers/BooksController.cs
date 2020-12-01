@@ -91,11 +91,14 @@
             var allBooks = books.Skip(skip).Take(MaxBooks).ToList();
             var genres = this.service.GetGenres();
 
+            var years = this.service.All().Select(x => x.Year).ToList();
+
             int pageCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks);
             var viewModel = new BooksListViewModel
             {
                 Books = allBooks,
                 Genres = genres,
+                Years = years,
                 PaginationViewModel = new PaginationViewModel
                 {
                     CurrentPage = id,

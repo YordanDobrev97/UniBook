@@ -30,6 +30,7 @@
                     Author = b.Author.Name,
                     ImageUrl = b.ImageUrl,
                     Votes = b.Votes,
+                    Year = b.YearOfIssue.Year,
                 }).ToList();
 
             return allBooks;
@@ -87,7 +88,12 @@
                 return this.SearchFreeBooks();
             }
 
-            return this.SearchPaidBooks();
+            if (search.PaidBook != null)
+            {
+                return this.SearchPaidBooks();
+            }
+
+            return this.SearchByYear(search);
         }
 
         public IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId)
@@ -223,6 +229,22 @@
                         ImageUrl = e.ImageUrl,
                         Votes = e.Votes,
                     }).ToList();
+        }
+
+        private IEnumerable<ListAllBooksViewModel> SearchByYear(SearchBookViewModel search)
+        {
+            var books = this.db.Books
+                .Where(x => x.YearOfIssue.Year == search.Year)
+                .Select(x => new ListAllBooksViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ImageUrl = x.ImageUrl,
+                    Votes = x.Votes,
+                    Year = x.YearOfIssue.Year,
+                }).ToList();
+
+            return books;
         }
 
         private IEnumerable<ListAllBooksViewModel> SearchPaidBooks()

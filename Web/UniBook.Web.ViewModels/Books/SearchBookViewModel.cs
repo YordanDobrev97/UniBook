@@ -13,5 +13,7 @@
         public string FreeBook { get; set; }
 
         public string PaidBook { get; set; }
+
+        public int Year { get; set; }
     }
 }

@@ -2,6 +2,10 @@
 
 @{ this.ViewData["Title"] = "Home Page"; }
 
+@{ 
+    var years = this.Model.Years.Select(y => 
+    new SelectListItem(y.ToString(), y.ToString()));
+}
 <script>
     function sort() {
         const divItem = $('.dropdown-menu');
@@ -57,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <form class="form-group ml-md-3" asp-controller="Books" asp-action="Search" method="post">
+        <form class="form-group ml-md-3" asp-controller="Books" asp-action="Search" method="get">
             <h3 class="mt-0 mb-5 text-white pr-3">Tърсене</h3>
 
             <h6 class="text-uppercase font-weight-bold mb-3 text-white pr-3">Автор</h6>
@@ -67,6 +71,12 @@
             <h6 class="text-uppercase font-weight-bold mb-3 text-white pr-3">Книга</h6>
             <input class="form-control w-100" type="text" name="bookName" placeholder="Намери книга"
                    aria-label="Search">
+
+            <div>
+                <h6 class="text-uppercase font-weight-bold mb-3 text-white pr-3">Година</h6>
+                <select name="year" asp-items="years"></select>
+            </div>
+
 
             <div class="divider mt-5 mb-5 border-bottom border-secondary pr-3"></div>
 
@@ -109,22 +119,6 @@
         //checkbox.attr('checked', 'checked');
     }
 </script>
-
-@*<main class="main-content">
-        <div class="container">
-            <div class="page">
-                <div class="row">
-                    @foreach (var item in Model.Books)
-                    {
-                        <div class="col-md-2 m-2">
-                            <img class="d-inline" src=@item.ImageUrl alt="Movie 1">
-                            <a asp-area="" asp-action="Details" asp-controller="Books" asp-route-id=@item.Id class="btn btn-info btn-lg">Детайли</a>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </main>*@
 
 @{
     var pagination = Model.PaginationViewModel;
