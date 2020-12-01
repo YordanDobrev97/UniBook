@@ -84,6 +84,12 @@
             return this.PaginationBooks(id, books, "Books", "SortAlphabetical");
         }
 
+        public IActionResult SortLatestAdded(int id)
+        {
+            var books = this.service.SortLatestAdded();
+            return this.PaginationBooks(id, books, "Books", "SortAlphabetical");
+        }
+
         public IActionResult SortByLikes(int id)
         {
             var books = this.service.SortByLikes();

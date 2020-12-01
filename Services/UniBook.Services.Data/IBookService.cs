@@ -17,6 +17,8 @@
 
         IEnumerable<ListAllBooksViewModel> SortByLikes();
 
+        IEnumerable<ListAllBooksViewModel> SortLatestAdded();
+
         IEnumerable<ListAllBooksViewModel> Search(SearchBookViewModel search);
 
         IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId);
