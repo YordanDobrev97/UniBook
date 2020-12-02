@@ -311,8 +311,8 @@ namespace UniBook.Data.Migrations
                     b.Property<int>("Votes")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("YearOfIssue")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("YearIssuedId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -321,6 +321,8 @@ namespace UniBook.Data.Migrations
                     b.HasIndex("GenreId");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("YearIssuedId");
 
                     b.ToTable("Books");
                 });
@@ -780,6 +782,35 @@ namespace UniBook.Data.Migrations
                     b.ToTable("UserBooks");
                 });
 
+            modelBuilder.Entity("UniBook.Data.Models.YearIssued", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("YearOfIssue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("YearIssueds");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("UniBook.Data.Models.ApplicationRole", null)
@@ -842,6 +873,10 @@ namespace UniBook.Data.Migrations
                     b.HasOne("UniBook.Data.Models.Genre", "Genre")
                         .WithMany("Books")
                         .HasForeignKey("GenreId");
+
+                    b.HasOne("UniBook.Data.Models.YearIssued", "YearIssued")
+                        .WithMany("Books")
+                        .HasForeignKey("YearIssuedId");
                 });
 
             modelBuilder.Entity("UniBook.Data.Models.BookComment", b =>

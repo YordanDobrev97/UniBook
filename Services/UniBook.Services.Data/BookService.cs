@@ -30,7 +30,7 @@
                     Author = b.Author.Name,
                     ImageUrl = b.ImageUrl,
                     Votes = b.Votes,
-                    Year = b.YearOfIssue.Year,
+                    Year = b.YearIssued.YearOfIssue,
                 }).ToList();
 
             return allBooks;
@@ -258,14 +258,14 @@
         private IEnumerable<ListAllBooksViewModel> SearchByYear(SearchBookViewModel search)
         {
             var books = this.db.Books
-                .Where(x => x.YearOfIssue.Year == search.Year)
+                .Where(x => x.YearIssued.YearOfIssue == search.Year)
                 .Select(x => new ListAllBooksViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,
                     ImageUrl = x.ImageUrl,
                     Votes = x.Votes,
-                    Year = x.YearOfIssue.Year,
+                    Year = x.YearIssued.YearOfIssue,
                 }).ToList();
 
             return books;

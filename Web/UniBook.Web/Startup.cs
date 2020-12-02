@@ -42,8 +42,16 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>(
+                IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                options.AppId = "195159035609825";
+                options.AppSecret = "9a4ca3e5bf53ee8525b0e7ef819d0d4a";
+            });
 
             services.Configure<SecurityStampValidatorOptions>(options =>
             {

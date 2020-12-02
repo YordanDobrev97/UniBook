@@ -86,6 +86,23 @@ namespace UniBook.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Genres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genres", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "News",
                 columns: table => new
                 {
@@ -118,6 +135,23 @@ namespace UniBook.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Settings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "YearIssueds",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    YearOfIssue = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_YearIssueds", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -227,7 +261,7 @@ namespace UniBook.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Books",
+                name: "UserFriendRequests",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -236,24 +270,53 @@ namespace UniBook.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
-                    ImageUrl = table.Column<string>(nullable: false),
-                    Genre = table.Column<string>(nullable: true),
-                    AuthorId = table.Column<int>(nullable: false),
-                    Body = table.Column<string>(nullable: false),
-                    Votes = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    IsFree = table.Column<bool>(nullable: false),
-                    Price = table.Column<double>(nullable: false),
-                    YearOfIssue = table.Column<DateTime>(nullable: false)
+                    SenderId = table.Column<string>(nullable: false),
+                    ReceiverId = table.Column<string>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.PrimaryKey("PK_UserFriendRequests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Books_Authors_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Authors",
+                        name: "FK_UserFriendRequests_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserFriendRequests_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserFriends",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    SenderId = table.Column<string>(nullable: false),
+                    ReceiverId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFriends", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -287,6 +350,123 @@ namespace UniBook.Data.Migrations
                         name: "FK_Posts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: false),
+                    GenreId = table.Column<int>(nullable: true),
+                    AuthorId = table.Column<int>(nullable: false),
+                    Body = table.Column<string>(nullable: false),
+                    YearIssuedId = table.Column<int>(nullable: true),
+                    Votes = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    IsFree = table.Column<bool>(nullable: false),
+                    Price = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Books_Authors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Authors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Books_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Books_YearIssueds_YearIssuedId",
+                        column: x => x.YearIssuedId,
+                        principalTable: "YearIssueds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostComments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
+                    CommentBody = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostComments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostComments_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PostComments_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostVotes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostVotes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostVotes_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PostVotes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    PostId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tags_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -428,79 +608,6 @@ namespace UniBook.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PostComments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PostId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
-                    CommentBody = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostComments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PostComments_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PostComments_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PostVotes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PostId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostVotes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PostVotes_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PostVotes_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tags",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    PostId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tags_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -566,9 +673,19 @@ namespace UniBook.Data.Migrations
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Books_GenreId",
+                table: "Books",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Books_IsDeleted",
                 table: "Books",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Books_YearIssuedId",
+                table: "Books",
+                column: "YearIssuedId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookVotes_BookId",
@@ -583,6 +700,11 @@ namespace UniBook.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_IsDeleted",
                 table: "Categories",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Genres_IsDeleted",
+                table: "Genres",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
@@ -664,6 +786,41 @@ namespace UniBook.Data.Migrations
                 name: "IX_UserBooks_UserId",
                 table: "UserBooks",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriendRequests_IsDeleted",
+                table: "UserFriendRequests",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriendRequests_ReceiverId",
+                table: "UserFriendRequests",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriendRequests_SenderId",
+                table: "UserFriendRequests",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriends_IsDeleted",
+                table: "UserFriends",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriends_ReceiverId",
+                table: "UserFriends",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriends_SenderId",
+                table: "UserFriends",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_YearIssueds_IsDeleted",
+                table: "YearIssueds",
+                column: "IsDeleted");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -714,6 +871,12 @@ namespace UniBook.Data.Migrations
                 name: "UserBooks");
 
             migrationBuilder.DropTable(
+                name: "UserFriendRequests");
+
+            migrationBuilder.DropTable(
+                name: "UserFriends");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -730,6 +893,12 @@ namespace UniBook.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Authors");
+
+            migrationBuilder.DropTable(
+                name: "Genres");
+
+            migrationBuilder.DropTable(
+                name: "YearIssueds");
         }
     }
 }

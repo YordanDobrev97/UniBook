@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     using UniBook.Data.Common.Models;
 
     public class Book : BaseDeletableModel<int>
@@ -29,6 +29,8 @@
         [Required]
         public string Body { get; set; }
 
+        public YearIssued YearIssued { get; set; }
+
         public int Votes { get; set; }
 
         public string Description { get; set; }
@@ -36,8 +38,6 @@
         public bool IsFree { get; set; }
 
         public double Price { get; set; }
-
-        public DateTime YearOfIssue { get; set; }
 
         public ICollection<BookComment> Comments { get; set; }
     }

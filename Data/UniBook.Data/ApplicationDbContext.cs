@@ -33,6 +33,8 @@
 
         public DbSet<UserBook> UserBooks { get; set; }
 
+        public DbSet<YearIssued> YearIssueds { get; set; }
+
         public DbSet<Friend> UserFriends { get; set; }
 
         public DbSet<FriendRequest> UserFriendRequests { get; set; }
