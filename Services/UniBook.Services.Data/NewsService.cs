@@ -34,6 +34,19 @@
             return news;
         }
 
+        public DetailsViewModel GetById(int id)
+        {
+            return this.db.News.Where(x => x.Id == id)
+                .Select(x => new DetailsViewModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    ImageUrl = x.ImageUrl,
+                    Body = x.Description,
+                    Date = x.Date,
+                }).FirstOrDefault();
+        }
+
         public void Scrape()
         {
             Scrapper scrapper = new Scrapper();

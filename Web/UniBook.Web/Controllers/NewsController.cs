@@ -17,5 +17,11 @@
             var news = this.newsService.GetNews();
             return this.View(news);
         }
+
+        public IActionResult Details(int id)
+        {
+            var newsById = this.newsService.GetById(id);
+            return this.View(newsById);
+        }
     }
 }

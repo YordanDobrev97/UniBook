@@ -46,10 +46,10 @@
                 @foreach (var article in Model)
                 {
                     <div class="single_iteam">
-                        <a href="pages/single_page.html"> 
+                        <a asp-controller="News" asp-action="Details" asp-route-id="@article.Id"> 
                         <img src="@article.ImageUrl" alt=""></a>
                         <div class="slider_article">
-                            <h2><a class="slider_tittle" href="pages/single_page.html">@article.Title</a></h2>
+                            <h2><a asp-controller="News" asp-action="Details" asp-route-id="@article.Id" class="slider_tittle">@article.Title</a></h2>
                         </div>
                     </div>
                 }
@@ -62,36 +62,19 @@
                 <div class="latest_post_container">
                     <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
                     <ul class="latest_postnav">
-                        <li>
-                            <div class="media">
-                                <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="media">
-                                <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="media">
-                                <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="media">
-                                <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="media">
-                                <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                                <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                            </div>
-                        </li>
+                        @foreach (var article in Model.Take(5))
+                        {
+                            <li>
+                                <div class="media">
+                                    <a asp-controller="News" asp-action="Details" asp-route-id="@article.Id" class="media-left"> 
+                                        <img alt="@article.ImageUrl" src="@article.ImageUrl">
+                                    </a>
+                                    <div class="media-body">
+                                        <a  asp-controller="News" asp-action="Details" asp-route-id="@article.Id" class="catg_title">@article.Title</a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
                 </div>

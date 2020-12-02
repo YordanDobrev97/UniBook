@@ -7,5 +7,7 @@
     public interface INewsService
     {
         IEnumerable<NewsViewModel> GetNews();
+
+        DetailsViewModel GetById(int id);
     }
 }

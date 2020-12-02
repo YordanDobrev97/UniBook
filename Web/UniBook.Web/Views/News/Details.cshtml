@@ -1,0 +1,25 @@
+﻿
+@using UniBook.Web.ViewModels.News 
+@model DetailsViewModel
+
+<div class="container">
+    <div class="well">
+        <div class="row">
+            <div class="col-md-12">                
+                <div class="pull-left col-md-4 col-xs-12 thumb-contenido">
+                    <img class="center-block img-responsive" src='@Model.ImageUrl' />
+                </div>
+                <div>
+                    <h1 class="hidden-xs hidden-sm">@Model.Title</h1>
+                    <hr>
+                    <span class="text-dark">
+                        Източник:
+                        <a href="https://www.actualno.com/">actualno</a>
+                    </span>
+                    <hr>
+                    <p class="text-justify text-dark">@Model.Body</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
