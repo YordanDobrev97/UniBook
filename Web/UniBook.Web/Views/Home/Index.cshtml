@@ -3,7 +3,7 @@
 @{ this.ViewData["Title"] = "Home Page"; }
 
 @{ 
-    var years = this.Model.Years.Select(y => 
+    var years = this.Model.Years.OrderByDescending(x => x).Select(y => 
     new SelectListItem(y.ToString(), y.ToString()));
 }
 <script>
