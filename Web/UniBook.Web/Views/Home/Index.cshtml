@@ -2,8 +2,8 @@
 
 @{ this.ViewData["Title"] = "Home Page"; }
 
-@{ 
-    var years = this.Model.Years.OrderByDescending(x => x).Select(y => 
+@{
+    var years = this.Model.Years.OrderByDescending(x => x).Select(y =>
     new SelectListItem(y.ToString(), y.ToString()));
 }
 <script>
@@ -39,6 +39,11 @@
                     </div>
                 </div>
                 <div class="row">
+                    @if (Model.Books.Count() == 0)
+                    {
+                        <h1 class="text-danger">404 Not Found</h1>
+                    }
+
                     @foreach (var book in Model.Books)
                     {
                         <div class="d-inline m-md-3 bg-white">
@@ -50,8 +55,15 @@
                                     </a>
                                 </h4>
                                 <h5 class="card-price small text-warning">
-                                    <i>
-                                    </i>
+                                    @for (int i = 0; i < 5 - (5 - book.Votes); i++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+
+                                    @for (int i = 0; i < 5 - book.Votes; i++)
+                                    {
+                                        <i class="fa fa-star-o"></i>
+                                    }
                                 </h5>
 
                                 <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-primary">Детайли</a>

@@ -223,6 +223,7 @@
                         Id = e.Id,
                         Name = e.Name,
                         ImageUrl = e.ImageUrl,
+                        Votes = e.Votes,
                     }).ToList();
 
                 booksGenre.AddRange(books);
@@ -280,6 +281,7 @@
                     Id = e.Id,
                     Name = e.Name,
                     ImageUrl = e.ImageUrl,
+                    Votes = e.Votes,
                 }).ToList();
         }
 
@@ -292,6 +294,7 @@
                     Id = e.Id,
                     Name = e.Name,
                     ImageUrl = e.ImageUrl,
+                    Votes = e.Votes,
                 }).ToList();
         }
     }
