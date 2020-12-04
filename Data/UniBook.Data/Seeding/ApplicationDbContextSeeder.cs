@@ -26,6 +26,7 @@
             var seeders = new List<ISeeder>
                           {
                                 new BookSeeder(),
+                                new CategoriesSeeder(),
                                 new RolesSeeder(),
                           };
 

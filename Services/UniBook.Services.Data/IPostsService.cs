@@ -15,6 +15,8 @@
 
         List<DetailsPostViewModel> All();
 
+        List<CategoryInputModel> GetCategories();
+
         DetailsPostViewModel GetById(int id, string loggedUserId);
     }
 }

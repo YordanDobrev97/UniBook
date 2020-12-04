@@ -62,12 +62,10 @@
 
         public async Task<int> CreateAsync(PostViewModel postInputModel, string userId)
         {
-            var category = this.db.Categories.FirstOrDefault(e => e.Name == postInputModel.Category);
-
             var post = new Post
             {
                 Title = postInputModel.Title,
-                Category = category,
+                CategoryId = postInputModel.CategoryId,
                 Content = postInputModel.Content,
                 CreatedOn = DateTime.UtcNow,
                 UserId = userId,
@@ -97,6 +95,18 @@
 
             this.db.PostComments.Remove(comment);
             await this.db.SaveChangesAsync();
+        }
+
+        public List<CategoryInputModel> GetCategories()
+        {
+            var categories = this.db.Categories
+                .Select(c => new CategoryInputModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                }).ToList();
+
+            return categories;
         }
     }
 }

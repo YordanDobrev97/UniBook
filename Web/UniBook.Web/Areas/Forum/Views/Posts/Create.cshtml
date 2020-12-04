@@ -1,5 +1,10 @@
 ﻿@model PostViewModel
 
+@{ 
+    var categories = Model.Categories
+        .Select(c => new SelectListItem(c.Name.ToString(), c.Id.ToString()));
+}
+
 <div class="container text-white">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -28,14 +33,11 @@
                 </div>
 
                 <div>
-                    <label asp-for="@Model.Category">Категория</label>
-                    <select asp-for="@Model.Category" class="form-control">
-                        <option value="general">Общи</option>
-                        <option value="books">Книги</option>
-                        <option value="news">Новини</option>
-                        <option value="suggestions and problems">Предложения и проблеми</option>
+                    <label asp-for="@Model.CategoryId">Категория</label>
+                    <select asp-for="@Model.CategoryId" asp-items="categories" class="form-control">
+                       
                     </select>
-                    <span asp-validation-for="@Model.Category" class="text-danger"></span>
+                    <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
                 </div>
                 <hr />
                 <input type="submit" class="btn btn-primary" value="Изпрати" />

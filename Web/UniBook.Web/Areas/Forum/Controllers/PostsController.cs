@@ -25,7 +25,13 @@
 
         public IActionResult Create()
         {
-            return this.View();
+            var categories = this.postsService.GetCategories();
+            var viewModel = new PostViewModel
+            {
+                Categories = categories,
+            };
+
+            return this.View(viewModel);
         }
 
         [Authorize]
