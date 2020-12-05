@@ -16,13 +16,26 @@
         </section>
     </div>
 
+    <form id="savePageForm" hidden="hidden" method="post"></form>
     <button type="button" onclick="savePageBook()" id="save-btn" class="btn btn-primary btn-lg btn-block">
         <span class="save">Запиши текущата страница</span>
     </button>
 
+    <button type="button" class="btn btn-outline-primary btn-lg btn-block mt-3">
+        <span>Добави в любими</span>
+    </button>
+
+    <span style="display: none;" id="saveMessage" class="alert alert-success" role="alert">
+        Успешно запази текущата страница
+    </span>
+
     <button type="button" onclick="addToReadedBooks()" id="readed" class="btn btn-outline-success btn-lg btn-block mt-3">
         <span class="readedBook">Добави в Прочетени</span>
     </button>
+
+    <span style="display: none;" id="saveRead" class="alert alert-success" role="alert">
+        Книгата е успешно добавена в прочетени
+    </span>
 </div>
 
 <script>
@@ -52,7 +65,8 @@
 
     function savePageBook() {
         const bookId = @Html.Raw(Json.Serialize(Model.BookId));
-        
+        const token = $('#savePageForm input[name=__RequestVerificationToken]').val();
+
         const bookData = {
             readCount: startIndex,
             bookId: bookId,
@@ -65,9 +79,13 @@
             url: '/api/Users/BookData',
             type: 'post',
             contentType: 'application/json',
+            headers: {
+                "X-CSRF": token,
+            },
             data: jsonData,
             success: function (data, status) {
-                console.log('success saved in database.');
+                $("#saveMessage").show();
+                setTimeout(function () { $("#saveMessage").hide(); }, 3000);
             },
             error: function (html, status, err) {
                 console.log('error not saved.')
@@ -79,7 +97,8 @@
 <script>
     function addToReadedBooks() {
         const bookId = @Html.Raw(Json.Serialize(Model.BookId));
-        
+        const token = $('#savePageForm input[name=__RequestVerificationToken]').val();
+
         const bookData = {
             bookId: bookId,
         }
@@ -90,8 +109,12 @@
             type: 'post',
             contentType: 'application/json',
             data: jsonData,
+            headers: {
+                "X-CSRF": token,
+            },
             success: function (data, status) {
-                console.log('success saved in database.');
+                $("#saveRead").show();
+                setTimeout(function () { $("#saveRead").hide(); }, 3000);
             },
             error: function (html, status, err) {
                 console.log('error not saved.')
