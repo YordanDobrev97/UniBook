@@ -143,6 +143,11 @@
                 }).ToList();
         }
 
+        public IEnumerable<int> GetYears()
+        {
+            return this.db.YearIssueds.Select(x => x.YearOfIssue).ToList();
+        }
+
         public DetailsBookViewModel Details(int id, string userId)
         {
             var isPaidBook = this.db.Payments

@@ -36,7 +36,7 @@
                 .Take(maxBooks)
                 .ToList();
 
-            var years = allBooks.Select(x => x.Year).ToList();
+            var years = this.service.GetYears();
 
             var genres = this.service.GetGenres();
 

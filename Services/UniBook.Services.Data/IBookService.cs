@@ -13,6 +13,8 @@
 
         IEnumerable<ListGenreViewModel> GetGenres();
 
+        IEnumerable<int> GetYears();
+
         IEnumerable<ListAllBooksViewModel> SortByAlphabetical();
 
         IEnumerable<ListAllBooksViewModel> SortByLikes();
