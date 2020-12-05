@@ -1,6 +1,7 @@
 ﻿@model DetailsBookViewModel
 
 <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/css/like-button.css" rel="stylesheet"/>
 
 <div id="container">
     <div class="product-details">
@@ -26,6 +27,7 @@
                     <a asp-controller="Payments" asp-action="PayBook" asp-route-id="@Model.BookId" class="page-link">Купи</a>
                 </button>
             }
+            <form id="likeForm" hidden="hidden" method="post"></form>
             <button type="button" onclick="likeBook()">
                 <a href="#" class="like-button">
                     <?xml version="1.0" encoding="utf-8" ?>
@@ -67,91 +69,6 @@
         </div>
     </div>
 </section>
-
-<style>
-
-.like-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.like-button.animated {
-  -webkit-animation: pop 0.9s both;
-  animation: pop 0.9s both;
-}
-.like-button svg {
-  opacity: 1;
-}
-.like-button svg path {
-  fill: #333;
-  transition: fill .4s ease-out;
-}
-.like-button.active svg path {
-  fill: #2196f3;
- }
-
-@@-webkit-keyframes pop {
-  0% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  30% {
-    -webkit-transform: scale3d(1.25, 0.75, 1);
-    transform: scale3d(1.25, 0.75, 1);
-  }
-  40% {
-    -webkit-transform: scale3d(0.75, 1.25, 1);
-    transform: scale3d(0.75, 1.25, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(1.15, 0.85, 1);
-    transform: scale3d(1.15, 0.85, 1);
-  }
-  65% {
-    -webkit-transform: scale3d(0.95, 1.05, 1);
-    transform: scale3d(0.95, 1.05, 1);
-  }
-  75% {
-    -webkit-transform: scale3d(1.05, 0.95, 1);
-    transform: scale3d(1.05, 0.95, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-@@keyframes pop {
-  0% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  30% {
-    -webkit-transform: scale3d(1.25, 0.75, 1);
-    transform: scale3d(1.25, 0.75, 1);
-  }
-  40% {
-    -webkit-transform: scale3d(0.75, 1.25, 1);
-    transform: scale3d(0.75, 1.25, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(1.15, 0.85, 1);
-    transform: scale3d(1.15, 0.85, 1);
-  }
-  65% {
-    -webkit-transform: scale3d(0.95, 1.05, 1);
-    transform: scale3d(0.95, 1.05, 1);
-  }
-  75% {
-    -webkit-transform: scale3d(1.05, 0.95, 1);
-    transform: scale3d(1.05, 0.95, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-</style>
 
 <script>
     let button = document.querySelector(".like-button");
@@ -207,20 +124,26 @@
 </script>
 
 <script>
-    const bookId = @Html.Raw(Json.Serialize(Model.BookId));
 
     function likeBook() {
-        const data = {
-            bookId: bookId,
-        };
+    const bookId = @Html.Raw(Json.Serialize(Model.BookId));
+    const token = $('#likeForm input[name=__RequestVerificationToken]').val();
+    console.log(token);
 
-        const jsonData = JSON.stringify(data);
+    const data = {
+    bookId: bookId,
+    };
 
-        $.ajax({
-            url: '/api/Users/Book',
-            method: 'POST',
-            data: jsonData,
-            contentType: 'application/json',
-        });
+    const jsonData = JSON.stringify(data);
+
+    $.ajax({
+    url: '/api/Users/Book',
+    method: 'POST',
+    headers: {
+        "X-CSRF": token,
+    },
+    data: jsonData,
+    contentType: 'application/json',
+    });
     }
 </script>
