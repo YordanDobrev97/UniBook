@@ -48,7 +48,7 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane" id="home">
+                        <div class="tab-pane active" id="home">
                             <p class="m-b-5">
                                 Hi I'm Johnathn Deo,has been the industry's standard dummy text ever
                                 since the 1500s, when an unknown printer took a galley of type.
@@ -94,17 +94,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane active" id="profile">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="gal-detail thumb">
-                                        <a href="#" class="image-popup" title="Screenshot-2">
-                                            <img src="https://via.placeholder.com/400x300/FFB6C1" class="thumb-img" alt="work-thumbnail">
-                                        </a>
-                                        <h4 class="text-center">Gallary Image</h4>
-                                        <div class="ga-border"></div>
-                                        <p class="text-muted text-center"><small>Photography</small></p>
-                                    </div>
+                        <div class="tab-pane" id="profile">
+                            <div class="container">
+                                <div class="row">
+                                    @foreach (var book in Model.ReadedBooks)
+                                    {
+                                        <div class="col-xs-4 col-md-2">
+                                            <a asp-area="" asp-controller="Books" asp-action="Details" asp-route-id="@book.Id">
+                                                <img src="@book.Image" class="img-responsive book">
+                                            </a>
+                                        </div>
+                                    }
+                                    <div class="col-xs-6 shelf"></div>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +153,7 @@
                                                             <div class="media-body valign-middle">
                                                                 <span class="text-inverse">@friend.Username</span>
                                                                 <form method="post" asp-controller="Friends" asp-action="Accept">
-                                                                    <input hidden="hidden" name="username" value="@friend.Username"/>
+                                                                    <input hidden="hidden" name="username" value="@friend.Username" />
                                                                     <button type="submit" class="btn btn-success">Одобри приятелство</button>
                                                                 </form>
                                                             </div>
@@ -171,3 +172,180 @@
         </div>
     </div>
 </div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .slide-viewer {
+        position: relativer;
+        overflow: hidden;
+        height: 300px;
+    }
+
+    .slide-group {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .slide {
+        width: 100%;
+        height: 100%;
+        display: none;
+        position: absolute;
+    }
+
+        .slide:first-child {
+            display: block;
+        }
+
+    /********** SLIDER **********/
+    .slider {
+        max-width: 940px;
+        margin: 0px auto 30px auto;
+    }
+
+    .slide-viewer {
+        position: relative; /* needed for IE7 */
+        overflow: hidden;
+        height: 430px;
+    }
+
+    .slide-group {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .slide {
+        width: 100%;
+        height: 100%;
+        display: none;
+        position: absolute;
+    }
+
+        .slide:first-child {
+            display: block;
+        }
+
+
+    /********** BUTTONS **********/
+    .slide-buttons {
+        text-align: center;
+    }
+
+    .slide-btn {
+        border: none;
+        background: none;
+        color: #000;
+        font-size: 200%;
+        line-height: 0.5em;
+    }
+
+        .slide-btn.active, .slide-btn:hover {
+            color: #ed8e6c;
+            cursor: pointer;
+            outline: none;
+        }
+</style>
+
+@*slider*@
+<script>
+    $('.slider').each(function () {              // For every slider
+        var $this = $(this);                    // Current slider
+        var $group = $this.find('.slide-group'); // Get the slide-group (container)
+        var $slides = $this.find('.slide');       // Create jQuery object to hold all slides
+        var buttonArray = [];                    // Create array to hold navigation buttons
+        var currentIndex = 0;                     // Hold index number of the current slide
+        var timeout;                              // Sets gap between auto-sliding
+
+        function move(newIndex) {          // Creates the slide from old to new one
+            var animateLeft, slideLeft;      // Declare variables
+
+            advance();                       // When slide moves, call advance() again
+
+            // If it is the current slide / animating do nothing
+            if ($group.is(':animated') || currentIndex === newIndex) {
+                return;
+            }
+
+            buttonArray[currentIndex].removeClass('active'); // Remove class from item
+            buttonArray[newIndex].addClass('active');        // Add class to new item
+
+            if (newIndex > currentIndex) {   // If new item > current
+                slideLeft = '100%';            // Sit the new slide to the right
+                animateLeft = '-100%';         // Animate the current group to the left
+            } else {                         // Otherwise
+                slideLeft = '-100%';           // Sit the new slide to the left
+                animateLeft = '100%';          // Animate the current group to the right
+            }
+            // Position new slide to left (if less) or right (if more) of current
+            $slides.eq(newIndex).css({ left: slideLeft, display: 'block' });
+
+            $group.animate({ left: animateLeft }, function () {    // Animate slides and
+                $slides.eq(currentIndex).css({ display: 'none' }); // Hide previous slide      
+                $slides.eq(newIndex).css({ left: 0 }); // Set position of the new item
+                $group.css({ left: 0 });               // Set position of group of slides
+                currentIndex = newIndex;               // Set currentIndex to the new image
+            });
+        }
+
+        function advance() {                     // Used to set 
+            clearTimeout(timeout);                 // Clear previous timeout
+            timeout = setTimeout(function () {      // Set new timer
+                if (currentIndex < ($slides.length - 1)) { // If slide < total slides
+                    move(currentIndex + 1);            // Move to next slide
+                } else {                             // Otherwise
+                    move(0);                           // Move to the first slide
+                }
+            }, 4000);                              // Milliseconds timer will wait
+        }
+
+        $.each($slides, function (index) {
+            // Create a button element for the button
+            var $button = $('<button type="button" class="slide-btn">&bull;</button>');
+            if (index === currentIndex) {    // If index is the current item
+                $button.addClass('active');    // Add the active class
+            }
+            $button.on('click', function () { // Create event handler for the button
+                move(index);                   // It calls the move() function
+            }).appendTo('.slide-buttons');   // Add to the buttons holder
+            buttonArray.push($button);       // Add it to the button array
+        });
+
+        advance();                          // Script is set up, advance() to move it
+
+
+    });
+</script>
+
+<script>
+    $('.slider').slick({
+        autoplay: true,
+        speed: 800,
+        lazyLoad: 'progressive',
+        arrows: true,
+        dots: false,
+        prevArrow: '<div class="slick-nav prev-arrow"><i></i><svg><use xlink:href="#circle"></svg></div>',
+        nextArrow: '<div class="slick-nav next-arrow"><i></i><svg><use xlink:href="#circle"></svg></div>',
+    }).slickAnimation();
+
+    $('.slick-nav').on('click touch', function (e) {
+
+        e.preventDefault();
+
+        var arrow = $(this);
+
+        if (!arrow.hasClass('animate')) {
+            arrow.addClass('animate');
+            setTimeout(() => {
+                arrow.removeClass('animate');
+            }, 1600);
+        }
+
+    });
+</script>

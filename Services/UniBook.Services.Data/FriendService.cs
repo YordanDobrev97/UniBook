@@ -48,10 +48,20 @@
                     Id = e.SenderId,
                     Username = e.Sender.UserName,
                 }).ToList();
+
+            var readedBooks = this.db.ReadedBooks
+                .Where(x => x.UserId == userId)
+                .Select(x => new UserBookViewModel
+                {
+                    Id = x.BookId,
+                    Image = x.Book.ImageUrl,
+                }).ToList();
+
             var viewModel = new ProfileDetailsViewModel
             {
                 Friends = friends,
                 RecivedFriendshipRequests = recivedRequests,
+                ReadedBooks = readedBooks,
             };
 
             return viewModel;
