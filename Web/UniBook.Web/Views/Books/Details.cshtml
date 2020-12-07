@@ -1,7 +1,9 @@
 ﻿@model DetailsBookViewModel
 
 <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-<link href="~/css/like-button.css" rel="stylesheet"/>
+<link href="~/css/like-button.css" rel="stylesheet" />
+<link href="~/css/bookComment.css" rel="stylesheet" />
+<link href="~/css/list-comments.css" rel="stylesheet" />
 
 <div id="container">
     <div class="product-details">
@@ -38,87 +40,98 @@
     </div>
 
     <div class="product-image">
-        <img src="@Model.ImageUrl" alt="BookImage">
+        <img src="@Model.ImageUrl" alt="BookImage" />
     </div>
 </div>
 
-<section id="app">
-    <div class="container">
-        <div class="row">
-            <div class="col-6 bg-dark">
-                @foreach (var item in Model.Comments)
-                {
-                    <div class="comment">
-                        <div>
-                            <i class="fas fa-user-circle"></i>
-                            <span>@item.User</span>
-                        </div>
-                        <p>@item.Body</p>
-                    </div>
-                }
+<!-- add commnet -->
+<div class="wrapper">
+    <div class="commentBoxfloat">
+        <form asp-controller="Books" asp-action="AddComment">
+            <input hidden="hidden" name="bookId" value="@Model.BookId"/>
+            <div class="form_grp">
+                <textarea id="userCmnt" name="body" class="bg-white" placeholder="Добави коментар към книгата"></textarea>
             </div>
-        </div>
-        <div class="row">
-            <form method="post" asp-controller="Books" asp-action="AddComment">
-                <div class="col-6">
-                    <textarea type="text" rows="20" cols="80" name="body" class="input-container" placeholder="Напиши коментар към книгата"></textarea>
-                    <input hidden="hidden" name="bookId" value="@Model.BookId" />
-                    <input type="submit" class='primaryContained float-right' value="Добави коментар" />
-                </div>
-            </form>
-        </div>
+            <div class="form_grp">
+                <button type="submit" class="btn btn-primary" id="submit">Добави</button>
+            </div>
+        </form>
     </div>
-</section>
+
+    <div id="cmntContr"></div>
+</div>
+
+<!-- list comments -->
+
+<div class="comments-container">
+    <ul id="comments-list" class="comments-list">
+        @foreach (var comment in Model.Comments)
+        {
+            <li>
+                <div class="comment-main-level">
+                    <div class="comment-box">
+                        <div class="comment-head">
+                            <h6 class="comment-name by-author">
+                                <a>@comment.User</a>
+                            </h6>
+                        </div>
+                        <div class="comment-content">@comment.Body</div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
 
 <script>
     let button = document.querySelector(".like-button");
 
     button.addEventListener("click", function (e) {
-        e.preventDefault();
-        this.classList.toggle("active");
-        this.classList.add("animated");
-        generateClones(this);
+    e.preventDefault();
+    this.classList.toggle("active");
+    this.classList.add("animated");
+    generateClones(this);
     });
 
 
     function generateClones(button) {
-        let clones = randomInt(2, 4);
-        for (let it = 1; it <= clones; it++) {
-            let clone = button.querySelector("svg").cloneNode(true),
-                size = randomInt(5, 16);
-            button.appendChild(clone);
-            clone.setAttribute("width", size);
-            clone.setAttribute("height", size);
-            clone.style.position = "absolute";
-            clone.style.transition =
-                "transform 0.5s cubic-bezier(0.12, 0.74, 0.58, 0.99) 0.3s, opacity 1s ease-out .5s";
-            let animTimeout = setTimeout(function () {
-                clearTimeout(animTimeout);
-                clone.style.transform =
-                    "translate3d(" +
-                    (plusOrMinus() * randomInt(10, 25)) +
-                    "px," +
-                    (plusOrMinus() * randomInt(10, 25)) +
-                    "px,0)";
-                clone.style.opacity = 0;
-            }, 1);
-            let removeNodeTimeout = setTimeout(function () {
-                clone.parentNode.removeChild(clone);
-                clearTimeout(removeNodeTimeout);
-            }, 900);
-            let removeClassTimeout = setTimeout(function () {
-                button.classList.remove("animated")
-            }, 600);
-        }
+    let clones = randomInt(2, 4);
+    for (let it = 1; it <= clones; it++) {
+    let clone = button.querySelector("svg").cloneNode(true),
+    size = randomInt(5, 16);
+    button.appendChild(clone);
+    clone.setAttribute("width", size);
+    clone.setAttribute("height", size);
+    clone.style.position = "absolute";
+    clone.style.transition =
+    "transform 0.5s cubic-bezier(0.12, 0.74, 0.58, 0.99) 0.3s, opacity 1s ease-out .5s";
+    let animTimeout = setTimeout(function () {
+    clearTimeout(animTimeout);
+    clone.style.transform =
+    "translate3d(" +
+    (plusOrMinus() * randomInt(10, 25)) +
+    "px," +
+    (plusOrMinus() * randomInt(10, 25)) +
+    "px,0)";
+    clone.style.opacity = 0;
+    }, 1);
+    let removeNodeTimeout = setTimeout(function () {
+    clone.parentNode.removeChild(clone);
+    clearTimeout(removeNodeTimeout);
+    }, 900);
+    let removeClassTimeout = setTimeout(function () {
+    button.classList.remove("animated")
+    }, 600);
+    }
     }
 
 
     function plusOrMinus() {
-        return Math.random() < 0.5 ? -1 : 1;
+    return Math.random() < 0.5 ? -1 : 1;
     }
 
     function randomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
+    return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
 </script>
@@ -140,7 +153,7 @@
     url: '/api/Users/Book',
     method: 'POST',
     headers: {
-        "X-CSRF": token,
+    "X-CSRF": token,
     },
     data: jsonData,
     contentType: 'application/json',
