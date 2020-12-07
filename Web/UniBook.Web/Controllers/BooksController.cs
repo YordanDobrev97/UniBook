@@ -1,15 +1,12 @@
 ﻿namespace UniBook.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using UniBook.Data.Models;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels;
     using UniBook.Web.ViewModels.Books;
@@ -19,20 +16,104 @@
         private const int MaxBooks = 9;
 
         private readonly IBookService service;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
 
-        public BooksController(IBookService service, UserManager<ApplicationUser> userManager, IUsersService usersService)
+        public BooksController(IBookService service, IUsersService usersService)
         {
             this.service = service;
-            this.userManager = userManager;
             this.usersService = usersService;
         }
 
         public IActionResult All(int id)
         {
             var allBooks = this.service.All();
-            return this.PaginationBooks(id, allBooks, "Books", "All");
+            var result = this.PaginationBooks<ListAllBooksViewModel>(id, allBooks, MaxBooks);
+
+            var viewModel = new BooksListViewModel
+            {
+                Books = result,
+                Genres = this.service.GetGenres(),
+                Years = this.service.All().Select(x => x.Year).ToList(),
+                PaginationViewModel = new PaginationViewModel
+                {
+                    CurrentPage = id,
+                    PagesCount = (int)Math.Ceiling(allBooks.Count() / (decimal)MaxBooks),
+                    DataCount = allBooks.Count(),
+                    Controller = "Books",
+                    Action = "All",
+                },
+            };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult SortAlphabetical(int id)
+        {
+            var books = this.service.SortByAlphabetical();
+            var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
+
+            var viewModel = new BooksListViewModel
+            {
+                Books = result,
+                Genres = this.service.GetGenres(),
+                Years = this.service.All().Select(x => x.Year).ToList(),
+                PaginationViewModel = new PaginationViewModel
+                {
+                    CurrentPage = id,
+                    PagesCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks),
+                    DataCount = books.Count(),
+                    Controller = "Books",
+                    Action = "SortAlphabetical",
+                },
+            };
+
+            return this.View("Views/Books/All.cshtml", viewModel);
+        }
+
+        public IActionResult SortLatestAdded(int id)
+        {
+            var books = this.service.SortLatestAdded();
+            var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
+
+            var viewModel = new BooksListViewModel
+            {
+                Books = result,
+                Genres = this.service.GetGenres(),
+                Years = this.service.All().Select(x => x.Year).ToList(),
+                PaginationViewModel = new PaginationViewModel
+                {
+                    CurrentPage = id,
+                    PagesCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks),
+                    DataCount = books.Count(),
+                    Controller = "Books",
+                    Action = "SortLatestAdded",
+                },
+            };
+
+            return this.View("Views/Books/All.cshtml", viewModel);
+        }
+
+        public IActionResult SortByLikes(int id)
+        {
+            var books = this.service.SortByLikes();
+            var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
+
+            var viewModel = new BooksListViewModel
+            {
+                Books = result,
+                Genres = this.service.GetGenres(),
+                Years = this.service.All().Select(x => x.Year).ToList(),
+                PaginationViewModel = new PaginationViewModel
+                {
+                    CurrentPage = id,
+                    PagesCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks),
+                    DataCount = books.Count(),
+                    Controller = "Books",
+                    Action = "SortByLikes",
+                },
+            };
+
+            return this.View("Views/Books/All.cshtml", viewModel);
         }
 
         public IActionResult ReadBook(int id)
@@ -70,58 +151,6 @@
             var userId = this.GetUserId();
             var readed = this.service.GetReadedBooks(userId);
             return this.View(readed);
-        }
-
-        public IActionResult Search(SearchBookViewModel searchInput)
-        {
-            var books = this.service.Search(searchInput);
-            return this.PaginationBooks(1, books, "Books", "Search");
-        }
-
-        public IActionResult SortAlphabetical(int id)
-        {
-            var books = this.service.SortByAlphabetical();
-            return this.PaginationBooks(id, books, "Books", "SortAlphabetical");
-        }
-
-        public IActionResult SortLatestAdded(int id)
-        {
-            var books = this.service.SortLatestAdded();
-            return this.PaginationBooks(id, books, "Books", "SortAlphabetical");
-        }
-
-        public IActionResult SortByLikes(int id)
-        {
-            var books = this.service.SortByLikes();
-            return this.PaginationBooks(id, books, "Books", "SortByLikes");
-        }
-
-        public IActionResult PaginationBooks(
-            int id, IEnumerable<ListAllBooksViewModel> books, string controller = "Home", string action = "Index")
-        {
-            int skip = (id - 1) * MaxBooks;
-            var allBooks = books.Skip(skip).Take(MaxBooks).ToList();
-            var genres = this.service.GetGenres();
-
-            var years = this.service.All().Select(x => x.Year).ToList();
-
-            int pageCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks);
-            var viewModel = new BooksListViewModel
-            {
-                Books = allBooks,
-                Genres = genres,
-                Years = years,
-                PaginationViewModel = new PaginationViewModel
-                {
-                    CurrentPage = id,
-                    PagesCount = pageCount,
-                    DataCount = books.Count(),
-                    Controller = controller,
-                    Action = action,
-                },
-            };
-
-            return this.View("Views/Home/Index.cshtml", viewModel);
         }
 
         private string GetUserId()

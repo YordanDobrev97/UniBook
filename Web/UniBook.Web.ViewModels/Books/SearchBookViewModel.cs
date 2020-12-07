@@ -8,7 +8,7 @@
 
         public string Author { get; set; }
 
-        public List<string> Genre { get; set; }
+        public string Genre { get; set; }
 
         public string FreeBook { get; set; }
 

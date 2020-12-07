@@ -5,7 +5,7 @@
         @if (this.Model.CurrentPage > 1)
         {
             <li class="page-item">
-                <a class="page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-id="@this.Model.PreviousPage">
+                <a class="page-link" asp-area="" asp-controller="@this.Model.Controller" asp-action="@this.Model.Action" asp-route-id="@this.Model.PreviousPage" asp-route-search="@this.Model.Search">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -59,7 +59,7 @@
         @if (this.Model.CurrentPage < this.Model.PagesCount)
         {
             <li class="page-item">
-                <a class="page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-id="@this.Model.NextPage" aria-label="Следваща">
+                <a class="page-link" aria-label="Следваща" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-id="@this.Model.NextPage" asp-route-search="@this.Model.Search">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

@@ -1,5 +1,7 @@
 ﻿namespace UniBook.Web.ViewModels
 {
+    using UniBook.Web.ViewModels.Books;
+
     public class PaginationViewModel
     {
         public string Controller { get; set; }
@@ -15,5 +17,7 @@
         public int PreviousPage => this.CurrentPage - 1 == 1 ? 1 : this.CurrentPage - 1;
 
         public int NextPage => this.CurrentPage == this.PagesCount ? this.PagesCount : this.CurrentPage + 1;
+
+        public string Search { get; set; }
     }
 }
