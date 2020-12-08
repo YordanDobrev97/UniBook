@@ -1,6 +1,7 @@
 ﻿namespace UniBook.Data
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -23,15 +24,17 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
-
         public DbSet<Book> Books { get; set; }
+
+        public DbSet<ReadedBook> ReadedBooks { get; set; }
+
+        public DbSet<FavoriteBook> FavoriteBooks { get; set; }
 
         public DbSet<Genre> Genres { get; set; }
 
         public DbSet<Author> Authors { get; set; }
 
-        public DbSet<UserBook> UserBooks { get; set; }
+        public DbSet<UserReadBook> UserReadBooks { get; set; }
 
         public DbSet<YearIssued> YearIssueds { get; set; }
 
@@ -52,8 +55,6 @@
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<PostVote> PostVotes { get; set; }
-
-        public DbSet<ReadedBook> ReadedBooks { get; set; }
 
         public DbSet<Payment> Payments { get; set; }
 

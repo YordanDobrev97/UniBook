@@ -10,7 +10,7 @@ using UniBook.Data;
 namespace UniBook.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201202122333_CreateDatabase")]
+    [Migration("20201208222429_CreateDatabase")]
     partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -410,6 +410,28 @@ namespace UniBook.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("UniBook.Data.Models.FavoriteBook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavoriteBooks");
+                });
+
             modelBuilder.Entity("UniBook.Data.Models.Friend", b =>
                 {
                     b.Property<int>("Id")
@@ -679,7 +701,6 @@ namespace UniBook.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -689,38 +710,6 @@ namespace UniBook.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ReadedBooks");
-                });
-
-            modelBuilder.Entity("UniBook.Data.Models.Setting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("UniBook.Data.Models.Tag", b =>
@@ -744,7 +733,7 @@ namespace UniBook.Data.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("UniBook.Data.Models.UserBook", b =>
+            modelBuilder.Entity("UniBook.Data.Models.UserReadBook", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -781,7 +770,7 @@ namespace UniBook.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserBooks");
+                    b.ToTable("UserReadBooks");
                 });
 
             modelBuilder.Entity("UniBook.Data.Models.YearIssued", b =>
@@ -907,6 +896,19 @@ namespace UniBook.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("UniBook.Data.Models.FavoriteBook", b =>
+                {
+                    b.HasOne("UniBook.Data.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("UniBook.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("UniBook.Data.Models.Friend", b =>
                 {
                     b.HasOne("UniBook.Data.Models.ApplicationUser", "Receiver")
@@ -1004,10 +1006,8 @@ namespace UniBook.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("UniBook.Data.Models.ApplicationUser", "User")
-                        .WithMany("ReadedBooks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("UniBook.Data.Models.Tag", b =>
@@ -1019,7 +1019,7 @@ namespace UniBook.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UniBook.Data.Models.UserBook", b =>
+            modelBuilder.Entity("UniBook.Data.Models.UserReadBook", b =>
                 {
                     b.HasOne("UniBook.Data.Models.Book", "Book")
                         .WithMany()

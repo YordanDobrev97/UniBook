@@ -49,48 +49,17 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="home">
-                            <p class="m-b-5">
-                                Hi I'm Johnathn Deo,has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type.
-                                Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                                In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-                                Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras
-                                dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
-                                tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend
-                                ac, enim.
-                            </p>
-
-                            <div class="m-t-30">
-                                <h4>Experience</h4>
-
-                                <div class=" p-t-10">
-                                    <h5 class="text-primary m-b-5">Lead designer / Developer</h5>
-                                    <p class="">websitename.com</p>
-                                    <p><b>2010-2015</b></p>
-
-                                    <p class="text-muted font-13 m-b-0">
-                                        Lorem Ipsum is simply dummy text
-                                        of the printing and typesetting industry. Lorem Ipsum has
-                                        been the industry's standard dummy text ever since the
-                                        1500s, when an unknown printer took a galley of type and
-                                        scrambled it to make a type specimen book.
-                                    </p>
-                                </div>
-
-                                <hr>
-
-                                <div class="">
-                                    <h5 class="text-primary m-b-5">Senior Graphic Designer</h5>
-                                    <p class="">coderthemes.com</p>
-                                    <p><b>2007-2009</b></p>
-
-                                    <p class="text-muted font-13">
-                                        Lorem Ipsum is simply dummy text
-                                        of the printing and typesetting industry. Lorem Ipsum has
-                                        been the industry's standard dummy text ever since the
-                                        1500s, when an unknown printer took a galley of type and
-                                        scrambled it to make a type specimen book.
-                                    </p>
+                            <div class="container">
+                                <div class="row">
+                                    @foreach (var book in Model.FavoriteBooks)
+                                    {
+                                        <div class="col-xs-4 col-md-2">
+                                            <a asp-area="" asp-controller="Books" asp-action="Details" asp-route-id="@book.Id">
+                                                <img src="@book.Image" class="img-responsive book">
+                                            </a>
+                                        </div>
+                                    }
+                                    <div class="col-xs-6 shelf"></div>
                                 </div>
                             </div>
                         </div>

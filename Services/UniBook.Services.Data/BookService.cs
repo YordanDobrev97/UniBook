@@ -177,16 +177,15 @@
 
         public IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId)
         {
-            var readedBooks = this.db.ReadedBooks
-                .Where(e => e.UserId == userId)
-                .Select(e => new ReadedBookViewModel
-                {
-                    BookId = e.BookId,
-                    UserId = e.UserId,
-                    ImageUrl = e.Book.ImageUrl,
-                }).ToList();
+            //this.db.UserReadedBooks.Where(e => e.UserReaded.Id == userId)
+            //    .Select(e => new ReadedBookViewModel
+            //    {
+            //        BookId = e.Book.Id,
+            //        ImageUrl = e.Book.ImageUrl,
+            //        UserId = e.UserReaded.Id,
+            //    }).ToList();
 
-            return readedBooks;
+            return null;
         }
 
         public IEnumerable<ListGenreViewModel> GetGenres()

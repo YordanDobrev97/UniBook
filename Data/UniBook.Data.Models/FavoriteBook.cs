@@ -1,6 +1,6 @@
 ﻿namespace UniBook.Data.Models
 {
-    public class ReadedBook : UserBook
+    public class FavoriteBook : UserBook
     {
     }
 }

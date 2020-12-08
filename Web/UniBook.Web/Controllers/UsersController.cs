@@ -45,7 +45,7 @@
         }
 
         [HttpPost("api/[controller]/AddToReadedBooks")]
-        public IActionResult AddToReadedBooks([FromBody] ReadBookViewModel viewModel)
+        public IActionResult AddToReadedBooks([FromBody] SaveBookViewModel viewModel)
         {
             if (!this.ModelState.IsValid)
             {
@@ -53,7 +53,22 @@
             }
 
             string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            this.usersService.AddToReadedBooks(viewModel, userId);
+            int bookId = viewModel.BookId;
+            this.usersService.AddToReadedBooks(bookId, userId);
+            return new JsonResult("Ok");
+        }
+
+        [HttpPost("api/[controller]/addToFavoriteBooks")]
+        public IActionResult AddToFavoriteBooks([FromBody] SaveBookViewModel viewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int bookId = viewModel.BookId;
+            this.usersService.AddToFavoriteBooks(bookId, userId);
             return new JsonResult("Ok");
         }
     }

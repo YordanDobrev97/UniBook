@@ -120,24 +120,6 @@ namespace UniBook.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Settings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Settings", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "YearIssueds",
                 columns: table => new
                 {
@@ -526,6 +508,32 @@ namespace UniBook.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FavoriteBooks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteBooks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavoriteBooks_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FavoriteBooks_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Payments",
                 columns: table => new
                 {
@@ -558,7 +566,7 @@ namespace UniBook.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -578,7 +586,7 @@ namespace UniBook.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserBooks",
+                name: "UserReadBooks",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -593,15 +601,15 @@ namespace UniBook.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserBooks", x => x.Id);
+                    table.PrimaryKey("PK_UserReadBooks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserBooks_Books_BookId",
+                        name: "FK_UserReadBooks_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserBooks_AspNetUsers_UserId",
+                        name: "FK_UserReadBooks_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -703,6 +711,16 @@ namespace UniBook.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FavoriteBooks_BookId",
+                table: "FavoriteBooks",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteBooks_UserId",
+                table: "FavoriteBooks",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Genres_IsDeleted",
                 table: "Genres",
                 column: "IsDeleted");
@@ -763,29 +781,9 @@ namespace UniBook.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Settings_IsDeleted",
-                table: "Settings",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tags_PostId",
                 table: "Tags",
                 column: "PostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserBooks_BookId",
-                table: "UserBooks",
-                column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserBooks_IsDeleted",
-                table: "UserBooks",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserBooks_UserId",
-                table: "UserBooks",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserFriendRequests_IsDeleted",
@@ -818,6 +816,21 @@ namespace UniBook.Data.Migrations
                 column: "SenderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserReadBooks_BookId",
+                table: "UserReadBooks",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserReadBooks_IsDeleted",
+                table: "UserReadBooks",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserReadBooks_UserId",
+                table: "UserReadBooks",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_YearIssueds_IsDeleted",
                 table: "YearIssueds",
                 column: "IsDeleted");
@@ -847,6 +860,9 @@ namespace UniBook.Data.Migrations
                 name: "BookVotes");
 
             migrationBuilder.DropTable(
+                name: "FavoriteBooks");
+
+            migrationBuilder.DropTable(
                 name: "News");
 
             migrationBuilder.DropTable(
@@ -862,19 +878,16 @@ namespace UniBook.Data.Migrations
                 name: "ReadedBooks");
 
             migrationBuilder.DropTable(
-                name: "Settings");
-
-            migrationBuilder.DropTable(
                 name: "Tags");
-
-            migrationBuilder.DropTable(
-                name: "UserBooks");
 
             migrationBuilder.DropTable(
                 name: "UserFriendRequests");
 
             migrationBuilder.DropTable(
                 name: "UserFriends");
+
+            migrationBuilder.DropTable(
+                name: "UserReadBooks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -3,17 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
 
     using UniBook.Data;
     using UniBook.Data.Models;
     using UniBook.Web.ViewModels.Friends;
 
-    public class FriendService : IFriendService
+    public class ProfileService : IFriendService
     {
         private readonly ApplicationDbContext db;
 
-        public FriendService(ApplicationDbContext db)
+        public ProfileService(ApplicationDbContext db)
         {
             this.db = db;
         }
@@ -57,11 +56,20 @@
                     Image = x.Book.ImageUrl,
                 }).ToList();
 
+            var favotieBooks = this.db.FavoriteBooks
+                .Where(x => x.UserId == userId)
+                .Select(x => new UserBookViewModel
+                {
+                    Id = x.BookId,
+                    Image = x.Book.ImageUrl,
+                }).ToList();
+
             var viewModel = new ProfileDetailsViewModel
             {
                 Friends = friends,
                 RecivedFriendshipRequests = recivedRequests,
                 ReadedBooks = readedBooks,
+                FavoriteBooks = favotieBooks,
             };
 
             return viewModel;

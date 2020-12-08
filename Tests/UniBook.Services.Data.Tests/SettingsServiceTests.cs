@@ -38,9 +38,6 @@
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "SettingsTestDb").Options;
             var dbContext = new ApplicationDbContext(options);
-            dbContext.Settings.Add(new Setting());
-            dbContext.Settings.Add(new Setting());
-            dbContext.Settings.Add(new Setting());
             await dbContext.SaveChangesAsync();
 
             var repository = new EfDeletableEntityRepository<Setting>(dbContext);

@@ -16,17 +16,21 @@
         </section>
     </div>
 
-    <form id="savePageForm" hidden="hidden" method="post"></form>
+    <form id="bookForm" hidden="hidden" method="post"></form>
     <button type="button" onclick="savePageBook()" id="save-btn" class="btn btn-primary btn-lg btn-block">
         <span class="save">Запиши текущата страница</span>
     </button>
 
-    <button type="button" class="btn btn-outline-primary btn-lg btn-block mt-3">
+    <button onclick="addToFavoriteBooks()" type="button" class="btn btn-outline-primary btn-lg btn-block mt-3">
         <span>Добави в любими</span>
     </button>
 
     <span style="display: none;" id="saveMessage" class="alert alert-success" role="alert">
         Успешно запази текущата страница
+    </span>
+
+    <span style="display: none;" id="favoriteBooks" class="alert alert-success" role="alert">
+        Книгата е успешно добавена в любими
     </span>
 
     <button type="button" onclick="addToReadedBooks()" id="readed" class="btn btn-outline-success btn-lg btn-block mt-3">
@@ -38,7 +42,8 @@
     </span>
 </div>
 
-<script>
+@section Scripts {
+    <script>
     var startIndex = @Html.Raw(Json.Serialize(Model.ReadCount));
     var length = 1100;
     window.onload = () => {
@@ -65,7 +70,7 @@
 
     function savePageBook() {
         const bookId = @Html.Raw(Json.Serialize(Model.BookId));
-        const token = $('#savePageForm input[name=__RequestVerificationToken]').val();
+        const token = $('#bookForm input[name=__RequestVerificationToken]').val();
 
         const bookData = {
             readCount: startIndex,
@@ -92,12 +97,12 @@
             }
         });
     }
-</script>
+    </script>
 
-<script>
+    <script>
     function addToReadedBooks() {
         const bookId = @Html.Raw(Json.Serialize(Model.BookId));
-        const token = $('#savePageForm input[name=__RequestVerificationToken]').val();
+        const token = $('#bookForm input[name=__RequestVerificationToken]').val();
 
         const bookData = {
             bookId: bookId,
@@ -121,4 +126,34 @@
             }
         });
     }
-</script>
+    </script>
+
+    <script>
+        function addToFavoriteBooks() {
+            const bookId = @Html.Raw(Json.Serialize(Model.BookId));
+            const token = $('#bookForm input[name=__RequestVerificationToken]').val();
+
+        const bookData = {
+            bookId: bookId,
+        }
+
+        const jsonData = JSON.stringify(bookData);
+        $.ajax({
+            url: '/api/Users/AddToFavoriteBooks',
+            type: 'post',
+            contentType: 'application/json',
+            data: jsonData,
+            headers: {
+                "X-CSRF": token,
+            },
+            success: function (data, status) {
+                $("#favoriteBooks").show();
+                setTimeout(function () { $("#favoriteBooks").hide(); }, 3000);
+            },
+            error: function (html, status, err) {
+                console.log('error not saved.')
+            }
+        });
+        }
+    </script>
+} 

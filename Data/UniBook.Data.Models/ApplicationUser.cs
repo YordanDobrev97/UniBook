@@ -3,7 +3,7 @@ namespace UniBook.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     using Microsoft.AspNetCore.Identity;
     using UniBook.Data.Common.Models;
 
@@ -16,7 +16,6 @@ namespace UniBook.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Posts = new HashSet<Post>();
-            this.ReadedBooks = new HashSet<ReadedBook>();
             this.Payments = new HashSet<Payment>();
             this.Friends = new HashSet<Friend>();
             this.FriendRequestSend = new HashSet<FriendRequest>();
@@ -34,8 +33,6 @@ namespace UniBook.Data.Models
         public DateTime? DeletedOn { get; set; }
 
         public ICollection<Post> Posts { get; set; }
-
-        public ICollection<ReadedBook> ReadedBooks { get; set; }
 
         public ICollection<Payment> Payments { get; set; }
 

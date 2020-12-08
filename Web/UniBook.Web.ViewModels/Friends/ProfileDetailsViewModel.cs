@@ -8,6 +8,8 @@
 
         public IEnumerable<UserBookViewModel> ReadedBooks { get; set; }
 
+        public IEnumerable<UserBookViewModel> FavoriteBooks { get; set; }
+
         public IEnumerable<ReceivedFriendshipRequest> RecivedFriendshipRequests { get; set; }
     }
 }

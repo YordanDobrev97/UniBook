@@ -40,12 +40,12 @@
                 return false;
             }
 
-            var userBook = this.db.UserBooks
+            var userBook = this.db.UserReadBooks
                 .FirstOrDefault(e => e.UserId == userId && e.BookId == bookId);
 
             if (userBook == null)
             {
-                this.db.UserBooks.Add(new UserBook
+                this.db.UserReadBooks.Add(new UserReadBook
                 {
                     UserId = userId,
                     BookId = bookId,
@@ -91,30 +91,62 @@
             }
         }
 
-        public void AddToReadedBooks(ReadBookViewModel value, string userId)
+        public void AddToReadedBooks(int bookId, string userId)
         {
-            var book = this.db.ReadedBooks
-                .FirstOrDefault(e => e.UserId == userId && e.BookId == value.BookId);
+            var user = this.db.Users.FirstOrDefault(x => x.Id == userId);
+            var book = this.db.Books.FirstOrDefault(x => x.Id == bookId);
 
-            if (book == null)
+            if (user == null || book == null)
             {
-                this.db.ReadedBooks.Add(new ReadedBook
-                {
-                    BookId = value.BookId,
-                    UserId = userId,
-                });
-                this.db.SaveChanges();
+                return;
             }
+
+            if (this.db.ReadedBooks.Any(x => x.BookId == bookId && x.UserId == userId))
+            {
+                return;
+            }
+
+            this.db.ReadedBooks.Add(new ReadedBook
+            {
+                Book = book,
+                User = user,
+            });
+
+            this.db.SaveChanges();
+        }
+
+        public void AddToFavoriteBooks(int bookId, string userId)
+        {
+            var user = this.db.Users.FirstOrDefault(x => x.Id == userId);
+            var book = this.db.Books.FirstOrDefault(x => x.Id == bookId);
+
+            if (user == null || book == null)
+            {
+                return;
+            }
+
+            if (this.db.FavoriteBooks.Any(x => x.BookId == bookId && x.UserId == userId))
+            {
+                return;
+            }
+
+            this.db.FavoriteBooks.Add(new FavoriteBook
+            {
+                Book = book,
+                User = user,
+            });
+
+            this.db.SaveChanges();
         }
 
         public bool IsStartReadBook(string userId, int bookId)
         {
-            return this.db.UserBooks.Any(e => e.UserId == userId && e.BookId == bookId);
+            return this.db.UserReadBooks.Any(e => e.UserId == userId && e.BookId == bookId);
         }
 
         public ContentBookViewModel GetStartReadBook(string userId, int bookId)
         {
-            var book = this.db.UserBooks
+            var book = this.db.UserReadBooks
                 .Where(x => x.UserId == userId && x.BookId == bookId)
                 .Select(e => new ContentBookViewModel
                 {
