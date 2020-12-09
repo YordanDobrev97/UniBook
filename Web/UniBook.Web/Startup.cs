@@ -50,8 +50,8 @@
 
             services.AddAuthentication().AddFacebook(options =>
             {
-                options.AppId = "195159035609825";
-                options.AppSecret = "9a4ca3e5bf53ee8525b0e7ef819d0d4a";
+                options.AppId = this.configuration["ApiKey"];
+                options.AppSecret = this.configuration["AppSecret"];
             });
 
             services.Configure<SecurityStampValidatorOptions>(options =>
