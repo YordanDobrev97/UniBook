@@ -70,6 +70,16 @@
             return this.RedirectToAction("GetById", "Posts", new { id = postId });
         }
 
+        [Authorize]
+        [Route("LikePost/{postId}")]
+        [HttpPost]
+        public IActionResult LikePost(VotePostViewModel viewModel)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int countLikes = this.postsService.LikePost(viewModel.Id, userId);
+            return this.Ok(countLikes);
+        }
+
         private string GetUserId()
         {
             return this.User.FindFirst(ClaimTypes.NameIdentifier).Value;

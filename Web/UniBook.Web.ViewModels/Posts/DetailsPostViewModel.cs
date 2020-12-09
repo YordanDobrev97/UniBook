@@ -17,6 +17,10 @@ namespace UniBook.Web.ViewModels.Posts
 
         public string Author { get; set; }
 
+        public int CountPositiveComments { get; set; }
+
+        public int CountNegativeComments { get; set; }
+
         public ICollection<CommentPostViewModel> Comments { get; set; }
     }
 }

@@ -15,5 +15,9 @@
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
+
+        public int CountPositive { get; set; }
+
+        public int CountNegative { get; set; }
     }
 }

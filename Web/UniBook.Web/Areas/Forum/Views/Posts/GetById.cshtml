@@ -1,17 +1,85 @@
 ﻿@model DetailsPostViewModel
 
+<script>
+    function likePost() {
+        const postId = @Html.Raw(Json.Serialize(Model.Id));
+        const token = $('#votePostForm input[name=__RequestVerificationToken]').val();
+        const json = {
+            id: postId
+        };
+
+        $.ajax({
+            url: "/forum/votes/likePost",
+            type: "post",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+                'X-CSRF': token,
+                'Access-Control-Allow-Origin':  '*'
+            },
+            
+            success: function (countLikes) {
+                $("#likeBtn").html(countLikes);
+                $("#downBtn").html(countLikes - 1);
+                $("#votePost").show();
+                setTimeout(function () { $("#votePost").hide(); }, 3000);
+            }
+        });
+    }
+</script>
+
+<script>
+    function voteDown() {
+        const postId = @Html.Raw(Json.Serialize(Model.Id));
+        console.log(postId);
+        const token = $('#votePostForm input[name=__RequestVerificationToken]').val();
+        const json = {
+            id: postId
+        };
+
+        $.ajax({
+            url: "/forum/votes/downPost",
+            type: "post",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+                'X-CSRF': token,
+                'Access-Control-Allow-Origin':  '*'
+            },
+
+            success: function (countLikes) {
+                $("#downBtn").html(countLikes);
+                $('#likeBtn').html(countLikes - 1);
+                $("#votePost").show();
+                setTimeout(function () { $("#votePost").hide(); }, 3000);
+            }
+        });
+    }
+</script>
+
 <div class="container-fluid mt-100">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
-                        <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block ui-w-40 rounded-circle" alt="">
+                        <img width="100" height="110" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhyhj1gUUYu1c8817GfPwApJbYzW9lJdjSXQ&usqp=CAU" class="d-block ui-w-40 rounded-circle" alt="">
                         <div class="media-body ml-3">
-                            <a href="javascript:void(0)" data-abc="true">@Model.Author</a>
+                            <a data-abc="true">@Model.Author</a>
                         </div>
                         <div class="text-muted small ml-3">
+                            <form id="votePostForm" hidden="hidden" method="post"></form>
                             <div><strong>@Model.Comments.Count</strong>comments</div>
+                            <button type="button" onclick="likePost()" class="btn btn-primary">
+                                <i class="fa fa-thumbs-up"></i> 
+                                <span class="container-sm" id="likeBtn">@Model.CountPositiveComments</span>
+                            </button>
+                            <button type="button" onclick="voteDown()" class="btn btn-primary">
+                                <i class="fa fa-thumbs-down"></i> 
+                                <span class="container-sm" id="downBtn">(@Model.CountNegativeComments)</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -19,11 +87,15 @@
                     <p class="bg-white">@Html.Raw(@Model.SanitizedContent)</p>
                 </div>
                 <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
-                    <div class="px-4 pt-3"> 
+                    <div class="px-4 pt-3">
                         <button type="button" class="btn btn-primary" onclick="addComment()">
                             <i class="ion ion-md-create"></i>&nbsp; Добави коментар
                         </button>
                     </div>
+
+                    <span style="display: none;" id="votePost" class="alert alert-success" role="alert">
+                        Гласувахте успешно
+                    </span>
                 </div>
             </div>
         </div>

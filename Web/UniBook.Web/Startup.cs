@@ -67,10 +67,24 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: "Origins",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
+            });
+
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
+            }).AddNewtonsoftJson();
 
             services.AddRazorPages();
 
@@ -143,8 +157,16 @@
 
             app.UseRouting();
 
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+
             app.UseAuthentication();
-            app.UseAuthorization(); 
+            app.UseAuthorization();
 
             app.UseHangfireDashboard();
 

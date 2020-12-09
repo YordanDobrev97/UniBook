@@ -40,6 +40,16 @@
 
         public DetailsPostViewModel GetById(int id, string loggedUserId)
         {
+            var countPositiveVotes = this.db
+                .PostVotes
+                .Where(x => x.PostId == id)
+                .Sum(x => x.CountPositive);
+
+            var countNegativeVotes = this.db
+                .PostVotes
+                .Where(x => x.PostId == id)
+                .Sum(x => x.CountNegative);
+
             var currentPost = this.db.Posts
                 .Where(e => e.Id == id)
                 .Select(e => new DetailsPostViewModel
@@ -47,6 +57,8 @@
                     Id = e.Id,
                     Title = e.Title,
                     Content = e.Content,
+                    CountPositiveComments = countPositiveVotes,
+                    CountNegativeComments = countNegativeVotes,
                     Comments = e.PostComments.Select(x => new CommentPostViewModel
                     {
                         UserName = x.User.UserName,
@@ -107,6 +119,79 @@
                 }).ToList();
 
             return categories;
+        }
+
+        public int LikePost(int id, string userId)
+        {
+            if (!this.db.Posts.Any(x => x.Id == id))
+            {
+                return 0;
+            }
+
+            var existPost = this.db.PostVotes
+                .FirstOrDefault(x => x.PostId == id && x.UserId == userId);
+
+            if (existPost == null)
+            {
+                existPost = new PostVote
+                {
+                    PostId = id,
+                    UserId = userId,
+                };
+
+                this.db.PostVotes.Add(existPost);
+            }
+
+            int count = ++existPost.CountPositive;
+            this.db.SaveChanges();
+
+            return count;
+        }
+
+        public int VoteDown(int id, string userId)
+        {
+            if (!this.ExistPost(id))
+            {
+                return 0;
+            }
+
+            var existPost = this.db.PostVotes.FirstOrDefault(x => x.PostId == id && x.UserId == userId);
+
+            // maybe should be think better smart solution ?
+            if (existPost == null)
+            {
+                existPost = new PostVote
+                {
+                    PostId = id,
+                    UserId = userId,
+                };
+
+                this.db.PostVotes.Add(existPost);
+                ++existPost.CountNegative;
+            }
+            else
+            {
+                if (existPost.CountPositive == 1 && existPost.CountNegative == 1)
+                {
+                    return 0;
+                }
+
+                if (existPost.CountPositive - 1 < 0 || existPost.CountNegative < 0)
+                {
+                    return 0;
+                }
+
+                --existPost.CountPositive;
+                ++existPost.CountNegative;
+            }
+
+            this.db.SaveChanges();
+            return existPost.CountNegative;
+        }
+
+        private bool ExistPost(int id)
+        {
+            return this.db.Posts.Any(x => x.Id == id);
         }
     }
 }

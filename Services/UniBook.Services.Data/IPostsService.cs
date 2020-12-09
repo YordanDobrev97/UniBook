@@ -18,5 +18,9 @@
         List<CategoryInputModel> GetCategories();
 
         DetailsPostViewModel GetById(int id, string loggedUserId);
+
+        int LikePost(int id, string userId);
+
+        int VoteDown(int id, string userId);
     }
 }
