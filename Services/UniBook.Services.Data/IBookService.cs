@@ -22,7 +22,7 @@
 
         IEnumerable<ListAllBooksViewModel> SearchByYear(int year);
 
-        IEnumerable<ListAllBooksViewModel> SearchByGenres(string genre);
+        IEnumerable<ListAllBooksViewModel> SearchByGenres(string[] genre);
 
         IEnumerable<ListAllBooksViewModel> SearchPaidBooks();
 

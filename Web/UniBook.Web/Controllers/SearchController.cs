@@ -1,6 +1,7 @@
 ﻿namespace UniBook.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,7 @@
 
             if (search.Genre != null)
             {
-                return this.RedirectToAction("SearchByGenre", new { id = id, search = search.Genre });
+                return this.RedirectToAction("SearchByGenre", new { id = id, search = string.Join("&", search.Genre) });
             }
 
             if (search.FreeBook != null)
@@ -54,9 +55,9 @@
             return this.NotFound();
         }
 
-        public IActionResult SearchByBookName(int id, string searchBook)
+        public IActionResult SearchByBookName(int id, string search)
         {
-            var books = this.service.SearchByBook(searchBook);
+            var books = this.service.SearchByBook(search);
 
             var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
             var viewModel = new BooksListViewModel
@@ -71,15 +72,15 @@
                     DataCount = books.Count(),
                     Controller = "Search",
                     Action = "SearchByBookName",
-                    Search = searchBook,
+                    Search = search,
                 },
             };
             return this.View("Views/Books/All.cshtml", viewModel);
         }
 
-        public IActionResult SearchByAuthor(int id, string searchAuthor)
+        public IActionResult SearchByAuthor(int id, string search)
         {
-            var authorBooks = this.service.GetAuthorBooks(searchAuthor);
+            var authorBooks = this.service.GetAuthorBooks(search);
             var result = this.PaginationBooks<ListAllBooksViewModel>(id, authorBooks, MaxBooks);
             var viewModel = new BooksListViewModel
             {
@@ -93,15 +94,15 @@
                     DataCount = authorBooks.Count(),
                     Controller = "Search",
                     Action = "SearchByAuthor",
-                    Search = searchAuthor,
+                    Search = search,
                 },
             };
             return this.View("Views/Books/All.cshtml", viewModel);
         }
 
-        public IActionResult SearchByYear(int id, int year)
+        public IActionResult SearchByYear(int id, int search)
         {
-            var books = this.service.SearchByYear(year);
+            var books = this.service.SearchByYear(search);
             var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
             var viewModel = new BooksListViewModel
             {
@@ -115,7 +116,7 @@
                     DataCount = books.Count(),
                     Controller = "Search",
                     Action = "SearchByYear",
-                    Search = year.ToString(),
+                    Search = search.ToString(),
                 },
             };
             return this.View("Views/Books/All.cshtml", viewModel);
@@ -123,7 +124,8 @@
 
         public IActionResult SearchByGenre(int id, string search)
         {
-            var books = this.service.SearchByGenres(search);
+            var genres = search.Split("&");
+            var books = this.service.SearchByGenres(genres);
 
             var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
             var viewModel = new BooksListViewModel
@@ -138,17 +140,17 @@
                     DataCount = books.Count(),
                     Controller = "Search",
                     Action = "SearchByGenre",
-                    Search = search,
+                    Search = string.Join("&", search),
                 },
             };
             return this.View("Views/Books/All.cshtml", viewModel);
         }
 
-        public IActionResult SearchByFreeBooks(int id)
+        public IActionResult SearchByFreeBooks(int search)
         {
             var books = this.service.SearchFreeBooks();
 
-            var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
+            var result = this.PaginationBooks<ListAllBooksViewModel>(search, books, MaxBooks);
             var viewModel = new BooksListViewModel
             {
                 Books = result,
@@ -156,7 +158,7 @@
                 Genres = this.service.GetGenres(),
                 PaginationViewModel = new PaginationViewModel
                 {
-                    CurrentPage = id,
+                    CurrentPage = search,
                     PagesCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks),
                     DataCount = books.Count(),
                     Controller = "Search",
@@ -166,11 +168,11 @@
             return this.View("Views/Books/All.cshtml", viewModel);
         }
 
-        public IActionResult SearchByPaidBook(int id)
+        public IActionResult SearchByPaidBook(int search)
         {
             var books = this.service.SearchPaidBooks();
 
-            var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
+            var result = this.PaginationBooks<ListAllBooksViewModel>(search, books, MaxBooks);
             var viewModel = new BooksListViewModel
             {
                 Books = result,
@@ -178,7 +180,7 @@
                 Genres = this.service.GetGenres(),
                 PaginationViewModel = new PaginationViewModel
                 {
-                    CurrentPage = id,
+                    CurrentPage = search,
                     PagesCount = (int)Math.Ceiling(books.Count() / (decimal)MaxBooks),
                     DataCount = books.Count(),
                     Controller = "Search",

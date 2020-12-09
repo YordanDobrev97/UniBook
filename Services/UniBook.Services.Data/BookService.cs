@@ -134,17 +134,24 @@
                 }).ToList();
         }
 
-        public IEnumerable<ListAllBooksViewModel> SearchByGenres(string genre)
+        public IEnumerable<ListAllBooksViewModel> SearchByGenres(string[] genres)
         {
-            var books = this.db.Books
-              .Where(e => e.Genre.Name == genre)
-                .Select(e => new ListAllBooksViewModel
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    ImageUrl = e.ImageUrl,
-                    Votes = e.Votes,
-                }).ToList();
+            var books = new List<ListAllBooksViewModel>();
+
+            foreach (var genre in genres)
+            {
+                var book = this.db.Books
+                    .Where(e => e.Genre.Name == genre)
+                    .Select(e => new ListAllBooksViewModel
+                    {
+                        Id = e.Id,
+                        Name = e.Name,
+                        ImageUrl = e.ImageUrl,
+                        Votes = e.Votes,
+                    }).ToList();
+
+                books.AddRange(book);
+            }
 
             return books;
         }

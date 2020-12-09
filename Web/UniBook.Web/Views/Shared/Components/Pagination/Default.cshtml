@@ -54,12 +54,12 @@
                     <a class="page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-id="@(pagesToShow[i - 1] + 1)">...</a>
                 </li>
             }
-            <li class="page-item @className"><a class="page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-id="@pageNumber">@pageNumber</a></li>
+            <li class="page-item @className"><a class="page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-id="@pageNumber" asp-route-search="@this.Model.Search">@pageNumber</a></li>
         }
         @if (this.Model.CurrentPage < this.Model.PagesCount)
         {
             <li class="page-item">
-                <a class="page-link" aria-label="Следваща" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-id="@this.Model.NextPage" asp-route-search="@this.Model.Search">
+                <a class="page-link" aria-label="Следваща" asp-area="" asp-route="search" asp-route-id="@this.Model.NextPage" asp-route-search="@this.Model.Search">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
