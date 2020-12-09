@@ -24,17 +24,17 @@
         {
             if (search.Author != null)
             {
-                return this.RedirectToAction("SearchByAuthor", new { id = id, searchAuthor = search .Author});
+                return this.RedirectToAction("SearchByAuthor", new { id = id, search = search.Author });
             }
 
             if (search.BookName != null)
             {
-                return this.RedirectToAction("SearchByBookName", new { id = id, searchBook = search.BookName });
+                return this.RedirectToAction("SearchByBookName", new { id = id, search = search.BookName });
             }
 
             if (search.Year != 0)
             {
-                return this.RedirectToAction("SearchByYear", new { id = id, year = search.Year });
+                return this.RedirectToAction("SearchByYear", new { id = id, search = search.Year });
             }
 
             if (search.Genre != null)
@@ -44,12 +44,12 @@
 
             if (search.FreeBook != null)
             {
-                return this.RedirectToAction("SearchByFreeBooks", new { id = id });
+                return this.RedirectToAction("SearchByFreeBooks", new { search = id });
             }
 
             if (search.PaidBook != null)
             {
-                return this.RedirectToAction("SearchByPaidBook", new { id = id });
+                return this.RedirectToAction("SearchByPaidBook", new { search = id });
             }
 
             return this.NotFound();
