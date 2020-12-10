@@ -25,6 +25,9 @@ Finally, there are video reviews from the YouTube channel of **Stef's Library** 
 * Stripe
 * Anglesharp
 * Hangfire
+* HtmlSanitizer
+* SignalR
+* Facebook for developers
 
 ## Screenshots:
 
