@@ -66,6 +66,13 @@
         "plugins/code/plugin.min.js",
         "plugins/media/plugin.min.js"
       ]
+    },
+    {
+      "library": "@microsoft/signalr@3.1.10",
+      "destination": "wwwroot/lib/signalr/",
+      "files": [
+        "dist/browser/signalr.min.js"
+      ]
     }
   ]
 }

@@ -85,7 +85,7 @@
                             </form>
                         </li>
 
-                        <partial name="_RequestFriendPartial"/>
+                        <partial name="_RequestFriendPartial" />
                     }
                     else
                     {
@@ -151,30 +151,27 @@
         </div>
     </footer>
 
-    <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
-        <script src="news-js/wow.min.js"></script>
-        <script src="news-js/slick.min.js"></script>
-        <script src="news-js/jquery.li-scroller.1.0.js"></script>
-        <script src="news-js/jquery.newsTicker.min.js"></script>
-        <script src="news-js/jquery.fancybox.pack.js"></script>
-        <script src="news-js/custom.js"></script>
-        <script src="~/js/classie.js"></script>
-        <script src="~/js/uisearch.js"></script>
+    <script src="news-js/wow.min.js"></script>
+    <script src="news-js/slick.min.js"></script>
+    <script src="news-js/jquery.li-scroller.1.0.js"></script>
+    <script src="news-js/jquery.newsTicker.min.js"></script>
+    <script src="news-js/jquery.fancybox.pack.js"></script>
+    <script src="news-js/custom.js"></script>
+    <script src="~/js/classie.js"></script>
+    <script src="~/js/uisearch.js"></script>
 
-    </environment>
-    <environment names="Staging,Production">
-        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
 
     @this.RenderSection("Scripts", required: false)
 

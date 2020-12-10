@@ -20,5 +20,10 @@
             var viewModel = this.friendService.All(userId);
             return this.View(viewModel);
         }
+
+        public IActionResult Chat()
+        {
+            return this.View();
+        }
     }
 }
