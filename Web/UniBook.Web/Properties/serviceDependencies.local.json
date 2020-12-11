@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql1": {
+      "type": "mssql.local",
+      "connectionId": "DefaultConnection",
+      "secretStore": "LocalSecretsFile"
+    },
+    "signalr1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.SignalRService/SignalR/UniBook",
+      "type": "signalr.azure",
+      "connectionId": "Azure__SignalR__ConnectionString",
+      "secretStore": "LocalSecretsFile"
+    }
+  }
+}
