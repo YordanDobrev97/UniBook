@@ -48,7 +48,11 @@
 
         public DbSet<Post> Posts { get; set; }
 
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Room> Rooms { get; set; }
+
+        public DbSet<MessageRoom> MessagesRoom { get; set; }
 
         public DbSet<PostComment> PostComments { get; set; }
 

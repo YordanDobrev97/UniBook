@@ -1,73 +1,33 @@
-﻿
-<link href="~/css/chat.css" rel="stylesheet" />
+﻿@using UniBook.Web.ViewModels.Friends
+@model ChatViewModel
 
-<style>
-    body {
-        width: 100vw;
-        height: 100vh;
-    }
+<link href="~/css/chat.css" rel="stylesheet" asp-append-version="true"/>
 
-    .msgcard {
-        box-shadow: 0 0px 25px rgba(0, 0, 0, .2);
-    }
-
-    .chat-log {
-        overflow: auto;
-        height: calc(75vh);
-    }
-
-    .chat-log_item {
-        background: #eaeaea;
-        padding: 10px;
-        margin: 0 auto 10px;
-        max-width: 95%;
-        min-width: 25%;
-        float: left;
-        font-size: 13px;
-        border-radius: 0 20px 20px 20px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
-        clear: both;
-    }
-
-        .chat-log_item.chat-log_item-own {
-            float: right;
-            background: #D5F4E7;
-            text-align: right;
-            margin-right: 0.7rem;
-            border-radius: 20px 0 20px 20px;
-        }
-
-    .chat-form {
-        padding: 40px 0;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-    }
-
-    .chat-log_author {
-        margin: 0 auto 0em;
-        font-size: 12px;
-        font-weight: bold;
-    }
-
-    .chat-log_time {
-        margin: 0 auto .5em;
-        direction: rtl;
-        font-size: 12px;
-        opacity: 0.5;
-    }
-</style>
-
-<ol class="chat">
-    <li class="other">
-        <div class="chat-log_message">
-            <p id="messagesList"></p>
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+        <div class="col-md-8 col-xl-6 chat">
+            <div class="card">
+                <div class="card-header msg_head">
+                    <div class="d-flex bd-highlight">
+                        <div class="user_info">
+                            <span>Чат</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body msg_card_body">
+                    <div id="first" class="d-flex justify-content-end mb-4"></div>
+                    <div id="second" class="d-flex justify-content-start mb-4"></div>
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <input class="textarea" type="text" placeholder="Напиши съобщение" />
+                        <button id="sendButton" class="ml-4 btn btn-dark btn-lg">Изпрати</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </li>
-</ol>
-
-<input class="textarea" type="text" placeholder="Напиши съобщение" />
-<button id="sendButton" class="ml-4 btn btn-dark btn-lg">Изпрати</button>
+    </div>
+</div>
 
 @section Scripts {
     <script>
@@ -78,15 +38,19 @@
 
         connection.on("NewMessage",
             function (message) {
-                var chatInfo = `<div>[${message.user}] ${escapeHtml(message.text)}</div>`;
-                $("#messagesList").append(chatInfo);
+                var user = @Html.Raw(Json.Serialize(User.Identity.Name));
+                const currentRow = message.user == user ? "first": "second";
+                var chatInfo = `<div>${escapeHtml(message.text)}</div>` + '\n';
+
+                $(`#${currentRow}`).append(chatInfo);
             });
 
-       
+
         $("#sendButton").click(function () {
             var message = $(".textarea").val();
+            var recipient = @Html.Raw(Json.Serialize(Model.UserId));
             console.log(message);
-            connection.invoke("Send", message);
+            connection.invoke("Send", message, recipient);
             $(".textarea").val("");
         });
         connection.start().catch(function (err) {

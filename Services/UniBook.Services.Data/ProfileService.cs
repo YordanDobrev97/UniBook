@@ -27,6 +27,7 @@
                 .Where(e => !e.IsDeleted && e.ReceiverId == userId)
                 .Select(e => new ListUsersViewModel
                 {
+                    UserId = e.SenderId,
                     Username = e.Sender.UserName,
                 }).ToList();
             }
@@ -36,6 +37,7 @@
                 .Where(e => !e.IsDeleted && e.SenderId == userId)
                 .Select(e => new ListUsersViewModel
                 {
+                    UserId = e.ReceiverId,
                     Username = e.Receiver.UserName,
                 }).ToList();
             }

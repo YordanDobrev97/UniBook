@@ -118,6 +118,8 @@
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<INewsService, NewsService>();
+            services.AddTransient<IRoomService, RoomService>();
+            services.AddTransient<IMessageService, MessageService>();
 
             services.AddHangfire(x => x.UseSqlServerStorage(this.configuration.GetConnectionString("DefaultConnection")));
             services.AddHangfireServer();

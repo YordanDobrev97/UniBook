@@ -2,13 +2,13 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using UniBook.Data.Common.Models;
 
     public class Post : BaseDeletableModel<int>
     {
         public Post()
         {
-            this.Tags = new HashSet<Tag>();
             this.PostComments = new HashSet<PostComment>();
             this.PostVotes = new HashSet<PostVote>();
         }
@@ -30,8 +30,6 @@
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
-
-        public ICollection<Tag> Tags { get; set; }
 
         public ICollection<PostComment> PostComments { get; set; }
 

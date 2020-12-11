@@ -4,6 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
+    using UniBook.Web.ViewModels.Friends;
 
     public class ProfileController : BaseController
     {
@@ -21,9 +22,14 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Chat()
+        public IActionResult Chat(string id)
         {
-            return this.View();
+            var viewModel = new ChatViewModel
+            {
+                UserId = id,
+            };
+
+            return this.View(viewModel);
         }
     }
 }
