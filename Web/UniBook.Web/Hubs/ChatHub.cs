@@ -37,6 +37,7 @@
                 this.Context.ConnectionId,
                 $"{senderId + userId}{messageId}");
 
+            //this.Clients.OthersInGroup
             var clients = this.Clients;
             await this.Clients.All.SendAsync(
                 "NewMessage",
