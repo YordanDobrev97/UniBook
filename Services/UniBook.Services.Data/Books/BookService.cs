@@ -1,4 +1,4 @@
-﻿namespace UniBook.Services.Data
+﻿namespace UniBook.Services.Data.Books
 {
     using System.Collections.Generic;
     using System.Linq;

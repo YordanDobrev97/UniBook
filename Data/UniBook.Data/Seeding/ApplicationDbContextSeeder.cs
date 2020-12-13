@@ -27,6 +27,7 @@
                           {
                                 new BookSeeder(),
                                 new CategoriesSeeder(),
+                                new YearSeeder(),
                                 new RolesSeeder(),
                           };
 

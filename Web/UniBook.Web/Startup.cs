@@ -24,6 +24,7 @@
     using UniBook.Data.Repositories;
     using UniBook.Data.Seeding;
     using UniBook.Services.Data;
+    using UniBook.Services.Data.Books;
     using UniBook.Services.Mapping;
     using UniBook.Services.Messaging;
     using UniBook.Web.Hubs;

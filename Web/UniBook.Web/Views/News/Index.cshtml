@@ -1,5 +1,8 @@
-﻿ @model List<NewsViewModel>
+﻿@model List<NewsViewModel>
 
+@{
+    var firstNews = this.Model.FirstOrDefault();
+}
 <section id="navArea">
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="navbar-header">
@@ -13,15 +16,6 @@
             <div class="latest_newsarea">
                 <span>Latest News</span>
                 <ul id="ticker01" class="news_sticker">
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My First News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Second News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Third News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Four News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Five News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Six News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Seven News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Eight News Item</a></li>
-                    <li><a href="#"><img src="images/news_thumbnail2.jpg" alt="">My Nine News Item</a></li>
                 </ul>
                 <div class="social_area">
                     <ul class="social_nav">
@@ -41,22 +35,47 @@
 </section>
 <section id="sliderSection">
     <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8">
-            <div class="slick_slider">
-                @foreach (var article in Model)
+        <div id="carouselExampleCaptions" class="carousel slide col-md-6" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a asp-controller="News" asp-action="Details" asp-route-id="@firstNews.Id">
+                        <img src="@firstNews.ImageUrl" class="d-block w-100 h-50" />
+                    </a>
+                    
+                    <div class="carousel-caption d-none d-md-block">
+                        <p>@firstNews.Title</p>
+                    </div>
+                </div>
+                @foreach (var news in Model.Skip(1))
                 {
-                    <div class="single_iteam">
-                        <a asp-controller="News" asp-action="Details" asp-route-id="@article.Id"> 
-                        <img src="@article.ImageUrl" alt=""></a>
-                        <div class="slider_article">
-                            <h2><a asp-controller="News" asp-action="Details" asp-route-id="@article.Id" class="slider_tittle">@article.Title</a></h2>
+                    <div class="carousel-item">
+                        <a asp-controller="News" asp-action="Details" asp-route-id="@news.Id">
+                            <img src="@news.ImageUrl" class="d-block w-100 h-50" />
+                        </a>
+
+
+                        <div class="carousel-caption d-none d-md-block">
+                            <p>@news.Title</p>
                         </div>
                     </div>
                 }
 
             </div>
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-md-6">
             <div class="latest_post">
                 <h2><span>Latest post</span></h2>
                 <div class="latest_post_container">
@@ -66,11 +85,11 @@
                         {
                             <li>
                                 <div class="media">
-                                    <a asp-controller="News" asp-action="Details" asp-route-id="@article.Id" class="media-left"> 
+                                    <a asp-controller="News" asp-action="Details" asp-route-id="@article.Id" class="media-left">
                                         <img alt="@article.ImageUrl" src="@article.ImageUrl">
                                     </a>
                                     <div class="media-body">
-                                        <a  asp-controller="News" asp-action="Details" asp-route-id="@article.Id" class="catg_title">@article.Title</a>
+                                        <a asp-controller="News" asp-action="Details" asp-route-id="@article.Id" class="catg_title">@article.Title</a>
                                     </div>
                                 </div>
                             </li>

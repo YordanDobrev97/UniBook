@@ -16,9 +16,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Forum\Data\**" />
+    <Compile Remove="Areas\Forum\Models\**" />
     <Compile Remove="Views\Shared\NewFolder\**" />
+    <Content Remove="Areas\Forum\Data\**" />
+    <Content Remove="Areas\Forum\Models\**" />
     <Content Remove="Views\Shared\NewFolder\**" />
+    <EmbeddedResource Remove="Areas\Forum\Data\**" />
+    <EmbeddedResource Remove="Areas\Forum\Models\**" />
     <EmbeddedResource Remove="Views\Shared\NewFolder\**" />
+    <None Remove="Areas\Forum\Data\**" />
+    <None Remove="Areas\Forum\Models\**" />
     <None Remove="Views\Shared\NewFolder\**" />
   </ItemGroup>
   <ItemGroup>
@@ -62,11 +70,6 @@
     <ProjectReference Include="..\..\Services\UniBook.Services\UniBook.Services.csproj" />
     <ProjectReference Include="..\UniBook.Web.Infrastructure\UniBook.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\UniBook.Web.ViewModels\UniBook.Web.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Forum\Data\" />
-    <Folder Include="Areas\Forum\Models\" />
   </ItemGroup>
 
   <ItemGroup>
