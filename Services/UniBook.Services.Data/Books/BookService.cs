@@ -106,7 +106,7 @@
 
         public IEnumerable<ListAllBooksViewModel> SearchByBook(string bookName)
         {
-            return this.db.Books
+            var books = this.db.Books
                 .Where(b => b.Name.Contains(bookName))
                 .Select(b => new ListAllBooksViewModel
                 {
@@ -117,6 +117,8 @@
                     Votes = b.Votes,
                     Year = b.YearIssued.YearOfIssue,
                 }).ToList();
+
+            return books;
         }
 
         public IEnumerable<ListAllBooksViewModel> SearchByYear(int year)
@@ -184,13 +186,13 @@
 
         public IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId)
         {
-            //this.db.UserReadedBooks.Where(e => e.UserReaded.Id == userId)
-            //    .Select(e => new ReadedBookViewModel
-            //    {
-            //        BookId = e.Book.Id,
-            //        ImageUrl = e.Book.ImageUrl,
-            //        UserId = e.UserReaded.Id,
-            //    }).ToList();
+            this.db.ReadedBooks.Where(e => e.UserId == userId)
+                .Select(e => new ReadedBookViewModel
+                {
+                    BookId = e.Book.Id,
+                    ImageUrl = e.Book.ImageUrl,
+                    UserId = e.UserId,
+                }).ToList();
 
             return null;
         }
