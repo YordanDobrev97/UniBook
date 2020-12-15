@@ -28,6 +28,7 @@ Finally, there are video reviews from the YouTube channel of **Stef's Library** 
 * HtmlSanitizer
 * SignalR
 * Facebook for developers
+* xUnit
 
 ## Screenshots:
 
