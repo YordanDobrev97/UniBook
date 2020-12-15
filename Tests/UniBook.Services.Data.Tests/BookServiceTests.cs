@@ -267,5 +267,156 @@
 
             Assert.Equal("Test comment", bookComment.CommentBody);
         }
+
+        [Fact]
+        public void TestGetReadedBooks()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+             .UseInMemoryDatabase("UniBookDbTest").Options;
+            var db = new ApplicationDbContext(options);
+
+            var user = new ApplicationUser
+            {
+                UserName = "Test user",
+                IsDeleted = false,
+                CreatedOn = DateTime.UtcNow,
+            };
+            var book = new Book
+            {
+                Name = "test book name",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+            };
+
+            db.Users.Add(user);
+            db.Books.Add(book);
+
+            db.ReadedBooks.Add(new ReadedBook
+            {
+                User = user,
+                Book = book,
+            });
+
+            db.SaveChanges();
+            var bookService = new BookService(db);
+            var readedBooks = bookService.GetReadedBooks(user.Id);
+            Assert.Single(readedBooks);
+        }
+
+        [Fact]
+        public void TestReadBook()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+             .UseInMemoryDatabase("UniBookDbTest").Options;
+            var db = new ApplicationDbContext(options);
+
+            var user = new ApplicationUser
+            {
+                UserName = "Demo user",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+            };
+
+            var book = new Book
+            {
+                Name = "book name",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+            };
+
+            db.Users.Add(user);
+            db.Books.Add(book);
+
+            db.SaveChanges();
+
+            var bookService = new BookService(db);
+            var readUserBook = bookService.ReadBook(book.Id, user.Id);
+            var invalidUserBook = bookService.ReadBook(-1, "Invalid user id");
+
+            Assert.NotNull(readUserBook);
+            Assert.Null(invalidUserBook);
+        }
+
+        [Fact]
+        public void TestGetPaymentDetails()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+             .UseInMemoryDatabase("UniBookDbTest").Options;
+            var db = new ApplicationDbContext(options);
+
+            var book = new Book
+            {
+                Name = "The best book",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+            };
+
+            var user = new ApplicationUser
+            {
+                UserName = "payment user",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+            };
+
+            db.Books.Add(book);
+            db.Users.Add(user);
+            db.SaveChanges();
+
+            var bookService = new BookService(db);
+            var paymentDetails = bookService.PaymentDetails(book.Id, user.Id);
+            var invalidPayment = bookService.PaymentDetails(0, "not exist user");
+            Assert.NotNull(paymentDetails);
+            Assert.Null(invalidPayment);
+        }
+
+        [Theory]
+        [InlineData("Роман", "Фантастика", "История", "Хорър", "Приказка")]
+        public void TestGetAllGenres(params string[] names)
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+             .UseInMemoryDatabase("UniBookDbTestGenres").Options;
+            var db = new ApplicationDbContext(options);
+
+            foreach (var item in names)
+            {
+                db.Genres.Add(new Genre
+                {
+                    Name = item,
+                    CreatedOn= DateTime.UtcNow,
+                    IsDeleted = false,
+                });
+            }
+
+            db.SaveChanges();
+            var genres = new BookService(db);
+            var countGenres = genres.GetGenres().Count();
+
+            Assert.Equal(names.Length, countGenres);
+        }
+
+        [Theory]
+        [InlineData(2020, 2019, 2018)]
+        public void TestGetYears(params int[] years)
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase("UniBookDbTestYears").Options;
+            var db = new ApplicationDbContext(options);
+
+            foreach (int item in years)
+            {
+                db.YearIssueds.Add(new YearIssued
+                {
+                    YearOfIssue = item,
+                    CreatedOn = DateTime.UtcNow,
+                    IsDeleted = false,
+                });
+            }
+
+            db.SaveChanges();
+            var bookService = new BookService(db);
+            var countYears = bookService.GetYears().Count();
+
+            Assert.Equal(years.Length, countYears);
+        }
     }
 }

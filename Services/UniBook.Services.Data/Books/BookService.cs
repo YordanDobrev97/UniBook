@@ -186,15 +186,13 @@
 
         public IEnumerable<ReadedBookViewModel> GetReadedBooks(string userId)
         {
-            this.db.ReadedBooks.Where(e => e.UserId == userId)
+            return this.db.ReadedBooks.Where(e => e.UserId == userId)
                 .Select(e => new ReadedBookViewModel
                 {
                     BookId = e.Book.Id,
                     ImageUrl = e.Book.ImageUrl,
                     UserId = e.UserId,
                 }).ToList();
-
-            return null;
         }
 
         public IEnumerable<ListGenreViewModel> GetGenres()
