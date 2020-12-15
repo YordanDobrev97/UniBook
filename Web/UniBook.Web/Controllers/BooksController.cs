@@ -33,7 +33,7 @@
             {
                 Books = result,
                 Genres = this.service.GetGenres(),
-                Years = this.service.All().Select(x => x.Year).ToList(),
+                Years = this.service.GetYears(),
                 PaginationViewModel = new PaginationViewModel
                 {
                     CurrentPage = id,
