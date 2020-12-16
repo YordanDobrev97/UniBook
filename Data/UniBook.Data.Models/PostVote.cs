@@ -16,8 +16,6 @@
 
         public ApplicationUser User { get; set; }
 
-        public int CountPositive { get; set; }
-
-        public int CountNegative { get; set; }
+        public VoteType TypeVote { get; set; }
     }
 }

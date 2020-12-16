@@ -42,13 +42,13 @@
         {
             var countPositiveVotes = this.db
                 .PostVotes
-                .Where(x => x.PostId == id)
-                .Sum(x => x.CountPositive);
+                .Where(x => x.PostId == id && x.TypeVote == VoteType.Up)
+                .Count();
 
             var countNegativeVotes = this.db
                 .PostVotes
-                .Where(x => x.PostId == id)
-                .Sum(x => x.CountNegative);
+                .Where(x => x.PostId == id && x.TypeVote == VoteType.Down)
+                .Count();
 
             var currentPost = this.db.Posts
                 .Where(e => e.Id == id)
@@ -137,14 +137,24 @@
                 {
                     PostId = id,
                     UserId = userId,
+                    TypeVote = VoteType.Up,
                 };
 
                 this.db.PostVotes.Add(existPost);
             }
+            else if (existPost.TypeVote == VoteType.Up)
+            {
+                existPost.TypeVote = VoteType.Down;
+            }
+            else if (existPost.TypeVote == VoteType.Down)
+            {
+                existPost.TypeVote = VoteType.Up;
+            }
 
-            int count = ++existPost.CountPositive;
             this.db.SaveChanges();
 
+            int count = this.db.PostVotes
+                .Count(x => x.PostId == id && x.TypeVote == VoteType.Up);
             return count;
         }
 
@@ -157,36 +167,29 @@
 
             var existPost = this.db.PostVotes.FirstOrDefault(x => x.PostId == id && x.UserId == userId);
 
-            // maybe should be think better smart solution ?
             if (existPost == null)
             {
                 existPost = new PostVote
                 {
                     PostId = id,
                     UserId = userId,
+                    TypeVote = VoteType.Down,
                 };
 
                 this.db.PostVotes.Add(existPost);
-                ++existPost.CountNegative;
             }
-            else
+            else if (existPost.TypeVote == VoteType.Down)
             {
-                if (existPost.CountPositive == 1 && existPost.CountNegative == 1)
-                {
-                    return 0;
-                }
-
-                if (existPost.CountPositive - 1 < 0 || existPost.CountNegative < 0)
-                {
-                    return 0;
-                }
-
-                --existPost.CountPositive;
-                ++existPost.CountNegative;
+                existPost.TypeVote = VoteType.Up;
+            }
+            else if (existPost.TypeVote == VoteType.Up)
+            {
+                existPost.TypeVote = VoteType.Down;
             }
 
             this.db.SaveChanges();
-            return existPost.CountNegative;
+            return this.db.PostVotes
+                .Count(x => x.PostId == id && x.TypeVote == VoteType.Down);
         }
 
         private bool ExistPost(int id)
