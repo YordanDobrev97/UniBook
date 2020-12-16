@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using System.Security.Claims;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels.Friends;
@@ -23,6 +23,7 @@
             this.roomService = roomService;
         }
 
+        [Authorize]
         public IActionResult Details()
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -30,6 +31,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public IActionResult Chat(string id)
         {
             var loggedUser = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;

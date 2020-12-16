@@ -2,7 +2,7 @@
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels.Payments;
@@ -20,6 +20,7 @@
             this.paymentService = paymentService;
         }
 
+        [Authorize]
         public IActionResult PayBook(int id)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -28,6 +29,7 @@
             return this.View(bookDetails);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Charge(PaymentInputModel model)
         {

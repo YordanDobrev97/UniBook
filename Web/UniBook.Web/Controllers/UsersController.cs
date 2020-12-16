@@ -17,6 +17,7 @@
             this.usersService = usersService;
         }
 
+        [Authorize]
         [HttpPost]
         [Route("api/[controller]/BookData")]
         public IActionResult Save([FromBody] ReadBookViewModel value)
@@ -31,6 +32,7 @@
             return new JsonResult("Ok");
         }
 
+        [Authorize]
         [HttpPost("api/[controller]/Book")]
         public IActionResult VoteBook([FromBody] VoteBookViewModel bookViewModel)
         {
@@ -44,6 +46,7 @@
             return new JsonResult("Ok");
         }
 
+        [Authorize]
         [HttpPost("api/[controller]/AddToReadedBooks")]
         public IActionResult AddToReadedBooks([FromBody] SaveBookViewModel viewModel)
         {
@@ -58,6 +61,7 @@
             return new JsonResult("Ok");
         }
 
+        [Authorize]
         [HttpPost("api/[controller]/addToFavoriteBooks")]
         public IActionResult AddToFavoriteBooks([FromBody] SaveBookViewModel viewModel)
         {

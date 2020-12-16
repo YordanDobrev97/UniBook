@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels;
@@ -116,6 +116,7 @@
             return this.View("Views/Books/All.cshtml", viewModel);
         }
 
+        [Authorize]
         public IActionResult ReadBook(int id)
         {
             string userId = this.GetUserId();
@@ -132,6 +133,7 @@
             return this.View(book);
         }
 
+        [Authorize]
         public IActionResult Details(int id)
         {
             var userId = this.GetUserId();
@@ -139,6 +141,7 @@
             return this.View(book);
         }
 
+        [Authorize]
         public IActionResult AddComment(int bookId, string body)
         {
             var userId = this.GetUserId();
@@ -146,6 +149,7 @@
             return this.RedirectToAction("Details", new { id = bookId });
         }
 
+        [Authorize]
         public IActionResult ReadedBooks()
         {
             var userId = this.GetUserId();

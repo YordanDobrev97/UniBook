@@ -82,7 +82,7 @@
 
         private string GetUserId()
         {
-            return this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
     }
 }
