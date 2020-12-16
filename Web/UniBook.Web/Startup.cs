@@ -1,12 +1,9 @@
 ﻿namespace UniBook.Web
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
 
     using Hangfire;
-    using Hangfire.Dashboard;
-    using Hangfire.SqlServer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -24,7 +21,6 @@
     using UniBook.Data.Repositories;
     using UniBook.Data.Seeding;
     using UniBook.Services.Data;
-    using UniBook.Services.Data.Books;
     using UniBook.Services.Mapping;
     using UniBook.Services.Messaging;
     using UniBook.Web.Hubs;

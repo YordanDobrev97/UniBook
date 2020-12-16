@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     using UniBook.Data.Models;
-    using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels;
     using UniBook.Web.ViewModels.Posts;
 
     public class IndexViewModel

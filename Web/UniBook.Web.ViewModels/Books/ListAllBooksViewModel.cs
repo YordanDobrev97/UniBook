@@ -1,7 +1,5 @@
-﻿namespace UniBook.Web.ViewModels.Books
+﻿namespace UniBook.Web.ViewModels
 {
-    using System.Collections.Generic;
-
     public class ListAllBooksViewModel
     {
         public int Id { get; set; }

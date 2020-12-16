@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
-    using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels;
 
     [Authorize]
     public class UsersController : ControllerBase

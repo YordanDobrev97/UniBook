@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels;
     using UniBook.Web.ViewModels.Genres;
     using UniBook.Web.ViewModels.Payments;
 

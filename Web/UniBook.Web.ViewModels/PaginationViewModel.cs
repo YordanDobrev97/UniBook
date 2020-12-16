@@ -1,6 +1,6 @@
 ﻿namespace UniBook.Web.ViewModels
 {
-    using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels;
 
     public class PaginationViewModel
     {

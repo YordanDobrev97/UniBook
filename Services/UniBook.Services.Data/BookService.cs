@@ -1,11 +1,11 @@
-﻿namespace UniBook.Services.Data.Books
+﻿namespace UniBook.Services.Data
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using UniBook.Data;
     using UniBook.Data.Models;
-    using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels;
     using UniBook.Web.ViewModels.Genres;
     using UniBook.Web.ViewModels.Payments;
 
@@ -60,6 +60,7 @@
                     Id = e.Id,
                     Name = e.Name,
                     ImageUrl = e.ImageUrl,
+                    Votes = e.Votes,
                 }).ToList();
 
             return books;
@@ -74,6 +75,7 @@
                     Id = x.Id,
                     Name = x.Name,
                     ImageUrl = x.ImageUrl,
+                    Votes = x.Votes,
                 }).ToList();
         }
 
@@ -86,6 +88,7 @@
                     Id = x.Id,
                     Name = x.Name,
                     ImageUrl = x.ImageUrl,
+                    Votes = x.Votes,
                 }).ToList();
         }
 

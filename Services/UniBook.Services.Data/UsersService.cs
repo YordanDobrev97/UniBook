@@ -6,7 +6,7 @@
 
     using UniBook.Data;
     using UniBook.Data.Models;
-    using UniBook.Web.ViewModels.Books;
+    using UniBook.Web.ViewModels;
     using UniBook.Web.ViewModels.Friends;
 
     public class UsersService : IUsersService

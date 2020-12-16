@@ -1,5 +1,4 @@
-﻿
-namespace UniBook.Web.ViewModels.Posts
+﻿namespace UniBook.Web.ViewModels.Posts
 {
     using System.Collections.Generic;
 

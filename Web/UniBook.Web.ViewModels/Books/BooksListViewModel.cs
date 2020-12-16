@@ -1,4 +1,4 @@
-﻿namespace UniBook.Web.ViewModels.Books
+﻿namespace UniBook.Web.ViewModels
 {
     using System.Collections.Generic;
 

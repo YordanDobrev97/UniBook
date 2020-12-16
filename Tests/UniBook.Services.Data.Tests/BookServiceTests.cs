@@ -6,7 +6,7 @@
     using Microsoft.EntityFrameworkCore;
     using UniBook.Data;
     using UniBook.Data.Models;
-    using UniBook.Services.Data.Books;
+    using UniBook.Services.Data;
     using Xunit;
 
     public class BookServiceTests
