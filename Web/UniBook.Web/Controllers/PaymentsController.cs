@@ -2,6 +2,7 @@
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
@@ -40,7 +41,7 @@
 
             await this.paymentService.Pay(model);
 
-            return this.RedirectToAction("Index", "Home", new { id = 1 });
+            return this.RedirectToAction("Details", "Books", new { id = model.BookId });
         }
     }
 }

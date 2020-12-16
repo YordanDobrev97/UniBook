@@ -1,7 +1,7 @@
 ﻿namespace UniBook.Web.Controllers
 {
-    using System.Linq;
     using System.Security.Claims;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;

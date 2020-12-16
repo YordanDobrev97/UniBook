@@ -1,13 +1,19 @@
-﻿namespace UniBook.Web.ViewModels.Payments
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace UniBook.Web.ViewModels.Payments
 {
     public class PaymentInputModel
     {
         public string CustomerName { get; set; }
 
+        [Required]
+        [MinLength(5)]
         public string BookName { get; set; }
 
         public double Price { get; set; }
 
+        [Required]
+        [StringLength(18)]
         public string CardNumber { get; set; }
 
         public string Expiration { get; set; }

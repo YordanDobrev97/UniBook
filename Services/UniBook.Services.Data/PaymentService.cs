@@ -45,8 +45,8 @@
             var customerService = new CustomerService();
             var customer = await customerService.CreateAsync(new CustomerCreateOptions
             {
-                Balance = 20 * 100,
-                Email = "yordan.19Dobrev@gmail.com",
+                Balance = (long)input.Price * 100,
+                Email = "user@gmail.com",
             });
 
             var options = new ChargeCreateOptions
