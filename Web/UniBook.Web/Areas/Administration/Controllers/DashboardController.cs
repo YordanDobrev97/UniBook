@@ -83,6 +83,7 @@
                 IsDeleted = false,
                 Genre = genre,
                 Price = input.Price,
+                IsFree = input.IsFree,
             };
 
             this.db.Books.Add(book);
