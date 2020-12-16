@@ -24,20 +24,27 @@
         public async Task Send(string message, string userId)
         {
             var senderId = this.Context.UserIdentifier;
-            var existRoom = this.roomService.IsExistRoom(senderId + userId);
+            var senderRoom = this.roomService.IsExistRoom(senderId);
+            var recipientRoom = this.roomService.IsExistRoom(userId);
 
-            if (existRoom == null)
+            if (senderRoom == null)
             {
-                existRoom = this.roomService.Create(userId + userId);
+                senderRoom = this.roomService.Create(senderId + userId);
             }
 
+            //if (recipientRoom == null)
+            //{
+            //    recipientRoom = this.roomService.Create(senderId + userId);
+            //}
+
             int messageId = this.messageService.Create(message);
-            this.roomService.AddMessageRoom(messageId, existRoom.Id, senderId);
+            this.roomService.AddMessageRoom(messageId, senderRoom.Id, senderId);
+            //this.roomService.AddMessageRoom(messageId, senderRoom.Id, userId);
+
             await this.Groups.AddToGroupAsync(
                 this.Context.ConnectionId,
                 $"{senderId + userId}{messageId}");
 
-            //this.Clients.OthersInGroup
             var clients = this.Clients;
             await this.Clients.All.SendAsync(
                 "NewMessage",

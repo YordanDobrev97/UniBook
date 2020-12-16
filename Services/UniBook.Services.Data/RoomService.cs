@@ -16,6 +16,13 @@
 
         public void AddMessageRoom(int messageId, int roomId, string userId)
         {
+            if (this.db.MessagesRoom.Any(
+                x => x.MessageId == messageId && x.RoomId == roomId
+                && x.UserId == userId))
+            {
+                return;
+            }
+
             this.db.MessagesRoom.Add(new MessageRoom
             {
                 MessageId = messageId,
@@ -39,9 +46,23 @@
             return room;
         }
 
+        public int GetRoom(string userId)
+        {
+            int roomId = this.db.Rooms.Where(x => x.Name.Contains(userId))
+                .Select(x => x.Id)
+                .FirstOrDefault();
+
+            return roomId;
+        }
+
         public Room IsExistRoom(string name)
         {
-            return this.db.Rooms.FirstOrDefault(x => x.Name == name);
+            return this.db.Rooms.FirstOrDefault(x => x.Name.Contains(name));
+        }
+
+        public bool IsExistUser(string userId)
+        {
+            return this.db.Rooms.Any(x => x.Name.Contains(userId));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using System.Linq;
     using System.Security.Claims;
 
     using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,17 @@
     public class ProfileController : BaseController
     {
         private readonly IFriendService friendService;
+        private readonly IMessageService messageService;
+        private readonly IRoomService roomService;
 
-        public ProfileController(IFriendService friendService)
+        public ProfileController(
+            IFriendService friendService,
+            IMessageService messageService,
+            IRoomService roomService)
         {
             this.friendService = friendService;
+            this.messageService = messageService;
+            this.roomService = roomService;
         }
 
         public IActionResult Details()
@@ -24,9 +32,24 @@
 
         public IActionResult Chat(string id)
         {
+            var loggedUser = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var recipientRoom = this.roomService.IsExistUser(id);
+            var senderRoom = this.roomService.IsExistUser(loggedUser);
+
+            int roomId = 0;
+            if (recipientRoom)
+            {
+                roomId = this.roomService.GetRoom(id);
+            }
+            else if (senderRoom)
+            {
+                roomId = this.roomService.GetRoom(loggedUser);
+            }
+
             var viewModel = new ChatViewModel
             {
                 UserId = id,
+                Messages = this.messageService.GetMessages(id, roomId),
             };
 
             return this.View(viewModel);

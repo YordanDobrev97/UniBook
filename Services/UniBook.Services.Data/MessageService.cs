@@ -1,9 +1,12 @@
-﻿using System;
-using UniBook.Data;
-using UniBook.Data.Models;
-
-namespace UniBook.Services.Data
+﻿namespace UniBook.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using UniBook.Data;
+    using UniBook.Data.Models;
+
     public class MessageService : IMessageService
     {
         private readonly ApplicationDbContext db;
@@ -26,6 +29,15 @@ namespace UniBook.Services.Data
 
             this.db.SaveChanges();
             return newMessage.Id;
+        }
+
+        public List<string> GetMessages(string user, int room)
+        {
+            var messages = this.db.MessagesRoom
+                .Where(x => x.RoomId == room)
+                .GroupBy(x => new { x.MessageId, x.Message.TextMessage })
+                .Select(x => x.Key.TextMessage).ToList();
+            return messages;
         }
     }
 }
