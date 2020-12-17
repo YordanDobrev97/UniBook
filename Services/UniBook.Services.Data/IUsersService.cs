@@ -15,9 +15,9 @@
 
         void VoteBook(VoteBookViewModel bookViewModel, string userId);
 
-        void AddToReadedBooks(int bookId, string userId);
+        bool AddToReadedBooks(int bookId, string userId);
 
-        void AddToFavoriteBooks(int bookId, string userId);
+        bool AddToFavoriteBooks(int bookId, string userId);
 
         bool IsStartReadBook(string userId, int bookId);
 

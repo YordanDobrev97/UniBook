@@ -11,7 +11,6 @@
 
     public class UsersService : IUsersService
     {
-        private const int InvalidId = 0;
         private readonly ApplicationDbContext db;
 
         public UsersService(ApplicationDbContext db)
@@ -35,7 +34,8 @@
         {
             int bookId = bookViewModel.BookId;
 
-            if (userId == null || bookId == InvalidId)
+            if (!this.db.UserReadBooks.Any(x => x.BookId == bookId)
+                || !this.db.UserReadBooks.Any(x => x.UserId == userId))
             {
                 return false;
             }
@@ -91,19 +91,19 @@
             }
         }
 
-        public void AddToReadedBooks(int bookId, string userId)
+        public bool AddToReadedBooks(int bookId, string userId)
         {
             var user = this.db.Users.FirstOrDefault(x => x.Id == userId);
             var book = this.db.Books.FirstOrDefault(x => x.Id == bookId);
 
             if (user == null || book == null)
             {
-                return;
+                return false;
             }
 
             if (this.db.ReadedBooks.Any(x => x.BookId == bookId && x.UserId == userId))
             {
-                return;
+                return false;
             }
 
             this.db.ReadedBooks.Add(new ReadedBook
@@ -113,21 +113,22 @@
             });
 
             this.db.SaveChanges();
+            return true;
         }
 
-        public void AddToFavoriteBooks(int bookId, string userId)
+        public bool AddToFavoriteBooks(int bookId, string userId)
         {
             var user = this.db.Users.FirstOrDefault(x => x.Id == userId);
             var book = this.db.Books.FirstOrDefault(x => x.Id == bookId);
 
             if (user == null || book == null)
             {
-                return;
+                return false;
             }
 
             if (this.db.FavoriteBooks.Any(x => x.BookId == bookId && x.UserId == userId))
             {
-                return;
+                return false;
             }
 
             this.db.FavoriteBooks.Add(new FavoriteBook
@@ -137,6 +138,7 @@
             });
 
             this.db.SaveChanges();
+            return true;
         }
 
         public bool IsStartReadBook(string userId, int bookId)
