@@ -9,9 +9,9 @@
     {
         Task<int> CreateAsync(PostViewModel postInputModel, string userId);
 
-        Task AddCommentAsync(AddCommentViewModel inputModel, string userId);
+        Task<int> AddCommentAsync(AddCommentViewModel inputModel, string userId);
 
-        Task DeleteCommentAsync(int postId, string userId);
+        Task<int> DeleteCommentAsync(int postId, string userId);
 
         List<DetailsPostViewModel> All();
 

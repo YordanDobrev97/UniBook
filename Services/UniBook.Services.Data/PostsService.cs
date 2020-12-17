@@ -89,24 +89,42 @@
             return post.Id;
         }
 
-        public async Task AddCommentAsync(AddCommentViewModel inputModel, string userId)
+        public async Task<int> AddCommentAsync(AddCommentViewModel inputModel, string userId)
         {
-            await this.db.PostComments.AddAsync(new PostComment
+            if (!this.db.Posts.Any(x => x.Id == inputModel.PostId)
+                || !this.db.Users.Any(x => x.Id == userId))
+            {
+                return -1;
+            }
+
+            var postComment = new PostComment
             {
                 PostId = inputModel.PostId,
                 UserId = userId,
                 CommentBody = inputModel.Body,
-            });
+            };
 
+            await this.db.PostComments.AddAsync(postComment);
             await this.db.SaveChangesAsync();
+
+            return postComment.PostId;
         }
 
-        public async Task DeleteCommentAsync(int postId, string userId)
+        public async Task<int> DeleteCommentAsync(int postId, string userId)
         {
-            var comment = this.db.PostComments.Where(e => e.PostId == postId && e.UserId == userId).FirstOrDefault();
+            if (!this.db.PostComments.Any(x => x.PostId == postId)
+                || !this.db.PostComments.Any(x => x.UserId == userId))
+            {
+                return 0;
+            }
+
+            var comment = this.db.PostComments
+                .Where(e => e.PostId == postId && e.UserId == userId).FirstOrDefault();
 
             this.db.PostComments.Remove(comment);
             await this.db.SaveChangesAsync();
+
+            return comment.PostId;
         }
 
         public List<CategoryInputModel> GetCategories()
@@ -123,7 +141,7 @@
 
         public int LikePost(int id, string userId)
         {
-            if (!this.db.Posts.Any(x => x.Id == id))
+            if (!this.ExistPost(id))
             {
                 return 0;
             }
