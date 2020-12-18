@@ -63,15 +63,25 @@
                 body.AppendLine(reader.ReadToEnd());
             }
 
-            var author = new Author
-            {
-                Name = input.Author,
-            };
+            var author = this.db.Authors.FirstOrDefault(x => x.Name == input.Author);
 
-            var genre = new Genre
+            if (author == null)
             {
-                Name = input.Genre,
-            };
+                author = new Author
+                {
+                    Name = input.Author,
+                };
+            }
+
+            var genre = this.db.Genres.FirstOrDefault(x => x.Name == input.Genre);
+
+            if (genre == null)
+            {
+                genre = new Genre
+                {
+                    Name = input.Genre,
+                };
+            }
 
             var book = new Book
             {

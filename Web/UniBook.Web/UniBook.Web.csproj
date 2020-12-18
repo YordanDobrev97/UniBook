@@ -35,6 +35,8 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
+    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.0.0" />
+    <PackageReference Include="Azure.Identity" Version="1.2.2" />
     <PackageReference Include="font-awesome" Version="4.7.0" />
     <PackageReference Include="Hangfire.Core" Version="1.7.*" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.*" />

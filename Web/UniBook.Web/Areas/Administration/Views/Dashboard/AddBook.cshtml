@@ -1,5 +1,4 @@
-﻿
-<h1 class="text-center">Add Book</h1>
+﻿<h1 class="text-center">Add Book</h1>
 
 <form asp-controller="Dashboard" asp-action="AddBook" class="col-md-6 offset-md-3" enctype="multipart/form-data">
     <div class="form-group">
@@ -33,8 +32,10 @@
     </div>
 
     <div class="form-group">
-        <label>IsFree</label>
-        <input type="checkbox" name="type" placeholder="IsFree" />
+        <label>
+            <input type="checkbox" name="isFree" placeholder="IsFree" value="" />
+            IsFree
+        </label>
     </div>
 
     <div class="form-group">
