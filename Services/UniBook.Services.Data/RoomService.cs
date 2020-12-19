@@ -35,6 +35,11 @@
 
         public Room Create(string name)
         {
+            if (this.db.Rooms.Any(x => x.Name == name))
+            {
+                return null;
+            }
+
             var room = new Room
             {
                 Name = name,
