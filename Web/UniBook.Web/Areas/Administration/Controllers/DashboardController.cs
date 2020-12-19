@@ -55,6 +55,11 @@
         [HttpPost]
         public IActionResult AddBook(AddBookViewModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction("AddBook");
+            }
+
             StringBuilder body = new StringBuilder();
 
             using (var stream = input.Body.OpenReadStream())

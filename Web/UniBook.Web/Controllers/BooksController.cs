@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Mvc;
     using UniBook.Services.Data;
     using UniBook.Web.ViewModels;
+    using UniBook.Web.ViewModels.Books;
 
     public class BooksController : BaseController
     {
@@ -142,11 +143,16 @@
         }
 
         [Authorize]
-        public IActionResult AddComment(int bookId, string body)
+        public IActionResult AddComment(CommentBookInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction("Details", new { id = input.BookId });
+            }
+
             var userId = this.GetUserId();
-            this.service.AddComment(userId, bookId, body);
-            return this.RedirectToAction("Details", new { id = bookId });
+            this.service.AddComment(userId, input.BookId, input.Body);
+            return this.RedirectToAction("Details", new { id = input.BookId });
         }
 
         [Authorize]

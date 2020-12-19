@@ -40,7 +40,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(inputModel);
+                return this.RedirectToAction("Create");
             }
 
             var userId = this.GetUserId();
@@ -54,7 +54,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(commentViewModel);
+                return this.RedirectToAction("GetById", new { id = commentViewModel.PostId });
             }
 
             var userId = this.GetUserId();

@@ -50,7 +50,7 @@
                 return this.RedirectToAction("SearchByPaidBook", new { search = id });
             }
 
-            return this.NotFound();
+            return this.View("Error");
         }
 
         public IActionResult SearchByBookName(int id, string search)
