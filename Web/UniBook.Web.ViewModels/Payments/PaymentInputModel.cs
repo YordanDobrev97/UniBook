@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace UniBook.Web.ViewModels.Payments
+﻿namespace UniBook.Web.ViewModels.Payments
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class PaymentInputModel
     {
         public string CustomerName { get; set; }
@@ -13,7 +13,7 @@ namespace UniBook.Web.ViewModels.Payments
         public double Price { get; set; }
 
         [Required]
-        [StringLength(18)]
+        [MaxLength(21)]
         public string CardNumber { get; set; }
 
         public string Expiration { get; set; }
