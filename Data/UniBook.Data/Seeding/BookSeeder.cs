@@ -58,7 +58,24 @@
                 "Перфектна химия", "Петдесет нюанса по-тъмно",
                 "Афродита - антични нрави", "Доктор джекил и мистър хайд",
                 "Черната стрела", "Островът на съкровищата",
-                "Шантарам", "Клетниците", "Тетрадката"
+                "Шантарам", "Клетниците", "Тетрадката",
+            };
+
+            int[] yearBooks = new int[]
+            {
+                1933, 1993, 1923, 1927, 1936, 1850, 1933, 2012, 1897,
+                2012, 1991, 1912, 1982, 1915, 1904, 1998, 1878, 1893,
+                1869, 1866, 1880, 1997, 1936, 1907, 1893, 1974, 1867,
+                1917, 1999, 1865, 2018, 2010, 2008, 2011, 1896, 1886,
+                1883, 1883, 2003, 1862, 1996,
+            };
+
+            bool[] freeBooks = new bool[]
+            {
+                true, false, true, true, true, true, true, false, false, false, false,
+                false, true, true, true, true, true, true, true, true, true, true, false,
+                true, true, false, true, true, true, true, false, true, true, false, false,
+                true, true, true, true, true,
             };
 
             List<string> authorBook = new List<string>()
@@ -75,7 +92,7 @@
                 "Луис Карол", "Ървин Ялом", "Дийн Кунц", "Симон Елкелес",
                 "Е. Л. Джеймс", "Пиер Луис", "Робърт Луис Стивънсън",
                 "Робърт Луис Стивънсън", "Робърт Луис Стивънсън",
-                "Грегъри Дейвид Робъртс", "Виктор Юго", "Никълъс Спаркс"
+                "Грегъри Дейвид Робъртс", "Виктор Юго", "Никълъс Спаркс",
             };
 
             List<string> links = new List<string>()
@@ -119,7 +136,7 @@
                 "https://ciela.com/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/o/s/ostrovat-na-sakrovishtata-labirint.jpg",
                 "https://assets.chitanka.info/thumb/?book-cover/18/6368.max.jpg",
                 "https://www.book.store.bg/d-prdimages/lrg/24068.jpg",
-                "https://ciela.com/media/catalog/product/cache/3/image/204x304/9df78eab33525d08d6e5fb8d27136e95/1/0/103998.jpeg"
+                "https://ciela.com/media/catalog/product/cache/3/image/204x304/9df78eab33525d08d6e5fb8d27136e95/1/0/103998.jpeg",
             };
 
             List<string> genres = new List<string>()
@@ -170,6 +187,8 @@
                     };
                 }
 
+                var year = db.YearIssueds.FirstOrDefault(x => x.YearOfIssue == yearBooks[i]);
+
                 var book = new Book
                 {
                     Name = bookName,
@@ -179,8 +198,10 @@
                     Author = author,
                     Votes = 0,
                     IsDeleted = false,
+                    YearIssued = year,
                     Genre = genre,
                     Price = prices[i],
+                    IsFree = freeBooks[i],
                 };
 
                 await db.Books.AddAsync(book);
