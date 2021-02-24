@@ -62,15 +62,15 @@
                         <a asp-area="" asp-controller="News" asp-action="Index">Новини</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-area="Forum" asp-controller="Home" asp-action="Index">Форум</a>
+                        <a asp-area="" asp-controller="Friends" asp-action="Index">Потребители</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-area="" asp-controller="Friends" asp-action="Index">Потребители</a>
+                        <a asp-area="Forum" asp-controller="Home" asp-action="Index">Форум</a>
                     </li>
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="menu-item"><a asp-controller="Profile" asp-action="Details">Профил</a></li>
+                        <li class="menu-item"><a asp-area="" asp-controller="Profile" asp-action="Details">Профил</a></li>
 
                         @if (User.IsInRole("Administrator"))
                         {
