@@ -17,7 +17,6 @@
             divItem.attr('hidden', 'hidden');
             divItem.hide('slow');
         }
-        console.log(divItem.attr('hidden'));
     }
 </script>
 
@@ -100,7 +99,7 @@
                 <div class="form-check pr-3">
                     <label class="form-check-label">
                         <input type="checkbox" onclick="check()" class="form-check-input" name="genre" value="@genre.Name">
-                        <span class="ml-md-4">@genre.Name</span>
+                        <span class="ml-md-1">@genre.Name</span>
                     </label>
                 </div>
             }
@@ -110,14 +109,14 @@
             <div>
                 <label class="form-check-label p-3 pr-3">
                     <input type="checkbox" name="freeBook" class="form-check-input pm-3">
-                    <span class="ml-md-4">Свободни</span>
+                    <span class="ml-md-1">Свободни</span>
                 </label>
             </div>
 
             <div>
                 <label class="form-check-label p-3 pr-3">
                     <input type="checkbox" name="paidBook" class="form-check-input pm-3">
-                    <span class="ml-md-4">Платени</span>
+                    <span class="ml-md-1">Платени</span>
                 </label>
             </div>
             <input type="submit" class="btn btn-lg btn-block btn-primary mt-5 pr-3" value="Търсене" />
