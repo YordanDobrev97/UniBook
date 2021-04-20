@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace UniBook.Data.Migrations
+﻿namespace UniBook.Data.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

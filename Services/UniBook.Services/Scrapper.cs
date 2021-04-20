@@ -89,7 +89,7 @@
 
                 return result;
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 return null;
             }
@@ -130,7 +130,7 @@
                 var imageUrl = Regex.Match(picture, regex).Groups[2].Value;
                 return imageUrl;
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 return null;
             }

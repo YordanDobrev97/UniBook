@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    
+
     using Google.Apis.Services;
     using Google.Apis.YouTube.v3;
 
@@ -41,7 +41,7 @@
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
 
