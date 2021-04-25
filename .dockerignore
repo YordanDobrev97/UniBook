@@ -1,0 +1,6 @@
+.git
+.vscode
+Dockerfile
+README.md
+*.vscode
+*.publish
