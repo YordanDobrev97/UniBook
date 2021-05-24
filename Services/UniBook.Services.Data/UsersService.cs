@@ -34,8 +34,8 @@
         {
             int bookId = bookViewModel.BookId;
 
-            if (!this.db.UserReadBooks.Any(x => x.BookId == bookId)
-                || !this.db.UserReadBooks.Any(x => x.UserId == userId))
+            if (!this.db.Books.Any(x => x.Id == bookId)
+                || !this.db.Users.Any(x => x.Id == userId))
             {
                 return false;
             }
