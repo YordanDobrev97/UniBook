@@ -1,6 +1,9 @@
 ﻿namespace UniBook.Web.Controllers
 {
+    using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
+
     using UniBook.Services.Data;
 
     public class NewsController : BaseController
@@ -14,7 +17,7 @@
 
         public IActionResult Index()
         {
-            var news = this.newsService.GetNews();
+            var news = this.newsService.GetNews().ToList();
             return this.View(news);
         }
 

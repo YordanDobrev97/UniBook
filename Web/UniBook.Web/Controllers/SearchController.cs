@@ -10,8 +10,8 @@
     public class SearchController : BaseController
     {
         private const int MaxBooks = 9;
-
         private readonly IBookService service;
+        private string resultView = "Views/Books/All.cshtml";
 
         public SearchController(IBookService service)
         {
@@ -55,7 +55,7 @@
 
         public IActionResult SearchByBookName(int id, string search)
         {
-            var books = this.service.SearchByBook(search);
+            var books = this.service.SearchByBook(search).ToList();
 
             var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
             var viewModel = new BooksListViewModel
@@ -73,12 +73,13 @@
                     Search = search,
                 },
             };
-            return this.View("Views/Books/All.cshtml", viewModel);
+
+            return this.View(this.resultView, viewModel);
         }
 
         public IActionResult SearchByAuthor(int id, string search)
         {
-            var authorBooks = this.service.GetAuthorBooks(search);
+            var authorBooks = this.service.GetAuthorBooks(search).ToList();
             var result = this.PaginationBooks<ListAllBooksViewModel>(id, authorBooks, MaxBooks);
             var viewModel = new BooksListViewModel
             {
@@ -95,12 +96,13 @@
                     Search = search,
                 },
             };
-            return this.View("Views/Books/All.cshtml", viewModel);
+
+            return this.View(this.resultView, viewModel);
         }
 
         public IActionResult SearchByYear(int id, int search)
         {
-            var books = this.service.SearchByYear(search);
+            var books = this.service.SearchByYear(search).ToList();
             var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
             var viewModel = new BooksListViewModel
             {
@@ -117,13 +119,13 @@
                     Search = search.ToString(),
                 },
             };
-            return this.View("Views/Books/All.cshtml", viewModel);
+            return this.View(this.resultView, viewModel);
         }
 
         public IActionResult SearchByGenre(int id, string search)
         {
             var genres = search.Split("&");
-            var books = this.service.SearchByGenres(genres);
+            var books = this.service.SearchByGenres(genres).ToList();
 
             var result = this.PaginationBooks<ListAllBooksViewModel>(id, books, MaxBooks);
             var viewModel = new BooksListViewModel
@@ -141,12 +143,12 @@
                     Search = string.Join("&", search),
                 },
             };
-            return this.View("Views/Books/All.cshtml", viewModel);
+            return this.View(this.resultView, viewModel);
         }
 
         public IActionResult SearchByFreeBooks(int search)
         {
-            var books = this.service.SearchFreeBooks();
+            var books = this.service.SearchFreeBooks().ToList();
 
             var result = this.PaginationBooks<ListAllBooksViewModel>(search, books, MaxBooks);
             var viewModel = new BooksListViewModel
@@ -163,12 +165,12 @@
                     Action = "SearchByFreeBooks",
                 },
             };
-            return this.View("Views/Books/All.cshtml", viewModel);
+            return this.View(this.resultView, viewModel);
         }
 
         public IActionResult SearchByPaidBook(int search)
         {
-            var books = this.service.SearchPaidBooks();
+            var books = this.service.SearchPaidBooks().ToList();
 
             var result = this.PaginationBooks<ListAllBooksViewModel>(search, books, MaxBooks);
             var viewModel = new BooksListViewModel
@@ -185,7 +187,7 @@
                     Action = "SearchByPaidBook",
                 },
             };
-            return this.View("Views/Books/All.cshtml", viewModel);
+            return this.View(this.resultView, viewModel);
         }
     }
 }

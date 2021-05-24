@@ -36,7 +36,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(model);
+                return this.View("Error");
             }
 
             await this.paymentService.Pay(model);

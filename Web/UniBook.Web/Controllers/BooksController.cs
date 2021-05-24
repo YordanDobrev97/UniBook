@@ -19,6 +19,8 @@
         private readonly IBookService service;
         private readonly IUsersService usersService;
 
+        private string resultView = "Views/Books/All.cshtml";
+
         public BooksController(IBookService service, IUsersService usersService)
         {
             this.service = service;
@@ -68,7 +70,7 @@
                 },
             };
 
-            return this.View("Views/Books/All.cshtml", viewModel);
+            return this.View(this.resultView, viewModel);
         }
 
         public IActionResult SortLatestAdded(int id)
@@ -91,7 +93,7 @@
                 },
             };
 
-            return this.View("Views/Books/All.cshtml", viewModel);
+            return this.View(this.resultView, viewModel);
         }
 
         public IActionResult SortByLikes(int id)
@@ -114,7 +116,7 @@
                 },
             };
 
-            return this.View("Views/Books/All.cshtml", viewModel);
+            return this.View(this.resultView, viewModel);
         }
 
         [Authorize]
