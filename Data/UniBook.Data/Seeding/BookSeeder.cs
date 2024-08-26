@@ -13,25 +13,25 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Books.Any())
-            {
-                return;
-            }
+            //if (dbContext.Books.Any())
+            //{
+            //    return;
+            //}
 
-            var folderPath = Assembly.GetExecutingAssembly().Location;
-            folderPath = folderPath.Replace("UniBook.Data.dll", "Books");
+            //var folderPath = Assembly.GetExecutingAssembly().Location;
+            //folderPath = folderPath.Replace("UniBook.Data.dll", "Books");
 
-            var contentBooks = new List<string>();
+            //var contentBooks = new List<string>();
 
-            foreach (var path in Directory.EnumerateFiles(folderPath, "*.txt"))
-            {
-                var body = File.ReadAllText(path);
-                contentBooks.Add(body);
-            }
+            //foreach (var path in Directory.EnumerateFiles(folderPath, "*.txt"))
+            //{
+            //    var body = File.ReadAllText(path);
+            //    contentBooks.Add(body);
+            //}
 
-            contentBooks = contentBooks.Take(40).ToList();
+            //contentBooks = contentBooks.Take(40).ToList();
 
-            await this.Seed(dbContext, contentBooks);
+            //await this.Seed(dbContext, contentBooks);
 
             Console.WriteLine("Ready! All books are inserted");
         }
